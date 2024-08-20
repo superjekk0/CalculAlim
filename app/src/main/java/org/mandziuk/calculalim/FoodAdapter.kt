@@ -16,7 +16,7 @@ class FoodAdapter : Adapter<FoodAdapter.MyVH>() {
     }
 
     override fun getItemCount(): Int {
-        return 4;
+        return 50;
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyVH {
