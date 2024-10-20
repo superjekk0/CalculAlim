@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -45,11 +46,14 @@ dependencies {
     val roomVersion = "2.6.1"
 
     implementation("androidx.room:room-common:${roomVersion}");
-    implementation("androidx.room:room-rxjava2:${roomVersion}");
-    implementation("androidx.room:room-rxjava3:${roomVersion}");
-    implementation("androidx.room:room-guava:${roomVersion}");
+//    implementation("androidx.room:room-rxjava2:${roomVersion}");
+//    implementation("androidx.room:room-rxjava3:${roomVersion}");
+//    implementation("androidx.room:room-guava:${roomVersion}");
+    implementation("androidx.room:room-runtime:${roomVersion}");
+    implementation("androidx.room:room-ktx:${roomVersion}");
 
     annotationProcessor("androidx.room:room-compiler:${roomVersion}");
+    ksp("androidx.room:room-compiler:${roomVersion}");
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
