@@ -6,6 +6,8 @@ import android.os.FileUtils
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.dialog.MaterialDialogs
 import org.mandziuk.calculalim.databinding.ActivityMainBinding
 import org.mandziuk.calculalim.db.FoodDb
 import java.io.File
@@ -31,6 +33,12 @@ class MainActivity : AppCompatActivity() {
 
         val foodDao = db.getFoodDao();
         Log.i("EXEMPLE", foodDao.getGroups().toString());
+
+        binding.choix.setOnClickListener {
+            val dialog = MaterialAlertDialogBuilder(applicationContext).create();
+            // TODO : Faire un layout de bouton radio pour les choix
+            dialog.setTitle("Choix");
+        };
 
         binding.list.layoutManager = LinearLayoutManager(this);
         binding.list.adapter = FoodAdapter();
