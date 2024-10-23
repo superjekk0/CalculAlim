@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">CalculAlim</string>
+    <string name="app_name" translatable="false">CalculAlim</string>
+    <string name="tousGroupes">All groups</string>
+    <string name="nomNourriture">Food Name</string>
 </resources>
