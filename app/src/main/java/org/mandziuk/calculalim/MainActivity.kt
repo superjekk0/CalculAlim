@@ -52,7 +52,7 @@ class MainActivity : Activity() {
             choix.add(0, getString(R.string.tousGroupes));
             val builder = AlertDialog.Builder(this);
 
-            builder.setTitle("Choix").setSingleChoiceItems(choix.toTypedArray(), 0) { dialog, index ->
+            builder.setTitle(R.string.typeNourriture).setSingleChoiceItems(choix.toTypedArray(), indexGroup.toInt()) { dialog, index ->
                 run {
                     binding.choix.text = choix[index];
                     indexGroup = index.toLong();

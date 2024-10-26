@@ -9,6 +9,6 @@ import org.jetbrains.annotations.NotNull
 @Entity(tableName = "FoodGroup")
 data class FoodGroup(
     @PrimaryKey(autoGenerate = true) val FoodGroupID : Long,
-    @ColumnInfo(name = "FoodGroupName") val groupName : String,
-    @ColumnInfo(name = "FoodGroupNameF") val groupNameFr : String
+    @ColumnInfo(name = "FoodGroupName") val groupName : String?,
+    @ColumnInfo(name = "FoodGroupNameF") val groupNameFr : String?
 );

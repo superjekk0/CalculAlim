@@ -1,4 +1,5 @@
 <resources>
     <string name="tousGroupes">Tous les groupes</string>
     <string name="nomNourriture">Nourriture</string>
+    <string name="typeNourriture">Type de nourriture</string>
 </resources>
