@@ -1,0 +1,46 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "df120e9beab37634e4515614af251274",
+    "entities": [
+      {
+        "tableName": "FoodGroup",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`FoodGroupID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `FoodGroupName` TEXT NOT NULL, `FoodGroupNameF` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "FoodGroupID",
+            "columnName": "FoodGroupID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "groupName",
+            "columnName": "FoodGroupName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "groupNameFr",
+            "columnName": "FoodGroupNameF",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "FoodGroupID"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'df120e9beab37634e4515614af251274')"
+    ]
+  }
+}
