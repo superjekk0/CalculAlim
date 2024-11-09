@@ -6,7 +6,7 @@
     <TextView
         android:layout_width="0dp"
         android:background="@drawable/border"
-        android:layout_height="match_parent"
+        android:layout_height="30dp"
         android:layout_weight="2"
         android:text="Chose"
         android:id="@+id/food_name"
@@ -14,33 +14,9 @@
     <TextView
         android:layout_width="0dp"
         android:background="@drawable/border"
-        android:layout_height="match_parent"
+        android:layout_height="30dp"
         android:layout_weight="1"
         android:text="Chose glucides"
-        android:id="@+id/carbs_gross"
-        android:gravity="center"/>
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:background="@drawable/border"
-        android:layout_weight="1"
-        android:text="Chose fibres"
-        android:id="@+id/fibers"
-        android:gravity="center"/>
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:background="@drawable/border"
-        android:layout_weight="1"
-        android:text="Chose glucide net"
-        android:id="@+id/net_carbs"
-        android:gravity="center"/>
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@drawable/border"
-        android:text="Valeur ref"
-        android:id="@+id/reference_value"
+        android:id="@+id/food_group"
         android:gravity="center"/>
 </LinearLayout>

@@ -7,7 +7,7 @@ import org.mandziuk.calculalim.db.models.FoodGroup
 @Dao
 interface FoodDao {
     @Query("SELECT * FROM FoodGroup")
-    fun getGroups() : List<FoodGroup>
+    suspend fun getGroups() : List<FoodGroup>
 
     // TODO : Utiliser l'annotation @DatabaseView() pour obtenir les informations d'aliments
 }
