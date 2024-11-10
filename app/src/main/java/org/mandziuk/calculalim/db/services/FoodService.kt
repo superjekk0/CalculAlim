@@ -1,20 +1,39 @@
 package org.mandziuk.calculalim.db.services
 
 import android.content.Context
+import androidx.room.Room
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.withContext
 import org.mandziuk.calculalim.R
 import org.mandziuk.calculalim.db.FoodDao
+import org.mandziuk.calculalim.db.FoodDb
 import org.mandziuk.calculalim.db.dtos.FoodDTO
 import org.mandziuk.calculalim.db.dtos.FoodGroupDTO
 import java.util.Locale
-import kotlin.coroutines.suspendCoroutine
 
-class FoodService(private val foodDao: FoodDao) {
-    fun getFood() : List<FoodDTO>{
+class FoodService(applicationContext: Context) {
+    private val foodDao: FoodDao = Room.databaseBuilder(applicationContext,
+        FoodDb::class.java,
+        "food.db")
+        .createFromAsset("food.db")
+        .build().getFoodDao();
 
-        return ArrayList();
+
+    suspend fun getFood(foodName: String, groupId: Long) : List<FoodDTO>{
+        return withContext(Dispatchers.IO){
+            val locale = Locale.getDefault().displayLanguage;
+            val result = if (locale.contains("fr", true)){
+                foodDao.getFoodsFr(groupId, foodName);
+            } else {
+                foodDao.getFoodsEn(groupId, foodName);
+            };
+
+            if (locale.contains("fr", true)){
+                result.map { f -> FoodDTO(f.foodDescriptionFr, f.foodGroupNameFr)};
+            } else {
+                result.map { f -> FoodDTO(f.foodDescription, f.foodGroupName)};
+            };
+        }
     }
 
     suspend fun getFoodGroups(context: Context) : List<FoodGroupDTO>{

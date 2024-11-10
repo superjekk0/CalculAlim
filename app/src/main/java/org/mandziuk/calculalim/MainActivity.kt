@@ -1,11 +1,14 @@
 package org.mandziuk.calculalim
 
 import android.app.Activity
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.FileUtils
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
@@ -28,28 +31,27 @@ import java.util.ArrayList
 import java.util.Locale
 import kotlin.io.path.Path
 
+var indexGroup : Long = 0L;
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding;
     private lateinit var choixGroupes : List<FoodGroupDTO>;
     private lateinit var service : FoodService;
-    private var indexGroup : Long = 0L;
+
+    private var name: String = "";
+    private lateinit var adapter: FoodAdapter;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater);
         setContentView(binding.root);
 
-        val db = Room.databaseBuilder(applicationContext,
-            FoodDb::class.java,
-            "food.db")
-            .createFromAsset("food.db")
-            .build();
-
-        service = FoodService(db.getFoodDao());
+        service = FoodService(applicationContext);
         lifecycleScope.launch{
-        choixGroupes = service.getFoodGroups(applicationContext);
-        Log.i("EXEMPLE", choixGroupes.toString());
+            choixGroupes = service.getFoodGroups(applicationContext);
+            binding.choix.text = choixGroupes[indexGroup.toInt()].groupName;
+            Log.i("EXEMPLE", choixGroupes.toString());
         };
         binding.choix.setOnClickListener {
             val builder = AlertDialog.Builder(this);
@@ -58,6 +60,7 @@ class MainActivity : AppCompatActivity() {
                 run {
                     binding.choix.text = choixGroupes[index].groupName;
                     indexGroup = index.toLong();
+                    maJListe();
                     dialog.dismiss();
 
                 }
@@ -67,7 +70,22 @@ class MainActivity : AppCompatActivity() {
             dialog.show();
         };
 
+        adapter = FoodAdapter();
         binding.list.layoutManager = LinearLayoutManager(this);
-        binding.list.adapter = FoodAdapter();
+        binding.list.adapter = adapter;
+
+        binding.recherche.doOnTextChanged{
+            text, _, _, _ ->
+            name = text.toString();
+            maJListe();
+        }
+
+        maJListe();
+    }
+
+    fun maJListe(){
+        lifecycleScope.launch {
+            adapter.setList(service.getFood(name, indexGroup));
+        }
     }
 }

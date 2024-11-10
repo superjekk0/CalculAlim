@@ -11,7 +11,7 @@ import org.mandziuk.calculalim.db.dtos.FoodDTO
 
 class FoodAdapter : Adapter<FoodAdapter.MyVH>() {
 
-    val aliments : List<FoodDTO> = ArrayList();
+    val aliments : ArrayList<FoodDTO> = ArrayList();
     class MyVH(itemView: View) : ViewHolder(itemView) {
         val aliment : TextView;
         val groupe : TextView;
@@ -21,20 +21,25 @@ class FoodAdapter : Adapter<FoodAdapter.MyVH>() {
         }
     }
 
+    fun setList(aliments : List<FoodDTO>){
+        this.aliments.clear();
+        this.aliments.addAll(aliments);
+        notifyDataSetChanged();
+    }
+
     override fun getItemCount(): Int {
-        return 50;
+        return aliments.size;
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyVH {
         var view = LayoutInflater.from(parent.context).
                 inflate(R.layout.food_item, parent, false);
-
-
         return MyVH(view);
     }
 
     override fun onBindViewHolder(holder: MyVH, position: Int) {
-
+        holder.groupe.text = aliments[position].foodGroup;
+        holder.aliment.text = aliments[position].foodName;
     }
 
 }

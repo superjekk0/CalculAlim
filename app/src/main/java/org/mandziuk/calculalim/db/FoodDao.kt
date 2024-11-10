@@ -2,12 +2,26 @@ package org.mandziuk.calculalim.db
 
 import androidx.room.Dao
 import androidx.room.Query
+import org.mandziuk.calculalim.db.dtos.FoodDTO
+import org.mandziuk.calculalim.db.models.Food
 import org.mandziuk.calculalim.db.models.FoodGroup
+import org.mandziuk.calculalim.db.views.FoodAndGroupNames
 
 @Dao
 interface FoodDao {
-    @Query("SELECT * FROM FoodGroup")
+    @Query("SELECT * FROM FoodGroup " +
+            "ORDER BY FoodGroupID ASC")
     suspend fun getGroups() : List<FoodGroup>
 
-    // TODO : Utiliser l'annotation @DatabaseView() pour obtenir les informations d'aliments
+    @Query("SELECT * FROM FoodAndGroupNames " +
+            "WHERE (:groupeId = 0 OR FoodGroupID = :groupeId)" +
+            "AND (:nom IS NULL OR FoodDescriptionF LIKE '%' || :nom || '%') " +
+            "ORDER BY instr(FoodDescriptionF, :nom) DESC, FoodDescriptionF ASC, FoodGroupNameF ASC")
+    suspend fun getFoodsFr(groupeId: Long, nom: String) : List<FoodAndGroupNames>
+
+    @Query("SELECT * FROM FoodAndGroupNames " +
+            "WHERE (:groupeId = 0 OR FoodGroupID = :groupeId)" +
+            "AND (:nom IS NULL OR FoodDescription LIKE '%' || :nom || '%') " +
+            "ORDER BY instr(FoodDescription ,:nom) DESC, FoodDescription ASC, FoodGroupName ASC")
+    suspend fun getFoodsEn(groupeId: Long, nom: String) : List<FoodAndGroupNames>
 }
