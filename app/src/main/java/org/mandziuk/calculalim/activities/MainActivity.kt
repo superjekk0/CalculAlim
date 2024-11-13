@@ -1,35 +1,18 @@
-package org.mandziuk.calculalim
+package org.mandziuk.calculalim.activities
 
-import android.app.Activity
-import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.os.FileUtils
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.room.Room
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.dialog.MaterialDialogs
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import org.mandziuk.calculalim.FoodAdapter
+import org.mandziuk.calculalim.R
 import org.mandziuk.calculalim.databinding.ActivityMainBinding
-import org.mandziuk.calculalim.db.FoodDb
 import org.mandziuk.calculalim.db.dtos.FoodGroupDTO
-import org.mandziuk.calculalim.db.models.FoodGroup
 import org.mandziuk.calculalim.db.services.FoodService
-import java.io.File
-import java.io.FileDescriptor
-import java.io.InputStream
-import java.nio.file.Files
-import java.util.ArrayList
-import java.util.Locale
-import kotlin.io.path.Path
 
 var indexGroup : Long = 0L;
 

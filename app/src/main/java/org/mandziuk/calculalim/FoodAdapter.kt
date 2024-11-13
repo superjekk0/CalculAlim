@@ -1,5 +1,6 @@
 package org.mandziuk.calculalim
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,14 +12,16 @@ import org.mandziuk.calculalim.db.dtos.FoodDTO
 
 class FoodAdapter : Adapter<FoodAdapter.MyVH>() {
 
-    val aliments : ArrayList<FoodDTO> = ArrayList();
+//    constructor(context: Context): super(){
+//
+//    }
+//
+//    constructor() : super();
+
+    private val aliments : ArrayList<FoodDTO> = ArrayList();
     class MyVH(itemView: View) : ViewHolder(itemView) {
-        val aliment : TextView;
-        val groupe : TextView;
-        init {
-            aliment = itemView.findViewById(R.id.food_name);
-            groupe = itemView.findViewById(R.id.food_group);
-        }
+        val aliment : TextView = itemView.findViewById(R.id.food_name);
+        val groupe : TextView = itemView.findViewById(R.id.food_group);
     }
 
     fun setList(aliments : List<FoodDTO>){
@@ -40,6 +43,10 @@ class FoodAdapter : Adapter<FoodAdapter.MyVH>() {
     override fun onBindViewHolder(holder: MyVH, position: Int) {
         holder.groupe.text = aliments[position].foodGroup;
         holder.aliment.text = aliments[position].foodName;
+
+        holder.aliment.setOnClickListener {
+
+        }
     }
 
 }

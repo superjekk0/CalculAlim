@@ -6,6 +6,7 @@ import org.mandziuk.calculalim.db.dtos.FoodDTO
 import org.mandziuk.calculalim.db.models.Food
 import org.mandziuk.calculalim.db.models.FoodGroup
 import org.mandziuk.calculalim.db.views.FoodAndGroupNames
+import org.mandziuk.calculalim.db.views.FoodNutrientDetails
 
 @Dao
 interface FoodDao {
@@ -24,4 +25,12 @@ interface FoodDao {
             "AND (:nom IS NULL OR FoodDescription LIKE '%' || :nom || '%') " +
             "ORDER BY instr(FoodDescription ,:nom) DESC, FoodDescription ASC, FoodGroupName ASC")
     suspend fun getFoodsEn(groupeId: Long, nom: String) : List<FoodAndGroupNames>
+
+    @Query("SELECT * FROM Food " +
+            "WHERE FoodID = :foodId")
+    suspend fun getFood(foodId: Long) : Food
+
+    @Query("SELECT * FROM FoodNutrientDetails " +
+            "WHERE FoodID = :foodId")
+    suspend fun getFoodNutrients(foodId: Long) : List<FoodNutrientDetails>;
 }

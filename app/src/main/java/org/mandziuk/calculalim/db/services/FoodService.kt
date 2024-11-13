@@ -8,15 +8,15 @@ import org.mandziuk.calculalim.R
 import org.mandziuk.calculalim.db.FoodDao
 import org.mandziuk.calculalim.db.FoodDb
 import org.mandziuk.calculalim.db.dtos.FoodDTO
+import org.mandziuk.calculalim.db.dtos.FoodDetailDTO
 import org.mandziuk.calculalim.db.dtos.FoodGroupDTO
+import org.mandziuk.calculalim.db.getFoodDao
+import org.mandziuk.calculalim.db.models.Food
+import org.mandziuk.calculalim.db.views.FoodNutrientDetails
 import java.util.Locale
 
 class FoodService(applicationContext: Context) {
-    private val foodDao: FoodDao = Room.databaseBuilder(applicationContext,
-        FoodDb::class.java,
-        "food.db")
-        .createFromAsset("food.db")
-        .build().getFoodDao();
+    private val foodDao: FoodDao = getFoodDao(applicationContext);
 
 
     suspend fun getFood(foodName: String, groupId: Long) : List<FoodDTO>{
@@ -29,11 +29,11 @@ class FoodService(applicationContext: Context) {
             };
 
             if (locale.contains("fr", true)){
-                result.map { f -> FoodDTO(f.foodDescriptionFr, f.foodGroupNameFr)};
+                return@withContext result.map { f -> FoodDTO(f.foodDescriptionFr, f.foodGroupNameFr, f.foodGroupID)};
             } else {
-                result.map { f -> FoodDTO(f.foodDescription, f.foodGroupName)};
+                return@withContext result.map { f -> FoodDTO(f.foodDescription, f.foodGroupName, f.foodGroupID)};
             };
-        }
+        };
     }
 
     suspend fun getFoodGroups(context: Context) : List<FoodGroupDTO>{
@@ -47,6 +47,14 @@ class FoodService(applicationContext: Context) {
             };
             liste.add(0, FoodGroupDTO(0, context.getString(R.string.tousGroupes)));
             return@withContext liste;
+        }
+    }
+
+    suspend fun getFoodDetails(foodId : Long) : FoodDetailDTO{
+        return withContext(Dispatchers.IO){
+            val food : Food = foodDao.getFood(foodId);
+            val foodNutrients : List<FoodNutrientDetails> = foodDao.getFoodNutrients(foodId);
+            return@withContext FoodDetailDTO(food, foodNutrients, Locale.getDefault().displayLanguage);
         }
     }
 }
