@@ -17,13 +17,13 @@ interface FoodDao {
     @Query("SELECT * FROM FoodAndGroupNames " +
             "WHERE (:groupeId = 0 OR FoodGroupID = :groupeId)" +
             "AND (:nom IS NULL OR FoodDescriptionF LIKE '%' || :nom || '%') " +
-            "ORDER BY instr(FoodDescriptionF, :nom) DESC, FoodDescriptionF ASC, FoodGroupNameF ASC")
+            "ORDER BY instr(FoodDescription ,:nom) ASC, FoodGroupID ASC")
     suspend fun getFoodsFr(groupeId: Long, nom: String) : List<FoodAndGroupNames>
 
     @Query("SELECT * FROM FoodAndGroupNames " +
             "WHERE (:groupeId = 0 OR FoodGroupID = :groupeId)" +
             "AND (:nom IS NULL OR FoodDescription LIKE '%' || :nom || '%') " +
-            "ORDER BY instr(FoodDescription ,:nom) DESC, FoodDescription ASC, FoodGroupName ASC")
+            "ORDER BY instr(FoodDescription ,:nom) ASC, FoodGroupID ASC")
     suspend fun getFoodsEn(groupeId: Long, nom: String) : List<FoodAndGroupNames>
 
     @Query("SELECT * FROM Food " +
@@ -31,6 +31,6 @@ interface FoodDao {
     suspend fun getFood(foodId: Long) : Food
 
     @Query("SELECT * FROM FoodNutrientDetails " +
-            "WHERE FoodID = :foodId")
+            "WHERE FoodID = :foodId ")
     suspend fun getFoodNutrients(foodId: Long) : List<FoodNutrientDetails>;
 }

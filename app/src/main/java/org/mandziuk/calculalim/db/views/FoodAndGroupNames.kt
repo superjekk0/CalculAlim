@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.DatabaseView
 
 @DatabaseView("SELECT F.FoodDescription, F.FoodDescriptionF, FG.FoodGroupName, " +
-        "FG.FoodGroupNameF, FG.FoodGroupID FROM Food F " +
+        "FG.FoodGroupNameF, FG.FoodGroupID, F.FoodID FROM Food F " +
         "INNER JOIN FoodGroup FG " +
         "ON FG.FoodGroupID = F.FoodGroupID ")
 data class FoodAndGroupNames(
@@ -12,5 +12,6 @@ data class FoodAndGroupNames(
     @ColumnInfo(name = "FoodDescriptionF") val foodDescriptionFr: String,
     @ColumnInfo(name = "FoodGroupName") val foodGroupName: String,
     @ColumnInfo(name = "FoodGroupNameF") val foodGroupNameFr: String,
-    @ColumnInfo(name = "FoodGroupID") val foodGroupID: Long
+    @ColumnInfo(name = "FoodGroupID") val foodGroupID: Long,
+    @ColumnInfo(name = "FoodID") val foodId: Long
 )

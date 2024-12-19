@@ -14,7 +14,7 @@ class Converter {
     @TypeConverter
     fun stringToDate(value : String) : Date{
         return Date.from(Instant.from(
-            DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(value)
+            DateTimeFormatter.ISO_INSTANT.parse(value + "T00:00:00Z")
         ));
     }
 }

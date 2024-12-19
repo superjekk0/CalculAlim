@@ -1,6 +1,7 @@
 package org.mandziuk.calculalim
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,13 +9,10 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import org.mandziuk.calculalim.activities.FoodActivity
 import org.mandziuk.calculalim.db.dtos.FoodDTO
 
-class FoodAdapter : Adapter<FoodAdapter.MyVH>() {
-
-//    constructor(context: Context): super(){
-//
-//    }
+class FoodAdapter(val context: Context) : Adapter<FoodAdapter.MyVH>() {
 //
 //    constructor() : super();
 
@@ -45,7 +43,9 @@ class FoodAdapter : Adapter<FoodAdapter.MyVH>() {
         holder.aliment.text = aliments[position].foodName;
 
         holder.aliment.setOnClickListener {
-
+            val intent: Intent = Intent(context, FoodActivity::class.java);
+            intent.putExtra("id", aliments[position].foodId);
+            context.startActivity(intent);
         }
     }
 

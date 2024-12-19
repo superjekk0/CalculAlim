@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
             dialog.show();
         };
 
-        adapter = FoodAdapter();
+        adapter = FoodAdapter(this);
         binding.list.layoutManager = LinearLayoutManager(this);
         binding.list.adapter = adapter;
 
