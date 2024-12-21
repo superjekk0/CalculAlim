@@ -29,5 +29,7 @@ class FoodActivity : AppCompatActivity() {
 
     private fun updateDatas(){
         binding.foodName.text = foodDTO.food.foodName;
+        // TODO : Changer le foodName par la valeur de la quantité (g)
+        binding.foodQuantity.text = foodDTO.food.foodName;
     }
 }

@@ -8,7 +8,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.launch
-import org.mandziuk.calculalim.FoodAdapter
+import org.mandziuk.calculalim.adapters.FoodAdapter
 import org.mandziuk.calculalim.R
 import org.mandziuk.calculalim.databinding.ActivityMainBinding
 import org.mandziuk.calculalim.db.dtos.FoodGroupDTO

@@ -29,7 +29,7 @@ class FoodService(applicationContext: Context) {
             };
 
             if (locale.contains("fr", true)){
-                return@withContext result.map { f -> FoodDTO(f.foodDescriptionFr, f.foodGroupNameFr, f.foodId)};
+                return@withContext result.map { f -> FoodDTO(f, f.foodGroupNameFr, f.foodId)};
             } else {
                 return@withContext result.map { f -> FoodDTO(f.foodDescription, f.foodGroupName, f.foodId)};
             };

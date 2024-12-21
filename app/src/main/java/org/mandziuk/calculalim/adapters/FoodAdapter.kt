@@ -1,14 +1,14 @@
-package org.mandziuk.calculalim
+package org.mandziuk.calculalim.adapters
 
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import org.mandziuk.calculalim.R
 import org.mandziuk.calculalim.activities.FoodActivity
 import org.mandziuk.calculalim.db.dtos.FoodDTO
 

@@ -3,25 +3,19 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <TextView
+        android:id="@+id/nutrient_name"
         android:layout_width="0dp"
-        android:background="@drawable/border"
         android:layout_height="match_parent"
-        android:layout_weight="2"
-        android:text="Chose"
-        android:id="@+id/food_name"
-        android:gravity="center"
+        android:textSize="20sp"
         android:paddingVertical="10dp"
-        android:paddingHorizontal="15dp"
-        android:clickable="true"/>
+        android:layout_weight="1"/>
     <TextView
+        android:id="@+id/nutrient_value"
         android:layout_width="0dp"
-        android:background="@drawable/border"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:text="Chose glucides"
-        android:id="@+id/food_group"
-        android:gravity="center"
-        android:paddingVertical="10dp"
-        android:paddingHorizontal="15dp"/>
+        android:textSize="20sp"
+        android:paddingVertical="10dp"/>
 </LinearLayout>
