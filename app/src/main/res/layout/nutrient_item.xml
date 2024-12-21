@@ -10,12 +10,16 @@
         android:layout_height="match_parent"
         android:textSize="20sp"
         android:paddingVertical="10dp"
-        android:layout_weight="1"/>
+        android:paddingHorizontal="10dp"
+        android:layout_weight="3"
+        android:background="@drawable/border"/>
     <TextView
         android:id="@+id/nutrient_value"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:textSize="20sp"
-        android:paddingVertical="10dp"/>
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="10dp"
+        android:background="@drawable/border"/>
 </LinearLayout>

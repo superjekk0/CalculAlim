@@ -1,12 +1,10 @@
 package org.mandziuk.calculalim.db.services
 
 import android.content.Context
-import androidx.room.Room
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.mandziuk.calculalim.R
 import org.mandziuk.calculalim.db.FoodDao
-import org.mandziuk.calculalim.db.FoodDb
 import org.mandziuk.calculalim.db.dtos.FoodDTO
 import org.mandziuk.calculalim.db.dtos.FoodDetailDTO
 import org.mandziuk.calculalim.db.dtos.FoodGroupDTO
@@ -18,7 +16,6 @@ import java.util.Locale
 class FoodService(applicationContext: Context) {
     private val foodDao: FoodDao = getFoodDao(applicationContext);
 
-
     suspend fun getFood(foodName: String, groupId: Long) : List<FoodDTO>{
         return withContext(Dispatchers.IO){
             val locale = Locale.getDefault().displayLanguage;
@@ -29,7 +26,7 @@ class FoodService(applicationContext: Context) {
             };
 
             if (locale.contains("fr", true)){
-                return@withContext result.map { f -> FoodDTO(f, f.foodGroupNameFr, f.foodId)};
+                return@withContext result.map { f -> FoodDTO(f.foodDescriptionFr, f.foodGroupNameFr, f.foodId)};
             } else {
                 return@withContext result.map { f -> FoodDTO(f.foodDescription, f.foodGroupName, f.foodId)};
             };

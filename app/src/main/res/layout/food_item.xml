@@ -12,8 +12,7 @@
         android:id="@+id/food_name"
         android:gravity="center"
         android:paddingVertical="10dp"
-        android:paddingHorizontal="15dp"
-        android:clickable="true"/>
+        android:paddingHorizontal="15dp"/>
     <TextView
         android:layout_width="0dp"
         android:background="@drawable/border"

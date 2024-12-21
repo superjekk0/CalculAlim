@@ -2,7 +2,6 @@ package org.mandziuk.calculalim.db
 
 import androidx.room.Dao
 import androidx.room.Query
-import org.mandziuk.calculalim.db.dtos.FoodDTO
 import org.mandziuk.calculalim.db.models.Food
 import org.mandziuk.calculalim.db.models.FoodGroup
 import org.mandziuk.calculalim.db.views.FoodAndGroupNames
@@ -15,16 +14,16 @@ interface FoodDao {
     suspend fun getGroups() : List<FoodGroup>
 
     @Query("SELECT * FROM FoodAndGroupNames " +
-            "WHERE (:groupeId = 0 OR FoodGroupID = :groupeId)" +
+            "WHERE (:groupId = 0 OR FoodGroupID = :groupId)" +
             "AND (:nom IS NULL OR FoodDescriptionF LIKE '%' || :nom || '%') " +
-            "ORDER BY instr(FoodDescription ,:nom) ASC, FoodGroupID ASC")
-    suspend fun getFoodsFr(groupeId: Long, nom: String) : List<FoodAndGroupNames>
+            "ORDER BY instr(FoodDescriptionF ,:nom) ASC, FoodGroupID ASC")
+    suspend fun getFoodsFr(groupId: Long, nom: String) : List<FoodAndGroupNames>
 
     @Query("SELECT * FROM FoodAndGroupNames " +
-            "WHERE (:groupeId = 0 OR FoodGroupID = :groupeId)" +
+            "WHERE (:groupId = 0 OR FoodGroupID = :groupId)" +
             "AND (:nom IS NULL OR FoodDescription LIKE '%' || :nom || '%') " +
             "ORDER BY instr(FoodDescription ,:nom) ASC, FoodGroupID ASC")
-    suspend fun getFoodsEn(groupeId: Long, nom: String) : List<FoodAndGroupNames>
+    suspend fun getFoodsEn(groupId: Long, nom: String) : List<FoodAndGroupNames>
 
     @Query("SELECT * FROM Food " +
             "WHERE FoodID = :foodId")
