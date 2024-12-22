@@ -35,12 +35,12 @@ class FoodService(applicationContext: Context) {
 
     suspend fun getFoodGroups(context: Context) : List<FoodGroupDTO>{
         return withContext(Dispatchers.IO){
-            val groups = foodDao.getGroups();
+            val groupes = foodDao.getGroups();
             val locale = Locale.getDefault().displayLanguage;
             val liste = if (locale.contains("fr", true)){
-                groups.map { g -> FoodGroupDTO(g.id, g.groupNameFr) }.toMutableList();
+                groupes.map { g -> FoodGroupDTO(g.id, g.groupNameFr) }.toMutableList();
             } else {
-                groups.map { g -> FoodGroupDTO(g.id, g.groupName) }.toMutableList();
+                groupes.map { g -> FoodGroupDTO(g.id, g.groupName) }.toMutableList();
             };
             liste.add(0, FoodGroupDTO(0, context.getString(R.string.tousGroupes)));
             return@withContext liste;
@@ -49,9 +49,12 @@ class FoodService(applicationContext: Context) {
 
     suspend fun getFoodDetails(foodId : Long) : FoodDetailDTO{
         return withContext(Dispatchers.IO){
+            val locale: String = Locale.getDefault().displayLanguage;
             val food : Food = foodDao.getFood(foodId);
             val foodNutrients : List<FoodNutrientDetails> = foodDao.getFoodNutrients(foodId);
-            return@withContext FoodDetailDTO(food, foodNutrients, Locale.getDefault().displayLanguage);
+            val foodDTO = FoodDetailDTO(food, foodNutrients, locale);
+            foodDTO.multiplyByFactor(foodDao.getConverterFactor(foodId), locale);
+            return@withContext foodDTO;
         }
     }
 }
