@@ -22,12 +22,11 @@ import org.mandziuk.calculalim.db.services.FoodService
 
 var indexGroup : Long = 0L;
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : DrawerEnabledActivity() {
 
     private lateinit var binding : ActivityMainBinding;
     private lateinit var choixGroupes : List<FoodGroupDTO>;
     private lateinit var service : FoodService;
-    private lateinit var abToggle: ActionBarDrawerToggle;
 
     private var name: String = "";
     private lateinit var adapter: FoodAdapter;
@@ -38,24 +37,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root);
 
         service = FoodService(applicationContext);
-        supportActionBar?.setDisplayHomeAsUpEnabled(true);
-        abToggle = object : ActionBarDrawerToggle(this, binding.drawer, R.string.symbole_gramme, R.string.symbole_gramme) {
-            override fun onDrawerClosed(drawerView: View) {
-                // TODO : Changer le texte du titre
-                super.onDrawerClosed(drawerView)
-            }
-
-            override fun onDrawerOpened(drawerView: View) {
-                // TODO : Changer le texte du titre
-                super.onDrawerOpened(drawerView)
-            }
-        };
-        binding.drawer.addDrawerListener(abToggle);
-        binding.navigation.setNavigationItemSelectedListener { item ->
-
-            binding.drawer.closeDrawer(Gravity.LEFT);
-            return@setNavigationItemSelectedListener true;
-        };
+        initializeDrawer(binding.drawer, binding.navigation, R.string.symbole_gramme, R.string.symbole_gramme);
 
         abToggle.syncState();
         lifecycleScope.launch{
@@ -96,23 +78,5 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             adapter.setList(service.getFood(name, indexGroup));
         }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (abToggle.onOptionsItemSelected(item)){
-
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    override fun onPostCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onPostCreate(savedInstanceState, persistentState);
-        abToggle.syncState();
-    }
-
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        abToggle.onConfigurationChanged(newConfig);
-        super.onConfigurationChanged(newConfig);
     }
 }
