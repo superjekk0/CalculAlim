@@ -1,8 +1,14 @@
 package org.mandziuk.calculalim.activities
 
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.PersistableBundle
 import android.util.Log
+import android.view.Gravity
+import android.view.MenuItem
+import android.view.View
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
@@ -21,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding;
     private lateinit var choixGroupes : List<FoodGroupDTO>;
     private lateinit var service : FoodService;
+    private lateinit var abToggle: ActionBarDrawerToggle;
 
     private var name: String = "";
     private lateinit var adapter: FoodAdapter;
@@ -31,6 +38,26 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root);
 
         service = FoodService(applicationContext);
+        supportActionBar?.setDisplayHomeAsUpEnabled(true);
+        abToggle = object : ActionBarDrawerToggle(this, binding.drawer, R.string.symbole_gramme, R.string.symbole_gramme) {
+            override fun onDrawerClosed(drawerView: View) {
+                // TODO : Changer le texte du titre
+                super.onDrawerClosed(drawerView)
+            }
+
+            override fun onDrawerOpened(drawerView: View) {
+                // TODO : Changer le texte du titre
+                super.onDrawerOpened(drawerView)
+            }
+        };
+        binding.drawer.addDrawerListener(abToggle);
+        binding.navigation.setNavigationItemSelectedListener { item ->
+
+            binding.drawer.closeDrawer(Gravity.LEFT);
+            return@setNavigationItemSelectedListener true;
+        };
+
+        abToggle.syncState();
         lifecycleScope.launch{
             choixGroupes = service.getFoodGroups(applicationContext);
             binding.choix.text = choixGroupes[indexGroup.toInt()].groupName;
@@ -69,5 +96,23 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             adapter.setList(service.getFood(name, indexGroup));
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (abToggle.onOptionsItemSelected(item)){
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    override fun onPostCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onPostCreate(savedInstanceState, persistentState);
+        abToggle.syncState();
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        abToggle.onConfigurationChanged(newConfig);
+        super.onConfigurationChanged(newConfig);
     }
 }
