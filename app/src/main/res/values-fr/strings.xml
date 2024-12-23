@@ -7,4 +7,9 @@
     <string name="nutriments">Nutriments (par %1$d g)</string>
     <string name="ajout_repas">Ajouter au repas</string>
     <string name="quantiteNutriment">%1$.*f %2$s</string>
+    <string name="rechercheAliment">Rechercher un aliment</string>
+    <string name="ouvrirTiroir">Ouvrir le tiroir</string>
+    <string name="fermerTiroir">Fermer le tiroir</string>
+    <string name="monRepas">Mon repas</string>
+    <string name="ajoutRepas">Ajouter au repas</string>
 </resources>

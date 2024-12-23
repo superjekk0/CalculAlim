@@ -4,4 +4,7 @@
     <item android:id="@+id/recherche"
         android:title="@string/rechercheAliment"
         android:icon="@drawable/ic_recherche"/>
+    <item android:id="@+id/repas"
+        android:title="@string/monRepas"
+        android:icon="@drawable/ic_repas"/>
 </menu>

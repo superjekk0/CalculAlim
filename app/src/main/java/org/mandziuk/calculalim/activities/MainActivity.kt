@@ -1,14 +1,7 @@
 package org.mandziuk.calculalim.activities
 
-import android.content.res.Configuration
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.os.PersistableBundle
 import android.util.Log
-import android.view.Gravity
-import android.view.MenuItem
-import android.view.View
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
@@ -37,7 +30,7 @@ class MainActivity : DrawerEnabledActivity() {
         setContentView(binding.root);
 
         service = FoodService(applicationContext);
-        initializeDrawer(binding.drawer, binding.navigation, R.string.symbole_gramme, R.string.symbole_gramme);
+        initializeDrawer(binding.drawer, binding.navigation);
 
         abToggle.syncState();
         lifecycleScope.launch{

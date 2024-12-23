@@ -8,4 +8,10 @@
     <string name="symbole_gramme" translatable="false">g</string>
     <string name="ajout_repas">Add to meal</string>
     <string name="quantiteNutriment">%1$.*f %2$s</string>
+    <string name="rechercheAliment">Search food</string>
+    <string name="ouvrirTiroir">Open drawer</string>
+    <string name="fermerTiroir">Close drawer</string>
+    <string name="monRepas">My meal</string>
+    <string name="symboleGramme" translatable="false">g</string>
+    <string name="ajoutRepas">Add to meal</string>
 </resources>
