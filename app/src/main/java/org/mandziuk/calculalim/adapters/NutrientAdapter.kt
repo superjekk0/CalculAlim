@@ -1,5 +1,6 @@
 package org.mandziuk.calculalim.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,7 @@ import org.mandziuk.calculalim.db.views.FoodNutrientDetails
 import java.util.Locale
 import kotlin.concurrent.thread
 
-class NutrientAdapter() : Adapter<NutrientAdapter.NutrientViewHolder>() {
+class NutrientAdapter(private val context: Context) : Adapter<NutrientAdapter.NutrientViewHolder>() {
 
     private var nutrients = emptyList<FoodNutrientDetails>().toMutableList();
 
@@ -26,19 +27,23 @@ class NutrientAdapter() : Adapter<NutrientAdapter.NutrientViewHolder>() {
         this.notifyItemRangeInserted(0, nutrients.size);
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NutrientAdapter.NutrientViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NutrientViewHolder {
         val view = LayoutInflater.from(parent.context).
         inflate(R.layout.nutrient_item, parent, false);
         return NutrientViewHolder(view);
     }
 
-    override fun onBindViewHolder(holder: NutrientAdapter.NutrientViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: NutrientViewHolder, position: Int) {
         val locale: String = Locale.getDefault().displayLanguage;
         holder.nutriment.text =
             if (locale.contains("fr", true))
                 nutrients[position].nutrientNameFr
             else nutrients[position].nutrientName;
-        holder.quantite.text = "${nutrients[position].value} ${nutrients[position].unit}";
+        var texte = context.getString(R.string.quantiteNutriment);
+        texte = texte.replace("*", "${nutrients[position].precision}");
+        texte = texte.format(nutrients[position].value,
+            nutrients[position].unit);
+        holder.quantite.text = texte;
     }
 
     override fun getItemCount(): Int {

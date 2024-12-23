@@ -45,7 +45,6 @@ class MainActivity : AppCompatActivity() {
                     indexGroup = index.toLong();
                     maJListe();
                     dialog.dismiss();
-
                 }
             }
 
@@ -66,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         maJListe();
     }
 
-    fun maJListe(){
+    private fun maJListe(){
         lifecycleScope.launch {
             adapter.setList(service.getFood(name, indexGroup));
         }

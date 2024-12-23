@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="portion">Portion</string>
+    <string name="tousGroupes">Tous les groupes</string>
+    <string name="nomNourriture">Nourriture</string>
+    <string name="typeNourriture">Type de nourriture</string>
+    <string name="nutriments">Nutriments (par %1$d g)</string>
+    <string name="ajout_repas">Ajouter au repas</string>
+    <string name="quantiteNutriment">%1$.*f %2$s</string>
+</resources>

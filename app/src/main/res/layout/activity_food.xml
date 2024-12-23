@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
@@ -24,7 +23,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="Portion"
+            android:text="@string/portion"
             android:layout_weight="1"
             android:textSize="24sp"/>
         <TextView
@@ -38,7 +37,7 @@
         android:id="@+id/weight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nutriments (par 100 g)"
+        android:text="@string/nutriments"
         android:textSize="26sp"
         android:paddingVertical="10dp"/>
     <androidx.recyclerview.widget.RecyclerView
@@ -68,7 +67,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="g"
+            android:text="@string/symbole_gramme"
             android:textSize="24sp"
             android:paddingHorizontal="10dp"/>
     </LinearLayout>
@@ -76,6 +75,6 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ajouter au repas"/>
+        android:text="@string/ajout_repas"/>
 
 </LinearLayout>

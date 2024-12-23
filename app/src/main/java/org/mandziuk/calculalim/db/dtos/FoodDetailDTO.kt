@@ -1,7 +1,5 @@
 package org.mandziuk.calculalim.db.dtos
 
-import org.mandziuk.calculalim.db.models.ConversionFactor
-import org.mandziuk.calculalim.db.models.DiscardFood
 import org.mandziuk.calculalim.db.models.Food
 import org.mandziuk.calculalim.db.views.ConversionDetails
 import org.mandziuk.calculalim.db.views.FoodNutrientDetails
@@ -9,7 +7,7 @@ import kotlin.math.pow
 import kotlin.math.roundToLong
 
 class FoodDetailDTO() {
-    lateinit var food : FoodDTO
+    lateinit var food : FoodDTO;
     lateinit var nutrients : List<FoodNutrientDetails>;
     var weight: Long = 100;
     var portionName: String = "";
@@ -30,10 +28,10 @@ class FoodDetailDTO() {
                 conversionFactor.measureNameFr
             else
                 conversionFactor.measureName;
-        nutrients.forEach(){
+        nutrients.forEach{
             it.value *= conversionFactor.conversionFactor;
             val precision = 10F.pow(it.precision.toInt());
             it.value = (it.value * precision).toInt() / precision;
-        }
+        };
     }
 }

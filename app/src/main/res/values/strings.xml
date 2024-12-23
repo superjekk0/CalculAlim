@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name" translatable="false">CalculAlim</string>
+    <string name="portion">Portion</string>
     <string name="tousGroupes">All groups</string>
     <string name="nomNourriture">Food Name</string>
     <string name="typeNourriture">Food Type</string>
+    <string name="nutriments" formatted="true">Nutrients (per %1$d g)</string>
+    <string name="symbole_gramme" translatable="false">g</string>
+    <string name="ajout_repas">Add to meal</string>
+    <string name="quantiteNutriment">%1$.*f %2$s</string>
 </resources>
