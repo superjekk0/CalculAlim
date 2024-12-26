@@ -19,4 +19,5 @@
     <string name="enregistrerRepas">Enregistrer le repas</string>
     <string name="messageAlimentAjoute">L\'aliment « %1$s » a été ajouté au repas</string>
     <string name="supprimerAliment">Supprimer l\'aliment du repas</string>
+    <string name="messageAlimentSupprime">L\'aliment « %1$s » a été retiré du repas</string>
 </resources>

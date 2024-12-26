@@ -53,8 +53,13 @@ class FoodActivity : DrawerEnabledActivity() {
         }
 
         binding.addToMeal.setOnClickListener {
-            mealDtoInstance.add(foodDetailDTO.food, foodWeight);
-            Toast.makeText(this, getString(R.string.messageAlimentAjoute, foodDetailDTO.food.foodName), Toast.LENGTH_LONG).show();
+            if (mealWeight != -1){
+                mealDtoInstance.remove(foodDetailDTO.food.foodId);
+                Toast.makeText(this, getString(R.string.messageAlimentSupprime, foodDetailDTO.food.foodName), Toast.LENGTH_LONG).show();
+            } else{
+                mealDtoInstance.add(foodDetailDTO.food, foodWeight);
+                Toast.makeText(this, getString(R.string.messageAlimentAjoute, foodDetailDTO.food.foodName), Toast.LENGTH_LONG).show();
+            }
             finish();
         }
     }

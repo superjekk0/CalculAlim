@@ -30,4 +30,11 @@ class MealDTO {
 
         this.foodMeals.add(FoodMealDTO(foodMealDTO, weight));
     }
+
+    fun remove(foodId: Long){
+        val existingFoodMeal = this.foodMeals.find { it.foodId == foodId };
+        if (existingFoodMeal != null){
+            this.foodMeals.remove(existingFoodMeal);
+        }
+    }
 }

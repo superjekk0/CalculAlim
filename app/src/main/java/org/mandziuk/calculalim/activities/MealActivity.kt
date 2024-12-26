@@ -23,4 +23,9 @@ class MealActivity : DrawerEnabledActivity() {
         binding.foods.adapter = adapter;
         binding.foods.layoutManager = LinearLayoutManager(this);
     }
+
+    override fun onResume() {
+        super.onResume()
+        adapter.notifyDataSetChanged();
+    }
 }
