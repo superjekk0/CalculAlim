@@ -6,7 +6,6 @@
     <string name="typeNourriture">Food Type</string>
     <string name="nutriments" formatted="true">Nutrients (per %1$d g)</string>
     <string name="symbole_gramme" translatable="false">g</string>
-    <string name="ajout_repas">Add to meal</string>
     <string name="quantiteNutriment">%1$.*f %2$s</string>
     <string name="rechercheAliment">Search food</string>
     <string name="ouvrirTiroir">Open drawer</string>
@@ -22,4 +21,6 @@
     <string name="placeholder" translatable="false">Insérer valeur</string>
     <string name="enregistrerAlimentCompose">Register as Food</string>
     <string name="enregistrerRepas">Register the Meal</string>
+    <string name="messageAlimentAjoute">Food "%1$s" has been added to the meal</string>
+    <string name="supprimerAliment">Delete Food from Meal</string>
 </resources>

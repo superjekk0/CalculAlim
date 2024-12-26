@@ -26,7 +26,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingVertical="10dp">
+                android:paddingVertical="10dp"
+                android:id="@+id/portionLayout">
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -38,7 +39,7 @@
                     android:layout_height="match_parent"
                     android:id="@+id/food_portion"
                     android:layout_weight="1"
-                    android:textSize="20sp"/>
+                    android:textSize="22sp"/>
             </LinearLayout>
             <TextView
                 android:id="@+id/weight"
@@ -58,7 +59,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingVertical="10dp">
+                android:paddingVertical="10dp"
+                android:id="@+id/setWeightLayout">
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -74,20 +76,24 @@
                     android:hint="@string/placeholderAliment"
                     android:gravity="right"
                     android:id="@+id/food_weight"
+                    android:textSize="24sp"
                     android:autofillHints="none"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="@string/symboleGramme"
                     android:textSize="24sp"
-                    android:paddingHorizontal="10dp"/>
+                    android:paddingHorizontal="10dp"
+                    android:gravity="center_vertical"/>
             </LinearLayout>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/add_to_meal"
-                android:text="@string/ajoutRepas"/>
+                android:text="@string/ajoutRepas"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginVertical="20dp"/>
         </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

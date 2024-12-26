@@ -34,4 +34,13 @@ class FoodDetailDTO() {
             it.value = (it.value * precision).toInt() / precision;
         };
     }
+
+    fun multiplyByWeight(weight: Long){
+        this.weight = weight;
+        nutrients.forEach{
+            it.value *= weight / 100F;
+            val precision = 10F.pow(it.precision.toInt());
+            it.value = (it.value * precision).toInt() / precision;
+        };
+    }
 }

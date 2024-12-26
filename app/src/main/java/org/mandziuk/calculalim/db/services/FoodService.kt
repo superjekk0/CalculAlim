@@ -57,4 +57,15 @@ class FoodService(applicationContext: Context) {
             return@withContext foodDTO;
         }
     }
+
+    suspend fun getFoodDetails(foodId: Long, weight: Long) : FoodDetailDTO{
+        return withContext(Dispatchers.IO){
+            val locale: String = Locale.getDefault().displayLanguage;
+            val food : Food = foodDao.getFood(foodId);
+            val foodNutrients : List<FoodNutrientDetails> = foodDao.getFoodNutrients(foodId);
+            val foodDTO = FoodDetailDTO(food, foodNutrients, locale);
+            foodDTO.multiplyByWeight(weight);
+            return@withContext foodDTO;
+        }
+    }
 }
