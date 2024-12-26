@@ -12,4 +12,10 @@
     <string name="fermerTiroir">Fermer le tiroir</string>
     <string name="monRepas">Mon repas</string>
     <string name="ajoutRepas">Ajouter au repas</string>
+    <string name="groupeAliment">Groupe d\'aliments</string>
+    <string name="aliment">Aliment</string>
+    <string name="poids">Poids (g)</string>
+    <string name="quantite">Quantité : </string>
+    <string name="enregistrerAlimentCompose">Enregistrer comme aliment</string>
+    <string name="enregistrerRepas">Enregistrer le repas</string>
 </resources>

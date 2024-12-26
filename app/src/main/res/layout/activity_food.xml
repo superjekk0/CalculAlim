@@ -63,14 +63,17 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
-                    android:text="Quantité: "
+                    android:text="@string/quantite"
                     android:textSize="24sp"
                     android:gravity="center_vertical|right"/>
                 <EditText
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:inputType="number"/>
+                    android:inputType="number"
+                    android:hint="@string/placeholderAliment"
+                    android:gravity="right"
+                    android:autofillHints="none"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"

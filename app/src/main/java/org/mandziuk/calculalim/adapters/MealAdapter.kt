@@ -11,20 +11,13 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import org.mandziuk.calculalim.R
 import org.mandziuk.calculalim.activities.FoodActivity
 import org.mandziuk.calculalim.db.dtos.FoodDTO
+import org.mandziuk.calculalim.db.dtos.MealDTO
 
-class FoodAdapter(private val context: Context) : Adapter<FoodAdapter.MyVH>() {
-    private val aliments : ArrayList<FoodDTO> = ArrayList();
+class MealAdapter(private val context: Context) : Adapter<MealAdapter.MyVH>() {
+    private val aliments : MealDTO = MealDTO();
     class MyVH(itemView: View) : ViewHolder(itemView) {
         val aliment : TextView = itemView.findViewById(R.id.food_name);
         val groupe : TextView = itemView.findViewById(R.id.food_group);
-    }
-
-    fun setList(aliments : List<FoodDTO>){
-        val size = this.aliments.size;
-        this.aliments.clear();
-        notifyItemRangeRemoved(0, size);
-        this.aliments.addAll(aliments);
-        notifyItemRangeInserted(0, aliments.size);
     }
 
     override fun getItemCount(): Int {
@@ -33,17 +26,18 @@ class FoodAdapter(private val context: Context) : Adapter<FoodAdapter.MyVH>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyVH {
         val view = LayoutInflater.from(parent.context).
-                inflate(R.layout.food_item, parent, false);
+                inflate(R.layout.meal_item, parent, false);
         return MyVH(view);
     }
 
     override fun onBindViewHolder(holder: MyVH, position: Int) {
-        holder.groupe.text = aliments[position].foodGroup;
-        holder.aliment.text = aliments[position].foodName;
+        holder.groupe.text = aliments[position].foodDTO.foodGroup;
+        holder.aliment.text = aliments[position].foodDTO.foodName;
 
         holder.aliment.setOnClickListener {
             val intent = Intent(context, FoodActivity::class.java);
-            intent.putExtra("id", aliments[position].foodId);
+            intent.putExtra("id", aliments[position].foodDTO.foodId);
+            intent.putExtra("poids", 100);
             context.startActivity(intent);
         }
     }

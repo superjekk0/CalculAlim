@@ -14,4 +14,12 @@
     <string name="monRepas">My meal</string>
     <string name="symboleGramme" translatable="false">g</string>
     <string name="ajoutRepas">Add to meal</string>
+    <string name="groupeAliment">Food Group</string>
+    <string name="aliment">Food</string>
+    <string name="poids">Weight (g)</string>
+    <string name="placeholderAliment" translatable="false">100</string>
+    <string name="quantite">Quantity: </string>
+    <string name="placeholder" translatable="false">Insérer valeur</string>
+    <string name="enregistrerAlimentCompose">Register as Food</string>
+    <string name="enregistrerRepas">Register the Meal</string>
 </resources>
