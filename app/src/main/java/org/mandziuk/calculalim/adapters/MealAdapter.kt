@@ -10,14 +10,14 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import org.mandziuk.calculalim.R
 import org.mandziuk.calculalim.activities.FoodActivity
-import org.mandziuk.calculalim.db.dtos.FoodDTO
 import org.mandziuk.calculalim.db.dtos.MealDTO
+import org.mandziuk.calculalim.db.dtos.mealDtoInstance
 
 class MealAdapter(private val context: Context) : Adapter<MealAdapter.MyVH>() {
-    private val aliments : MealDTO = MealDTO();
+    private val aliments : MealDTO = mealDtoInstance;
     class MyVH(itemView: View) : ViewHolder(itemView) {
         val aliment : TextView = itemView.findViewById(R.id.food_name);
-        val groupe : TextView = itemView.findViewById(R.id.food_group);
+        val poids : TextView = itemView.findViewById(R.id.food_weight);
     }
 
     override fun getItemCount(): Int {
@@ -31,13 +31,13 @@ class MealAdapter(private val context: Context) : Adapter<MealAdapter.MyVH>() {
     }
 
     override fun onBindViewHolder(holder: MyVH, position: Int) {
-        holder.groupe.text = aliments[position].foodDTO.foodGroup;
-        holder.aliment.text = aliments[position].foodDTO.foodName;
+        holder.poids.text = aliments[position].weight.toString();
+        holder.aliment.text = aliments[position].foodName;
 
         holder.aliment.setOnClickListener {
             val intent = Intent(context, FoodActivity::class.java);
-            intent.putExtra("id", aliments[position].foodDTO.foodId);
-            intent.putExtra("poids", 100);
+            intent.putExtra("id", aliments[position].foodId);
+            intent.putExtra("poids", aliments[position].weight);
             context.startActivity(intent);
         }
     }
