@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/recherche"
-        android:title="@string/rechercheAliment"
-        android:icon="@drawable/ic_recherche"/>
-    <item android:id="@+id/repas"
-        android:title="@string/monRepas"
-        android:icon="@drawable/ic_repas"/>
+    <group android:id="@+id/aliments">
+        <item android:id="@+id/recherche"
+            android:title="@string/rechercheAliment"
+            android:icon="@drawable/ic_recherche"/>
+        <item android:id="@+id/repas"
+            android:title="@string/monRepas"
+            android:icon="@drawable/ic_repas"/>
+        <item android:id="@+id/historique"
+            android:title="@string/historique"
+            android:icon="@drawable/ic_historique_repas"/>
+    </group>
+    <group android:id="@+id/parametres">
+<!--        <item android:id="@+id/parametres"-->
+<!--            android:title="@string/parametres"-->
+<!--            android:icon="@drawable/ic_parametres"/>-->
+    </group>
 </menu>

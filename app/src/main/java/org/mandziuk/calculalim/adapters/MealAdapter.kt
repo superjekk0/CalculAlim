@@ -41,5 +41,4 @@ class MealAdapter(private val context: Context) : Adapter<MealAdapter.MyVH>() {
             context.startActivity(intent);
         }
     }
-
 }

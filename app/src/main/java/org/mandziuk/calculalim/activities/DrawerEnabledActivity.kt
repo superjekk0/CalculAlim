@@ -58,6 +58,10 @@ open class DrawerEnabledActivity : AppCompatActivity() {
                     val intent = Intent(this, MealActivity::class.java);
                     startActivity(intent);
                 }
+                R.id.historique ->{
+                    val intent = Intent(this, HistoryActivity::class.java);
+                    startActivity(intent);
+                }
             }
             drawerLayout.closeDrawers();
             return@setNavigationItemSelectedListener true;
