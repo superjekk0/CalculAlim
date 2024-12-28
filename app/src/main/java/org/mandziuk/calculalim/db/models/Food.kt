@@ -17,6 +17,7 @@ import java.util.Date
     Index(value = ["FoodDescription"], orders = [Index.Order.ASC], name = "IX_Food_Description"),
     Index(value = ["FoodDescriptionF"], orders = [Index.Order.ASC], name = "IX_Food_DescriptionF")
 ])
+// TODO: Faire un remplacement de la suppression d'un enregistrement de la table Food par un champ de suppression logique
 data class Food(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "FoodID") val id : Long,
     @ColumnInfo(name = "FoodCode") val code : Long,
