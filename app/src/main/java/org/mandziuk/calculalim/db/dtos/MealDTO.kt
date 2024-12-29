@@ -27,7 +27,6 @@ class MealDTO {
             existingFoodMeal.weight += weight;
             return;
         }
-
         this.foodMeals.add(FoodMealDTO(foodMealDTO, weight));
     }
 

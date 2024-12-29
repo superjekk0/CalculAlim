@@ -102,5 +102,6 @@
         android:layout_height="match_parent"
         app:menu="@menu/menu"
         android:id="@+id/navigation"
-        android:layout_gravity="left"/>
+        android:layout_gravity="left"
+        app:headerLayout="@layout/header_menu"/>
 </androidx.drawerlayout.widget.DrawerLayout>

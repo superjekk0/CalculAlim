@@ -25,6 +25,7 @@
         app:menu="@menu/menu"
         android:layout_gravity="left"
         android:id="@+id/navigation"
+        app:headerLayout="@layout/header_menu"
         />
 
 </androidx.drawerlayout.widget.DrawerLayout>

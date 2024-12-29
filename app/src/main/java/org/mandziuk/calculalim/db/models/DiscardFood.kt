@@ -21,5 +21,5 @@ data class DiscardFood(
     @ColumnInfo(name = "FoodID") val foodId: Long,
     @ColumnInfo(name = "DiscardID") val discardId: Long,
     @ColumnInfo(name = "DiscardPercentage", defaultValue = "0") val discardPercentage: Long,
-    @ColumnInfo(name = "DiscardDateOfEntry") val discardDateOfEntry: Date?
+    @ColumnInfo(name = "DiscardDateOfEntry") val discardDateOfEntry: String?
 )

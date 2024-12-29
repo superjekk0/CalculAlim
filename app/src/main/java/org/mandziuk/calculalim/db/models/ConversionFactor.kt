@@ -16,5 +16,5 @@ data class ConversionFactor(
     @ColumnInfo(name = "FoodID") val foodId: Long,
     @ColumnInfo(name = "MeasureID") val measureId: Long,
     @ColumnInfo(name = "ConversionFactorValue") val conversionFactor: Float,
-    @ColumnInfo(name = "ConvFactorDateOfEntry") val dateOfEntry: Date?
+    @ColumnInfo(name = "ConvFactorDateOfEntry") val dateOfEntry: String?
 );

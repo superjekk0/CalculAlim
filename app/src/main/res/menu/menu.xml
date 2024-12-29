@@ -13,6 +13,7 @@
             android:icon="@drawable/ic_historique_repas"/>
     </group>
     <group android:id="@+id/parametres">
+
 <!--        <item android:id="@+id/parametres"-->
 <!--            android:title="@string/parametres"-->
 <!--            android:icon="@drawable/ic_parametres"/>-->

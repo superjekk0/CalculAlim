@@ -25,4 +25,6 @@
     <string name="supprimerAliment">Delete Food from Meal</string>
     <string name="messageAlimentSupprime">Food "%1$s" has been removed from the meal</string>
     <string name="historique">Previous meals</string>
+    <string name="altImageProfil">Profile picture</string>
+    <string name="salutation">Hello %1$s</string>
 </resources>

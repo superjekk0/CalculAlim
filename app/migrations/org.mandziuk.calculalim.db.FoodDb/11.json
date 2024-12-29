@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 10,
-    "identityHash": "309ee9dc1b031ddb30a70240fe181a1b",
+    "version": 11,
+    "identityHash": "f049bcaa8dae2afa558390f042278d4b",
     "entities": [
       {
         "tableName": "FoodGroup",
@@ -100,7 +100,7 @@
       },
       {
         "tableName": "Food",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`FoodID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `FoodCode` INTEGER NOT NULL, `FoodGroupID` INTEGER, `FoodSourceID` INTEGER, `FoodDescription` TEXT NOT NULL, `FoodDescriptionF` TEXT NOT NULL, `FoodDateOfEntry` INTEGER, `FoodDateOfPublication` INTEGER, `CountryCode` TEXT, `ScientificName` TEXT, FOREIGN KEY(`FoodGroupID`) REFERENCES `FoodGroup`(`FoodGroupID`) ON UPDATE NO ACTION ON DELETE SET NULL )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`FoodID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `FoodCode` INTEGER NOT NULL, `FoodGroupID` INTEGER, `FoodSourceID` INTEGER, `FoodDescription` TEXT NOT NULL, `FoodDescriptionF` TEXT NOT NULL, `FoodDateOfEntry` TEXT, `FoodDateOfPublication` TEXT, `CountryCode` TEXT, `ScientificName` TEXT, FOREIGN KEY(`FoodGroupID`) REFERENCES `FoodGroup`(`FoodGroupID`) ON UPDATE NO ACTION ON DELETE SET NULL )",
         "fields": [
           {
             "fieldPath": "id",
@@ -141,13 +141,13 @@
           {
             "fieldPath": "entryDate",
             "columnName": "FoodDateOfEntry",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": false
           },
           {
             "fieldPath": "publicationDate",
             "columnName": "FoodDateOfPublication",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": false
           },
           {
@@ -631,7 +631,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '309ee9dc1b031ddb30a70240fe181a1b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f049bcaa8dae2afa558390f042278d4b')"
     ]
   }
 }

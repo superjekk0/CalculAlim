@@ -21,4 +21,6 @@
     <string name="supprimerAliment">Supprimer l\'aliment du repas</string>
     <string name="messageAlimentSupprime">L\'aliment « %1$s » a été retiré du repas</string>
     <string name="historique">Anciens repas</string>
+    <string name="altImageProfil">Image de profil</string>
+    <string name="salutation">Bonjour %1$s</string>
 </resources>

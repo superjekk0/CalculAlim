@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 10,
-    "identityHash": "309ee9dc1b031ddb30a70240fe181a1b",
+    "version": 12,
+    "identityHash": "9fee26ac0e118cf970b30a77785d62a1",
     "entities": [
       {
         "tableName": "FoodGroup",
@@ -100,7 +100,7 @@
       },
       {
         "tableName": "Food",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`FoodID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `FoodCode` INTEGER NOT NULL, `FoodGroupID` INTEGER, `FoodSourceID` INTEGER, `FoodDescription` TEXT NOT NULL, `FoodDescriptionF` TEXT NOT NULL, `FoodDateOfEntry` INTEGER, `FoodDateOfPublication` INTEGER, `CountryCode` TEXT, `ScientificName` TEXT, FOREIGN KEY(`FoodGroupID`) REFERENCES `FoodGroup`(`FoodGroupID`) ON UPDATE NO ACTION ON DELETE SET NULL )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`FoodID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `FoodCode` INTEGER NOT NULL, `FoodGroupID` INTEGER, `FoodSourceID` INTEGER, `FoodDescription` TEXT NOT NULL, `FoodDescriptionF` TEXT NOT NULL, `FoodDateOfEntry` TEXT, `FoodDateOfPublication` TEXT, `CountryCode` TEXT, `ScientificName` TEXT, FOREIGN KEY(`FoodGroupID`) REFERENCES `FoodGroup`(`FoodGroupID`) ON UPDATE NO ACTION ON DELETE SET NULL )",
         "fields": [
           {
             "fieldPath": "id",
@@ -141,13 +141,13 @@
           {
             "fieldPath": "entryDate",
             "columnName": "FoodDateOfEntry",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": false
           },
           {
             "fieldPath": "publicationDate",
             "columnName": "FoodDateOfPublication",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": false
           },
           {
@@ -220,7 +220,7 @@
       },
       {
         "tableName": "FoodNutrientAmount",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`FoodID` INTEGER NOT NULL, `NutrientID` INTEGER NOT NULL, `NutrientValue` REAL NOT NULL, `StandardError` REAL, `NumberOfObservations` INTEGER, `NutrientSourceID` INTEGER NOT NULL, `NutrientDateOfEntry` INTEGER, PRIMARY KEY(`FoodID`, `NutrientID`), FOREIGN KEY(`FoodID`) REFERENCES `Food`(`FoodID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`FoodID` INTEGER NOT NULL, `NutrientID` INTEGER NOT NULL, `NutrientValue` REAL NOT NULL, `StandardError` REAL, `NumberOfObservations` INTEGER, `NutrientSourceID` INTEGER NOT NULL, `NutrientDateOfEntry` TEXT, PRIMARY KEY(`FoodID`, `NutrientID`), FOREIGN KEY(`FoodID`) REFERENCES `Food`(`FoodID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "foodId",
@@ -261,7 +261,7 @@
           {
             "fieldPath": "entryDate",
             "columnName": "NutrientDateOfEntry",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": false
           }
         ],
@@ -344,7 +344,7 @@
       },
       {
         "tableName": "DiscardFood",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`FoodID` INTEGER NOT NULL, `DiscardID` INTEGER NOT NULL, `DiscardPercentage` INTEGER NOT NULL DEFAULT 0, `DiscardDateOfEntry` INTEGER, PRIMARY KEY(`FoodID`, `DiscardID`), FOREIGN KEY(`DiscardID`) REFERENCES `Discard`(`DiscardID`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`FoodID`) REFERENCES `Food`(`FoodID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`FoodID` INTEGER NOT NULL, `DiscardID` INTEGER NOT NULL, `DiscardPercentage` INTEGER NOT NULL DEFAULT 0, `DiscardDateOfEntry` TEXT, PRIMARY KEY(`FoodID`, `DiscardID`), FOREIGN KEY(`DiscardID`) REFERENCES `Discard`(`DiscardID`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`FoodID`) REFERENCES `Food`(`FoodID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "foodId",
@@ -368,7 +368,7 @@
           {
             "fieldPath": "discardDateOfEntry",
             "columnName": "DiscardDateOfEntry",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": false
           }
         ],
@@ -439,7 +439,7 @@
       },
       {
         "tableName": "ConversionFactor",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`FoodID` INTEGER NOT NULL, `MeasureID` INTEGER NOT NULL, `ConversionFactorValue` REAL NOT NULL, `ConvFactorDateOfEntry` INTEGER, PRIMARY KEY(`FoodID`, `MeasureID`), FOREIGN KEY(`FoodID`) REFERENCES `Food`(`FoodID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`FoodID` INTEGER NOT NULL, `MeasureID` INTEGER NOT NULL, `ConversionFactorValue` REAL NOT NULL, `ConvFactorDateOfEntry` TEXT, PRIMARY KEY(`FoodID`, `MeasureID`), FOREIGN KEY(`FoodID`) REFERENCES `Food`(`FoodID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "foodId",
@@ -462,7 +462,7 @@
           {
             "fieldPath": "dateOfEntry",
             "columnName": "ConvFactorDateOfEntry",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": false
           }
         ],
@@ -631,7 +631,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '309ee9dc1b031ddb30a70240fe181a1b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9fee26ac0e118cf970b30a77785d62a1')"
     ]
   }
 }
