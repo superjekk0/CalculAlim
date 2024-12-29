@@ -5,5 +5,23 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
+    <style name="BoutonParametre" parent="Theme.Material3.Light">
+        <item name="android:textSize">24sp</item>
+        <item name="marginHorizontal">20dp</item>
+        <item name="android:paddingHorizontal">20dp</item>
+        <item name="android:paddingVertical">15dp</item>
+        <item name="fontWeight">700</item>
+    </style>
+
+    <!-- Si jamais tu veux changer la gravité avec autre chose que "start" ou "end", passe dans le
+     layout direction. Tu risques le crash, autrement.                                          -->
+    <style name="Tiroir">
+        <item name="menu">@menu/menu</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_gravity">start</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="headerLayout">@layout/header_menu</item>
+    </style>
+
     <style name="Theme.CalculAlim" parent="Base.Theme.CalculAlim" />
 </resources>

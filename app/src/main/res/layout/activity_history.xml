@@ -20,12 +20,7 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.navigation.NavigationView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:menu="@menu/menu"
-        android:layout_gravity="left"
         android:id="@+id/navigation"
-        app:headerLayout="@layout/header_menu"
-        />
+        style="@style/Tiroir" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -38,7 +38,7 @@ class MainActivity : DrawerEnabledActivity() {
         service = FoodService(this);
         initializeDrawer(binding.drawer, binding.navigation);
 
-        abToggle.syncState();
+//        abToggle.syncState();
         lifecycleScope.launch{
             choixGroupes = service.getFoodGroups(applicationContext);
             binding.choix.text = choixGroupes[indexGroup.toInt()].groupName;
