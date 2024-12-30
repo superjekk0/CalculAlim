@@ -30,6 +30,18 @@
     <string name="changerProfil">Change profile</string>
     <string name="parametres">Parameters</string>
     <string name="changerLangue">Change language</string>
+    <string name="sectionInterface">Interface</string>
+    <string name="modeSombre">Dark mode</string>
+    <string name="descriptionModeSombre">Activate dark mode interface</string>
+    <string name="optionLangue">Language</string>
+    <string name="optionLangueDescription">Choose application\'s language</string>
+    <string name="optionNutrimentsAffiches">Displayed Nutrients</string>
+    <string name="choixNutrimentsDescription">Select nutrients to display</string>
+    <string name="sectionDonnees">Data</string>
+    <string name="optionAlimentsSupprimes">Deleted Food</string>
+    <string name="optionAlimentsSupprimesDescription">Displays all previously deleted food</string>
+    <string name="optionReinitialisation">Delete Saved Data</string>
+    <string name="optionReinitialisationDescription">Resets the App by wiping out existing profiles, food and meal history</string>
     <string-array name="langues">
         <item>English</item>
         <item>Français (French)</item>

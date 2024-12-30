@@ -1,36 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fragment="org.mandziuk.calculalim.fragments.SettingsFragment">
 
     <PreferenceCategory
         app:allowDividerBelow="true"
-        android:title="Interface">
+        android:title="@string/sectionInterface">
         <SwitchPreference
             android:key="modeSombre"
-            android:title="Mode sombre"
-            android:summary="Activer le mode sombre"
+            android:title="@string/modeSombre"
+            android:summary="@string/descriptionModeSombre"
             android:defaultValue="false"/>
         <DropDownPreference
             android:key="language"
-            android:title="Langue"
-            android:summary="Choisir la langue de l'application"
+            android:title="@string/optionLangue"
+            android:summary="@string/optionLangueDescription"
             app:entries="@array/langues"
             app:entryValues="@array/valeurLangues"/>
         <MultiSelectListPreference
             android:key="nutriments"
-            android:title="Nutriments à afficher"
-            android:summary="Choisir les nutriments à afficher" />
+            android:title="@string/optionNutrimentsAffiches"
+            android:summary="@string/choixNutrimentsDescription" />
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="Données">
+        android:title="@string/sectionDonnees">
         <ListPreference
-            android:title="Aliments supprimés"
+            android:title="@string/optionAlimentsSupprimes"
+            android:summary="@string/optionAlimentsSupprimesDescription"
             />
         <Preference
-            android:title="Supprimer les données enregistrées"
+            android:title="@string/optionReinitialisation"
             app:allowDividerAbove="true"
-            android:summary="Réinitialise l'application en supprimant les profils existants, les aliments rajoutés et l'historique des repas"
+            android:summary="@string/optionReinitialisationDescription"
             />
     </PreferenceCategory>
 

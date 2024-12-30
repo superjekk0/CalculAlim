@@ -17,8 +17,4 @@ class ProfileService(private val context: Context) {
 
         return profilDao.getProfil(id) ?: return profilDao.premierProfil();
     }
-
-    suspend fun updateLanguage(language: String){
-        
-    }
 }

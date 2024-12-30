@@ -1,7 +1,11 @@
 package org.mandziuk.calculalim.fragments
 
+import android.app.LocaleManager
+import android.os.Build
 import android.os.Bundle
+import android.os.LocaleList
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.LocaleManagerCompat
 import androidx.core.os.LocaleListCompat
 import androidx.preference.DropDownPreference
 import androidx.preference.MultiSelectListPreference
@@ -18,7 +22,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true;
         }
 
-        findPreference<DropDownPreference>("langue")?.setOnPreferenceChangeListener { _, newValue ->
+        findPreference<DropDownPreference>("language")?.setOnPreferenceChangeListener { _, newValue ->
             val localeListPreference = LocaleListCompat.forLanguageTags(newValue as String);
             AppCompatDelegate.setApplicationLocales(localeListPreference);
 
