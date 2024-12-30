@@ -81,4 +81,14 @@ class FoodService(applicationContext: Context) {
             };
         }
     }
+
+    suspend fun changeNutrientDisplays(nutrientIds: List<Long>){
+        withContext(Dispatchers.IO){
+            val nutrients = foodDao.getNutrientNames();
+            foodDao.updateNutrientDisplayed(nutrientIds);
+            foodDao.updateNutrientHidden(nutrients
+                .filter { ! nutrientIds.contains(it.nutrientId) }
+                .map { n -> n.nutrientId });
+        }
+    }
 }

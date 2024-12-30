@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.ListPreference
 import androidx.preference.MultiSelectListPreference
 import androidx.preference.PreferenceFragmentCompat
@@ -39,10 +40,17 @@ class SettingsFragment : PreferenceFragmentCompat() {
             return@setOnPreferenceChangeListener true;
         }
 
-        nutrimentsAffiches?.setOnPreferenceClickListener {
-            preference ->
-            
-            return@setOnPreferenceClickListener true;
+        nutrimentsAffiches?.setOnPreferenceChangeListener {
+            _, newValue ->
+            lifecycle.coroutineScope.launch {
+                modificationAffichageNutriments(newValue as Set<CharSequence>);
+            }
+            return@setOnPreferenceChangeListener true;
         }
+    }
+
+    private suspend fun modificationAffichageNutriments(nutrimentsIdAffiches: Set<CharSequence>) {
+        val foodService = FoodService(requireContext());
+        foodService.changeNutrientDisplays(nutrimentsIdAffiches.map { n -> n.toString().toLong() });
     }
 }

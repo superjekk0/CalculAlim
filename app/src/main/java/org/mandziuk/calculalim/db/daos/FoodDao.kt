@@ -2,6 +2,7 @@ package org.mandziuk.calculalim.db.daos
 
 import androidx.room.Dao
 import androidx.room.Query
+import androidx.room.Update
 import org.mandziuk.calculalim.db.models.DiscardFood
 import org.mandziuk.calculalim.db.models.Food
 import org.mandziuk.calculalim.db.models.FoodGroup
@@ -48,4 +49,14 @@ interface FoodDao {
 
     @Query("SELECT * FROM NutrientNameEnability")
     suspend fun getNutrientNames() : List<NutrientNameEnability>;
+
+    @Query("UPDATE Nutrient " +
+            "SET Displayed = 1 " +
+            "WHERE NutrientID IN (:nutrientIds)")
+    suspend fun updateNutrientDisplayed(nutrientIds: List<Long>);
+
+    @Query("UPDATE Nutrient " +
+            "SET Displayed = 0 " +
+            "WHERE NutrientID IN (:nutrientIds)")
+    suspend fun updateNutrientHidden(nutrientIds: List<Long>);
 }
