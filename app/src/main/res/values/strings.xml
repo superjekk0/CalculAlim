@@ -47,7 +47,7 @@
         <item>Français (French)</item>
     </string-array>
     <string-array name="valeurLangues" translatable="false">
-        <item>en</item>
-        <item>fr</item>
+        <item>en-CA</item>
+        <item>fr-CA</item>
     </string-array>
 </resources>

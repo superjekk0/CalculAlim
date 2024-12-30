@@ -1,10 +1,10 @@
 package org.mandziuk.calculalim.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.coroutineScope
-import androidx.lifecycle.lifecycleScope
 import androidx.preference.ListPreference
 import androidx.preference.MultiSelectListPreference
 import androidx.preference.PreferenceFragmentCompat
@@ -12,12 +12,15 @@ import androidx.preference.SwitchPreference
 import kotlinx.coroutines.launch
 import org.mandziuk.calculalim.R
 import org.mandziuk.calculalim.db.services.FoodService
+import java.util.Locale
 
 class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
 
         val nutrimentsAffiches = findPreference<MultiSelectListPreference>("nutriments");
+        val language = findPreference<ListPreference>("language");
+        language?.value = Locale.getDefault().toLanguageTag();
 
         lifecycle.coroutineScope.launch {
             val foodService = FoodService(requireContext());
@@ -32,11 +35,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true;
         }
 
-        findPreference<ListPreference>("language")?.setOnPreferenceChangeListener { _, newValue ->
+        language?.setOnPreferenceChangeListener { _, newValue ->
             val localeListPreference = LocaleListCompat.forLanguageTags(newValue as String);
             AppCompatDelegate.setApplicationLocales(localeListPreference);
 
-            requireActivity().recreate();
             return@setOnPreferenceChangeListener true;
         }
 
