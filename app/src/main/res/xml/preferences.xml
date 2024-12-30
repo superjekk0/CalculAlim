@@ -11,20 +11,20 @@
             android:title="@string/modeSombre"
             android:summary="@string/descriptionModeSombre"
             android:defaultValue="false"/>
-        <DropDownPreference
+        <ListPreference
             android:key="language"
             android:title="@string/optionLangue"
             android:summary="@string/optionLangueDescription"
             app:entries="@array/langues"
             app:entryValues="@array/valeurLangues"/>
-        <MultiSelectListPreference
-            android:key="nutriments"
-            android:title="@string/optionNutrimentsAffiches"
-            android:summary="@string/choixNutrimentsDescription" />
     </PreferenceCategory>
 
     <PreferenceCategory
         android:title="@string/sectionDonnees">
+        <MultiSelectListPreference
+            android:key="nutriments"
+            android:title="@string/optionNutrimentsAffiches"
+            android:summary="@string/choixNutrimentsDescription" />
         <ListPreference
             android:title="@string/optionAlimentsSupprimes"
             android:summary="@string/optionAlimentsSupprimesDescription"

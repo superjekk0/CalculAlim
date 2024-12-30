@@ -22,12 +22,13 @@ import org.mandziuk.calculalim.db.models.Repas
 import org.mandziuk.calculalim.db.views.ConversionDetails
 import org.mandziuk.calculalim.db.views.FoodAndGroupNames
 import org.mandziuk.calculalim.db.views.FoodNutrientDetails
+import org.mandziuk.calculalim.db.views.NutrientNameEnability
 
 @Database(entities = [FoodGroup::class, Nutrient::class, Food::class, NutrientAmount::class, Discard::class,
                      DiscardFood::class, MeasureName::class, ConversionFactor::class, Profil::class, Repas::class,
                      FoodRepas::class],
-    views = [FoodAndGroupNames::class, FoodNutrientDetails::class, ConversionDetails::class],
-    version = 12,
+    views = [FoodAndGroupNames::class, FoodNutrientDetails::class, ConversionDetails::class, NutrientNameEnability::class],
+    version = 13,
     autoMigrations = [
         AutoMigration(from = 1, to = 2),
         AutoMigration(from = 2, to = 3),
@@ -39,7 +40,8 @@ import org.mandziuk.calculalim.db.views.FoodNutrientDetails
         AutoMigration(from = 8, to = 9),
         AutoMigration(from = 9, to = 10),
         AutoMigration(from = 10, to = 11),
-        AutoMigration(from = 11, to = 12)
+        AutoMigration(from = 11, to = 12),
+        AutoMigration(from = 12, to = 13)
                      ],
     exportSchema = true)
 @TypeConverters(Converter::class)

@@ -8,6 +8,7 @@ import org.mandziuk.calculalim.db.models.FoodGroup
 import org.mandziuk.calculalim.db.views.ConversionDetails
 import org.mandziuk.calculalim.db.views.FoodAndGroupNames
 import org.mandziuk.calculalim.db.views.FoodNutrientDetails
+import org.mandziuk.calculalim.db.views.NutrientNameEnability
 
 @Dao
 interface FoodDao {
@@ -44,4 +45,7 @@ interface FoodDao {
             "ORDER BY ConvFactorDateOfEntry DESC " +
             "LIMIT 1")
     suspend fun getConverterFactor(foodId: Long) : ConversionDetails;
+
+    @Query("SELECT * FROM NutrientNameEnability")
+    suspend fun getNutrientNames() : List<NutrientNameEnability>;
 }

@@ -13,5 +13,6 @@ data class Nutrient(
     @ColumnInfo(name = "NutrientName") val name : String,
     @ColumnInfo(name = "NutrientNameF") val nameFr : String,
     @ColumnInfo(name = "Tagname") val tagName : String?,
-    @ColumnInfo(name = "NutrientDecimals") val decimals : Long
+    @ColumnInfo(name = "NutrientDecimals") val decimals : Long,
+    @ColumnInfo(name = "Displayed", defaultValue = "1") val displayed : Boolean
 );

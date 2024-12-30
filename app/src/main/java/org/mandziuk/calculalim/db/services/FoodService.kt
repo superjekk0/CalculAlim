@@ -8,9 +8,11 @@ import org.mandziuk.calculalim.db.daos.FoodDao
 import org.mandziuk.calculalim.db.dtos.FoodDTO
 import org.mandziuk.calculalim.db.dtos.FoodDetailDTO
 import org.mandziuk.calculalim.db.dtos.FoodGroupDTO
+import org.mandziuk.calculalim.db.dtos.NutrientEnabledDTO
 import org.mandziuk.calculalim.db.getFoodDao
 import org.mandziuk.calculalim.db.models.Food
 import org.mandziuk.calculalim.db.views.FoodNutrientDetails
+import org.mandziuk.calculalim.db.views.NutrientNameEnability
 import java.util.Locale
 
 class FoodService(applicationContext: Context) {
@@ -66,6 +68,17 @@ class FoodService(applicationContext: Context) {
             val foodDTO = FoodDetailDTO(food, foodNutrients, locale);
             foodDTO.multiplyByWeight(weight);
             return@withContext foodDTO;
+        }
+    }
+
+    suspend fun getNutrientNames() : List<NutrientEnabledDTO>{
+        return withContext(Dispatchers.IO){
+            val nutrients: List<NutrientNameEnability> = foodDao.getNutrientNames();
+            return@withContext if (Locale.getDefault().displayLanguage.contains("fr", true)){
+                nutrients.map { n -> NutrientEnabledDTO(n.nutrientNameFr, n.displayed, n.nutrientId) };
+            } else {
+                nutrients.map { n -> NutrientEnabledDTO(n.nutrientName, n.displayed, n.nutrientId) };
+            };
         }
     }
 }
