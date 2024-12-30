@@ -11,13 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CalculAlim"
-        tools:targetApi="31">
+        tools:targetApi="33">
         <activity
             android:name=".activities.FoodActivity"
             android:exported="false" />
         <activity android:name=".activities.MealActivity"
             android:exported="false" />
         <activity android:name=".activities.HistoryActivity"
+            android:exported="false" />
+        <activity android:name=".activities.ParametersActivity"
             android:exported="false" />
         <activity
             android:name=".activities.MainActivity"

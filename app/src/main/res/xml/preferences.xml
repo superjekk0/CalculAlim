@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:allowDividerBelow="true"
+        android:title="Interface">
+        <SwitchPreference
+            android:key="modeSombre"
+            android:title="Mode sombre"
+            android:summary="Activer le mode sombre"
+            android:defaultValue="false"/>
+        <DropDownPreference
+            android:key="language"
+            android:title="Langue"
+            android:summary="Choisir la langue de l'application"
+            app:entries="@array/langues"
+            app:entryValues="@array/valeurLangues"/>
+        <MultiSelectListPreference
+            android:key="nutriments"
+            android:title="Nutriments à afficher"
+            android:summary="Choisir les nutriments à afficher" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Données">
+        <ListPreference
+            android:title="Aliments supprimés"
+            />
+        <Preference
+            android:title="Supprimer les données enregistrées"
+            app:allowDividerAbove="true"
+            android:summary="Réinitialise l'application en supprimant les profils existants, les aliments rajoutés et l'historique des repas"
+            />
+    </PreferenceCategory>
+
+</PreferenceScreen>

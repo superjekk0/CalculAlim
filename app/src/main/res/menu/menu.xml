@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:id="@+id/aliments">
+    <group android:id="@+id/aliments" android:menuCategory="container">
         <item android:id="@+id/recherche"
             android:title="@string/rechercheAliment"
             android:icon="@drawable/ic_recherche"/>
@@ -12,8 +12,16 @@
             android:title="@string/historique"
             android:icon="@drawable/ic_historique_repas"/>
     </group>
-    <group android:id="@+id/parametres">
+    <group android:menuCategory="system">
 
+        <item
+            android:id="@+id/profil"
+            android:title="@string/changerProfil"
+            android:icon="@drawable/ic_profil"/>
+        <item
+            android:id="@+id/parametres"
+            android:title="@string/parametres"
+            android:icon="@drawable/ic_parametres"/>
 <!--        <item android:id="@+id/parametres"-->
 <!--            android:title="@string/parametres"-->
 <!--            android:icon="@drawable/ic_parametres"/>-->

@@ -23,4 +23,11 @@
     <string name="historique">Anciens repas</string>
     <string name="altImageProfil">Image de profil</string>
     <string name="salutation">Bonjour %1$s</string>
+    <string name="changerProfil">Changer de profil</string>
+    <string name="parametres">Paramètres</string>
+    <string name="changerLangue">Changer la langue</string>
+    <string-array name="langues">
+        <item>English (Anglais)</item>
+        <item>Français</item>
+    </string-array>
 </resources>

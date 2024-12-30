@@ -5,7 +5,7 @@ import org.mandziuk.calculalim.db.daos.ProfilDao
 import org.mandziuk.calculalim.db.getProfilDao
 import org.mandziuk.calculalim.db.models.Profil
 
-class ProfileService(context: Context) {
+class ProfileService(private val context: Context) {
     private val profilDao: ProfilDao = getProfilDao(context);
 
     suspend fun getProfile(id: Long): Profil {
@@ -16,5 +16,9 @@ class ProfileService(context: Context) {
         }
 
         return profilDao.getProfil(id) ?: return profilDao.premierProfil();
+    }
+
+    suspend fun updateLanguage(language: String){
+        
     }
 }
