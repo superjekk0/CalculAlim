@@ -49,7 +49,12 @@ class FoodActivity : DrawerEnabledActivity() {
         }
 
         binding.foodWeight.doOnTextChanged { text, _, _, _ ->
-            foodWeight = (text ?: "0").toString().toInt();
+            foodWeight = when (text?.length) {
+                null -> 0;
+                0 -> 0;
+                else ->
+                    text.toString().toInt();
+            }
         }
 
         binding.addToMeal.setOnClickListener {
