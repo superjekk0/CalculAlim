@@ -38,6 +38,10 @@
     <string name="optionAlimentsSupprimesDescription">Afficher l\'ensemble des aliments qui ont été supprimés</string>
     <string name="optionReinitialisation">Supprimer les données enregistrées</string>
     <string name="optionReinitialisationDescription">Réinitialise l\'application en supprimant les profils existants, les aliments rajoutés et l\'historique des repas</string>
+    <string name="sectionInformations">Informations générales</string>
+    <string name="titreVersionApplication">Version de l\'application</string>
+    <string name="titreMentionsLegales">Mentions légales</string>
+    <string name="envoyerCommentaire">Envoyer un commentaire</string>
     <string-array name="langues">
         <item>English (Anglais)</item>
         <item>Français</item>

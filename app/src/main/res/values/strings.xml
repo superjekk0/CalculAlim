@@ -42,6 +42,10 @@
     <string name="optionAlimentsSupprimesDescription">Displays all previously deleted food</string>
     <string name="optionReinitialisation">Delete Saved Data</string>
     <string name="optionReinitialisationDescription">Resets the App by wiping out existing profiles, food and meal history</string>
+    <string name="sectionInformations">General information</string>
+    <string name="titreVersionApplication">Application\'s version</string>
+    <string name="titreMentionsLegales">Legal mentions</string>
+    <string name="envoyerCommentaire">Send a comment</string>
     <string-array name="langues">
         <item>English</item>
         <item>Français (French)</item>

@@ -27,13 +27,22 @@
             android:summary="@string/choixNutrimentsDescription" />
         <ListPreference
             android:title="@string/optionAlimentsSupprimes"
-            android:summary="@string/optionAlimentsSupprimesDescription"
-            />
+            android:summary="@string/optionAlimentsSupprimesDescription" />
         <Preference
             android:title="@string/optionReinitialisation"
-            app:allowDividerAbove="true"
-            android:summary="@string/optionReinitialisationDescription"
-            />
+            android:summary="@string/optionReinitialisationDescription" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/sectionInformations"
+        app:allowDividerAbove="true">
+
+        <Preference
+            android:title="@string/titreVersionApplication"/>
+        <Preference
+            android:title="@string/titreMentionsLegales"/>
+        <Preference
+            android:title="@string/envoyerCommentaire"/>
     </PreferenceCategory>
 
 </PreferenceScreen>
