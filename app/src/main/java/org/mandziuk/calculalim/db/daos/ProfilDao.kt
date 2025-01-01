@@ -5,6 +5,7 @@ import androidx.room.Index
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import org.mandziuk.calculalim.db.models.FoodRepas
 import org.mandziuk.calculalim.db.models.Profil
 import org.mandziuk.calculalim.db.models.Repas
@@ -30,11 +31,11 @@ interface ProfilDao {
     suspend fun premierProfil(): Profil;
 
     @Insert(onConflict = OnConflictStrategy.ABORT, entity = Repas::class)
-    suspend fun insertRepas(repas: Repas);
+    suspend fun insertRepas(repas: Repas) : Long;
 
     @Insert(onConflict = OnConflictStrategy.ABORT, entity = FoodRepas::class)
     suspend fun insertFoodRepas(foodRepas: FoodRepas);
 
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Transaction
     suspend fun insertFoodRepasList(foodRepas: List<FoodRepas>) = foodRepas.forEach { insertFoodRepas(it) };
 }

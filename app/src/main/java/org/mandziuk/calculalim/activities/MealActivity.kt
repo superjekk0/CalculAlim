@@ -29,17 +29,17 @@ class MealActivity : DrawerEnabledActivity() {
         binding.foods.adapter = adapter;
         binding.foods.layoutManager = LinearLayoutManager(this);
 
-        binding.newMeal.isEnabled = mealDtoInstance.isNotEmpty;
-        binding.newRecipe.isEnabled = mealDtoInstance.isNotEmpty;
+        binding.newMeal.isEnabled = mealDtoInstance.isNotEmpty();
+        binding.newRecipe.isEnabled = mealDtoInstance.isNotEmpty();
 
         binding.newMeal.setOnClickListener{
             lifecycle.coroutineScope.launch {
-                nouveauRepas(it)
+                nouveauRepas();
             }
         };
     }
 
-    private suspend fun nouveauRepas(view: View){
+    private suspend fun nouveauRepas(){
         val profileService = ProfileService(this);
         profileService.addMeal();
         Toast.makeText(this, getString(R.string.repasAjoute), Toast.LENGTH_SHORT).show();

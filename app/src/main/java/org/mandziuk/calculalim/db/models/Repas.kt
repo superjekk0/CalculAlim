@@ -20,7 +20,7 @@ import java.util.Date
     Index(value = ["RepasDate"], name = "IX_Repas_RepasDate", orders = [Index.Order.DESC])
 ])
 data class Repas(
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "RepasID") val id: Long,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "RepasID") var id: Long,
     @ColumnInfo(name = "ProfilID") val profilId: Long,
     @ColumnInfo(name = "RepasDate", typeAffinity = ColumnInfo.INTEGER) val date: Date = Date()
 )

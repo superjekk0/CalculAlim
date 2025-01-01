@@ -1,6 +1,7 @@
 package org.mandziuk.calculalim.db.services
 
 import android.content.Context
+import android.util.Log
 import org.mandziuk.calculalim.db.daos.ProfilDao
 import org.mandziuk.calculalim.db.dtos.mealDtoInstance
 import org.mandziuk.calculalim.db.getProfilDao
@@ -24,10 +25,11 @@ class ProfileService(private val context: Context) {
     suspend fun addMeal(){
         val profil = PreferencesService(context).getProfile();
         val repas = Repas(0L, profil.id);
-        profilDao.insertRepas(repas);
+        repas.id = profilDao.insertRepas(repas);
         val foodRepas = mealDtoInstance.map { f ->
             FoodRepas(f.foodId, repas.id, f.weight);
         }
         profilDao.insertFoodRepasList(foodRepas);
+        mealDtoInstance.clear();
     }
 }
