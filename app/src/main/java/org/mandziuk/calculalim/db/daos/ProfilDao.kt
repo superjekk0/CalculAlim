@@ -1,8 +1,13 @@
 package org.mandziuk.calculalim.db.daos
 
 import androidx.room.Dao
+import androidx.room.Index
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import org.mandziuk.calculalim.db.models.FoodRepas
 import org.mandziuk.calculalim.db.models.Profil
+import org.mandziuk.calculalim.db.models.Repas
 
 @Dao
 interface ProfilDao {
@@ -22,5 +27,14 @@ interface ProfilDao {
      * Récupère le premier profil de la base de données. Devrait être utilisé si aucun profil n'est trouvé.
      */
     @Query("SELECT * FROM Profil LIMIT 1")
-    suspend fun premierProfil(): Profil
+    suspend fun premierProfil(): Profil;
+
+    @Insert(onConflict = OnConflictStrategy.ABORT, entity = Repas::class)
+    suspend fun insertRepas(repas: Repas);
+
+    @Insert(onConflict = OnConflictStrategy.ABORT, entity = FoodRepas::class)
+    suspend fun insertFoodRepas(foodRepas: FoodRepas);
+
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    suspend fun insertFoodRepasList(foodRepas: List<FoodRepas>) = foodRepas.forEach { insertFoodRepas(it) };
 }

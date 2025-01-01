@@ -17,6 +17,16 @@ class MealDTO {
             return this.foodMeals.size;
         };
 
+    val isEmpty: Boolean
+        get() {
+            return this.foodMeals.isEmpty();
+        };
+
+    val isNotEmpty: Boolean
+        get() {
+            return this.foodMeals.isNotEmpty();
+        };
+
     operator fun get(index: Int): FoodMealDTO {
         return this.foodMeals[index];
     }
@@ -35,5 +45,9 @@ class MealDTO {
         if (existingFoodMeal != null){
             this.foodMeals.remove(existingFoodMeal);
         }
+    }
+
+    fun <R> map(transform: (FoodMealDTO) -> R): List<R> {
+        return this.foodMeals.map(transform);
     }
 }

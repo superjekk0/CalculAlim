@@ -1,0 +1,717 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 14,
+    "identityHash": "1f3481c8930d40df1aec7c4ff0506e50",
+    "entities": [
+      {
+        "tableName": "FoodGroup",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`FoodGroupID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `FoodGroupName` TEXT NOT NULL, `FoodGroupNameF` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "FoodGroupID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "groupName",
+            "columnName": "FoodGroupName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "groupNameFr",
+            "columnName": "FoodGroupNameF",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "FoodGroupID"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Nutrient",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`NutrientID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `NutrientCode` INTEGER NOT NULL, `NutrientSymbol` TEXT NOT NULL, `NutrientUnit` TEXT NOT NULL, `NutrientName` TEXT NOT NULL, `NutrientNameF` TEXT NOT NULL, `Tagname` TEXT, `NutrientDecimals` INTEGER NOT NULL, `Displayed` INTEGER NOT NULL DEFAULT 1)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "NutrientID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "code",
+            "columnName": "NutrientCode",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "symbol",
+            "columnName": "NutrientSymbol",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "unit",
+            "columnName": "NutrientUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "NutrientName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nameFr",
+            "columnName": "NutrientNameF",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tagName",
+            "columnName": "Tagname",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "decimals",
+            "columnName": "NutrientDecimals",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "displayed",
+            "columnName": "Displayed",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "1"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "NutrientID"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Food",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`FoodID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `FoodCode` INTEGER NOT NULL, `FoodGroupID` INTEGER, `FoodSourceID` INTEGER, `FoodDescription` TEXT NOT NULL, `FoodDescriptionF` TEXT NOT NULL, `FoodDateOfEntry` TEXT, `FoodDateOfPublication` TEXT, `CountryCode` TEXT, `ScientificName` TEXT, FOREIGN KEY(`FoodGroupID`) REFERENCES `FoodGroup`(`FoodGroupID`) ON UPDATE NO ACTION ON DELETE SET NULL )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "FoodID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "code",
+            "columnName": "FoodCode",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "groupId",
+            "columnName": "FoodGroupID",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sourceId",
+            "columnName": "FoodSourceID",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "FoodDescription",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descriptionFr",
+            "columnName": "FoodDescriptionF",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "entryDate",
+            "columnName": "FoodDateOfEntry",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "publicationDate",
+            "columnName": "FoodDateOfPublication",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "countryCode",
+            "columnName": "CountryCode",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "scientificName",
+            "columnName": "ScientificName",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "FoodID"
+          ]
+        },
+        "indices": [
+          {
+            "name": "IX_Food_FoodGroupID",
+            "unique": false,
+            "columnNames": [
+              "FoodGroupID"
+            ],
+            "orders": [
+              "ASC"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `IX_Food_FoodGroupID` ON `${TABLE_NAME}` (`FoodGroupID` ASC)"
+          },
+          {
+            "name": "IX_Food_Description",
+            "unique": false,
+            "columnNames": [
+              "FoodDescription"
+            ],
+            "orders": [
+              "ASC"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `IX_Food_Description` ON `${TABLE_NAME}` (`FoodDescription` ASC)"
+          },
+          {
+            "name": "IX_Food_DescriptionF",
+            "unique": false,
+            "columnNames": [
+              "FoodDescriptionF"
+            ],
+            "orders": [
+              "ASC"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `IX_Food_DescriptionF` ON `${TABLE_NAME}` (`FoodDescriptionF` ASC)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "FoodGroup",
+            "onDelete": "SET NULL",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "FoodGroupID"
+            ],
+            "referencedColumns": [
+              "FoodGroupID"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "FoodNutrientAmount",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`FoodID` INTEGER NOT NULL, `NutrientID` INTEGER NOT NULL, `NutrientValue` REAL NOT NULL, `StandardError` REAL, `NumberOfObservations` INTEGER, `NutrientSourceID` INTEGER NOT NULL, `NutrientDateOfEntry` TEXT, PRIMARY KEY(`FoodID`, `NutrientID`), FOREIGN KEY(`FoodID`) REFERENCES `Food`(`FoodID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "foodId",
+            "columnName": "FoodID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nutrientId",
+            "columnName": "NutrientID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "value",
+            "columnName": "NutrientValue",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "errorMargin",
+            "columnName": "StandardError",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "observationNumber",
+            "columnName": "NumberOfObservations",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nutrientSourceId",
+            "columnName": "NutrientSourceID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "entryDate",
+            "columnName": "NutrientDateOfEntry",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "FoodID",
+            "NutrientID"
+          ]
+        },
+        "indices": [
+          {
+            "name": "IX_FoodNutrientAmount_FoodID",
+            "unique": false,
+            "columnNames": [
+              "FoodID"
+            ],
+            "orders": [
+              "ASC"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `IX_FoodNutrientAmount_FoodID` ON `${TABLE_NAME}` (`FoodID` ASC)"
+          },
+          {
+            "name": "IX_FoodNutrientAmount_NutrientID",
+            "unique": false,
+            "columnNames": [
+              "NutrientID"
+            ],
+            "orders": [
+              "ASC"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `IX_FoodNutrientAmount_NutrientID` ON `${TABLE_NAME}` (`NutrientID` ASC)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Food",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "FoodID"
+            ],
+            "referencedColumns": [
+              "FoodID"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Discard",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`DiscardID` INTEGER NOT NULL, `RefuseDescription` TEXT NOT NULL, `RefuseDescriptionF` TEXT NOT NULL, PRIMARY KEY(`DiscardID`))",
+        "fields": [
+          {
+            "fieldPath": "discardId",
+            "columnName": "DiscardID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "discardDescription",
+            "columnName": "RefuseDescription",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "discardDescriptionFr",
+            "columnName": "RefuseDescriptionF",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "DiscardID"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "DiscardFood",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`FoodID` INTEGER NOT NULL, `DiscardID` INTEGER NOT NULL, `DiscardPercentage` INTEGER NOT NULL DEFAULT 0, `DiscardDateOfEntry` TEXT, PRIMARY KEY(`FoodID`, `DiscardID`), FOREIGN KEY(`DiscardID`) REFERENCES `Discard`(`DiscardID`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`FoodID`) REFERENCES `Food`(`FoodID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "foodId",
+            "columnName": "FoodID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "discardId",
+            "columnName": "DiscardID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "discardPercentage",
+            "columnName": "DiscardPercentage",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "discardDateOfEntry",
+            "columnName": "DiscardDateOfEntry",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "FoodID",
+            "DiscardID"
+          ]
+        },
+        "indices": [
+          {
+            "name": "IX_DiscardFood_FoodID",
+            "unique": false,
+            "columnNames": [
+              "FoodID"
+            ],
+            "orders": [
+              "ASC"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `IX_DiscardFood_FoodID` ON `${TABLE_NAME}` (`FoodID` ASC)"
+          },
+          {
+            "name": "IX_DiscardFood_DiscardID",
+            "unique": false,
+            "columnNames": [
+              "DiscardID"
+            ],
+            "orders": [
+              "ASC"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `IX_DiscardFood_DiscardID` ON `${TABLE_NAME}` (`DiscardID` ASC)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Discard",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "DiscardID"
+            ],
+            "referencedColumns": [
+              "DiscardID"
+            ]
+          },
+          {
+            "table": "Food",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "FoodID"
+            ],
+            "referencedColumns": [
+              "FoodID"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "MeasureName",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`MeasureID` INTEGER NOT NULL, `MeasureDescription` TEXT NOT NULL, `MeasureDescriptionF` TEXT NOT NULL, PRIMARY KEY(`MeasureID`))",
+        "fields": [
+          {
+            "fieldPath": "measureId",
+            "columnName": "MeasureID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "measureName",
+            "columnName": "MeasureDescription",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "measureNameFr",
+            "columnName": "MeasureDescriptionF",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "MeasureID"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ConversionFactor",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`FoodID` INTEGER NOT NULL, `MeasureID` INTEGER NOT NULL, `ConversionFactorValue` REAL NOT NULL, `ConvFactorDateOfEntry` TEXT, PRIMARY KEY(`FoodID`, `MeasureID`), FOREIGN KEY(`FoodID`) REFERENCES `Food`(`FoodID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "foodId",
+            "columnName": "FoodID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "measureId",
+            "columnName": "MeasureID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "conversionFactor",
+            "columnName": "ConversionFactorValue",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dateOfEntry",
+            "columnName": "ConvFactorDateOfEntry",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "FoodID",
+            "MeasureID"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "Food",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "FoodID"
+            ],
+            "referencedColumns": [
+              "FoodID"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Profil",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ProfilID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `ProfilName` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "ProfilID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "ProfilName",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "ProfilID"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Repas",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`RepasID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `ProfilID` INTEGER NOT NULL, `RepasDate` INTEGER NOT NULL, FOREIGN KEY(`ProfilID`) REFERENCES `Profil`(`ProfilID`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "RepasID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "profilId",
+            "columnName": "ProfilID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "RepasDate",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "RepasID"
+          ]
+        },
+        "indices": [
+          {
+            "name": "IX_Repas_ProfilID",
+            "unique": false,
+            "columnNames": [
+              "ProfilID"
+            ],
+            "orders": [
+              "ASC"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `IX_Repas_ProfilID` ON `${TABLE_NAME}` (`ProfilID` ASC)"
+          },
+          {
+            "name": "IX_Repas_RepasDate",
+            "unique": false,
+            "columnNames": [
+              "RepasDate"
+            ],
+            "orders": [
+              "DESC"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `IX_Repas_RepasDate` ON `${TABLE_NAME}` (`RepasDate` DESC)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Profil",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "ProfilID"
+            ],
+            "referencedColumns": [
+              "ProfilID"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "FoodRepas",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`FoodID` INTEGER NOT NULL, `RepasID` INTEGER NOT NULL, `Quantity` INTEGER NOT NULL, PRIMARY KEY(`FoodID`, `RepasID`), FOREIGN KEY(`FoodID`) REFERENCES `Food`(`FoodID`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`RepasID`) REFERENCES `Repas`(`RepasID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "foodId",
+            "columnName": "FoodID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "repasId",
+            "columnName": "RepasID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "quantity",
+            "columnName": "Quantity",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "FoodID",
+            "RepasID"
+          ]
+        },
+        "indices": [
+          {
+            "name": "IX_FoodRepas_FoodID",
+            "unique": false,
+            "columnNames": [
+              "FoodID"
+            ],
+            "orders": [
+              "ASC"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `IX_FoodRepas_FoodID` ON `${TABLE_NAME}` (`FoodID` ASC)"
+          },
+          {
+            "name": "IX_FoodRepas_RepasID",
+            "unique": false,
+            "columnNames": [
+              "RepasID"
+            ],
+            "orders": [
+              "ASC"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `IX_FoodRepas_RepasID` ON `${TABLE_NAME}` (`RepasID` ASC)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Food",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "FoodID"
+            ],
+            "referencedColumns": [
+              "FoodID"
+            ]
+          },
+          {
+            "table": "Repas",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "RepasID"
+            ],
+            "referencedColumns": [
+              "RepasID"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [
+      {
+        "viewName": "FoodAndGroupNames",
+        "createSql": "CREATE VIEW `${VIEW_NAME}` AS SELECT F.FoodDescription, F.FoodDescriptionF, FG.FoodGroupName, FG.FoodGroupNameF, FG.FoodGroupID, F.FoodID FROM Food F INNER JOIN FoodGroup FG ON FG.FoodGroupID = F.FoodGroupID"
+      },
+      {
+        "viewName": "FoodNutrientDetails",
+        "createSql": "CREATE VIEW `${VIEW_NAME}` AS SELECT N.NutrientID, NA.FoodID, N.NutrientName, N.NutrientNameF, N.NutrientUnit, NA.NutrientValue, N.NutrientDecimals FROM Nutrient N INNER JOIN FoodNutrientAmount NA ON NA.NutrientID = N.NutrientID WHERE N.Displayed = 1"
+      },
+      {
+        "viewName": "ConversionDetails",
+        "createSql": "CREATE VIEW `${VIEW_NAME}` AS SELECT CF.FoodID, CF.MeasureID, CF.ConversionFactorValue, CF.ConvFactorDateOfEntry, M.MeasureDescription, M.MeasureDescriptionF FROM ConversionFactor CF INNER JOIN MeasureName M ON CF.MeasureID = M.MeasureID"
+      },
+      {
+        "viewName": "NutrientNameEnability",
+        "createSql": "CREATE VIEW `${VIEW_NAME}` AS SELECT N.NutrientName, N.NutrientNameF, N.Displayed, N.NutrientID FROM Nutrient N"
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1f3481c8930d40df1aec7c4ff0506e50')"
+    ]
+  }
+}

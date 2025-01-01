@@ -3,6 +3,7 @@ package org.mandziuk.calculalim.db.models
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import java.util.Date
 
 @Entity(tableName = "DiscardFood", primaryKeys = ["FoodID", "DiscardID"], foreignKeys = [
@@ -16,6 +17,9 @@ import java.util.Date
     parentColumns = ["FoodID"],
     childColumns = ["FoodID"],
     onDelete = ForeignKey.CASCADE)
+], indices = [
+    Index(name = "IX_DiscardFood_FoodID", value = ["FoodID"], orders = [Index.Order.ASC]),
+    Index(name = "IX_DiscardFood_DiscardID", value = ["DiscardID"], orders = [Index.Order.ASC])
 ])
 data class DiscardFood(
     @ColumnInfo(name = "FoodID") val foodId: Long,

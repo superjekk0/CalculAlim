@@ -1,6 +1,7 @@
 package org.mandziuk.calculalim.db.services
 
 import android.content.Context
+import android.util.Log
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import kotlinx.coroutines.flow.Flow
@@ -13,11 +14,13 @@ class PreferencesService(val context: Context) {
     private val preferences = context.dataStore;
     private val profilKey = intPreferencesKey("profil");
 
-    suspend fun getProfile(profileService: ProfileService): Profil {
+    suspend fun getProfile(): Profil {
+        val profileService = ProfileService(context);
         val profilActuel: Flow<Int> = preferences.data.map { d ->
             d[profilKey] ?: 0;
         };
         val profilId = profilActuel.first().toLong();
+        Log.i("Profil", profilId.toString());
         val profile = profileService.getProfile(profilId);
 
         if (profilId != profile.id){

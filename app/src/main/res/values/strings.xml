@@ -46,6 +46,7 @@
     <string name="titreVersionApplication">Application\'s version</string>
     <string name="titreMentionsLegales">Legal mentions</string>
     <string name="envoyerCommentaire">Send a comment</string>
+    <string name="repasAjoute">Meal has been saved</string>
     <string-array name="langues">
         <item>English</item>
         <item>Français (French)</item>

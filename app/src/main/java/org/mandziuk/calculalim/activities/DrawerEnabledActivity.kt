@@ -78,7 +78,7 @@ open class DrawerEnabledActivity : AppCompatActivity() {
 
         lifecycleScope.launch{
             val context = this@DrawerEnabledActivity;
-            val profil = PreferencesService(context).getProfile(ProfileService(context));
+            val profil = PreferencesService(context).getProfile();
             val header = navigationView.getHeaderView(0);
             header.findViewById<TextView>(R.id.nomProfil).text =
                 getString(R.string.salutation, profil.name);
