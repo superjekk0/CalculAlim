@@ -9,11 +9,13 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import org.mandziuk.calculalim.activities.dataStore
 import org.mandziuk.calculalim.db.daos.ProfilDao
+import org.mandziuk.calculalim.db.dtos.MealDTO
 import org.mandziuk.calculalim.db.dtos.mealDtoInstance
 import org.mandziuk.calculalim.db.getProfilDao
 import org.mandziuk.calculalim.db.models.FoodRepas
 import org.mandziuk.calculalim.db.models.Profil
 import org.mandziuk.calculalim.db.models.Repas
+import java.util.Locale
 
 class ProfileService(private val context: Context) {
     private val profilDao: ProfilDao = getProfilDao(context);
@@ -63,5 +65,20 @@ class ProfileService(private val context: Context) {
     suspend fun getMeals() : List<Repas>{
         val profil = getProfile();
         return profilDao.getMeals(profil.id);
+    }
+
+    suspend fun getFoodRepas(repasId: Long): MealDTO {
+        val resultat = MealDTO();
+        val foodRepasDetails = profilDao.getFoodRepasDetails(repasId);
+        val locale = Locale.getDefault().displayLanguage;
+        resultat.addAll(foodRepasDetails.map { f ->
+            MealDTO.FoodMealDTO(f.foodId,
+                if (locale.contains("fr", true))
+                    f.foodNameFr
+                else
+                    f.foodName,
+                f.quantity);
+        });
+        return resultat;
     }
 }

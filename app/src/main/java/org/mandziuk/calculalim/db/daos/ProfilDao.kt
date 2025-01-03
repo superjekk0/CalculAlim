@@ -9,6 +9,7 @@ import androidx.room.Transaction
 import org.mandziuk.calculalim.db.models.FoodRepas
 import org.mandziuk.calculalim.db.models.Profil
 import org.mandziuk.calculalim.db.models.Repas
+import org.mandziuk.calculalim.db.views.FoodRepasDetails
 
 @Dao
 interface ProfilDao {
@@ -41,4 +42,7 @@ interface ProfilDao {
 
     @Query("SELECT * FROM Repas WHERE ProfilID = :profilId ORDER BY RepasDate DESC")
     suspend fun getMeals(profilId: Long) : List<Repas>;
+
+    @Query("SELECT * FROM FoodRepasDetails WHERE RepasID = :repasId")
+    suspend fun getFoodRepasDetails(repasId: Long): List<FoodRepasDetails>;
 }

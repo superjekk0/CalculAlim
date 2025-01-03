@@ -1,6 +1,7 @@
 package org.mandziuk.calculalim.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import org.mandziuk.calculalim.R
+import org.mandziuk.calculalim.activities.MealActivity
 import org.mandziuk.calculalim.db.models.Repas
 
 class HistoryDetailAdapter(private val context: Context) : Adapter<HistoryDetailAdapter.HistoryDetailVH>() {
@@ -42,7 +44,9 @@ class HistoryDetailAdapter(private val context: Context) : Adapter<HistoryDetail
         holder.heure.text = context.getString(R.string.heureHistorique, repas[position].date);
         holder.details.setOnClickListener {
             // TODO : Implémenter le détail
-            Toast.makeText(context, "Tu m'as touché", Toast.LENGTH_SHORT).show();
+            val intent = Intent(context, MealActivity::class.java);
+            intent.putExtra("repasId", repas[position].id);
+            context.startActivity(intent);
         }
     }
 }

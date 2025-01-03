@@ -11,13 +11,20 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import org.mandziuk.calculalim.R
 import org.mandziuk.calculalim.activities.FoodActivity
 import org.mandziuk.calculalim.db.dtos.MealDTO
-import org.mandziuk.calculalim.db.dtos.mealDtoInstance
 
-class MealAdapter(private val context: Context) : Adapter<MealAdapter.MyVH>() {
-    private val aliments : MealDTO = mealDtoInstance;
+class MealAdapter(private val context: Context, private val repadId: Long) : Adapter<MealAdapter.MyVH>() {
+    private val aliments : MealDTO = MealDTO();
     class MyVH(itemView: View) : ViewHolder(itemView) {
         val aliment : TextView = itemView.findViewById(R.id.food_name);
         val poids : TextView = itemView.findViewById(R.id.food_weight);
+    }
+
+    fun setItems(items: MealDTO){
+        val ancienneTaille = aliments.size;
+        aliments.clear();
+        notifyItemRangeRemoved(0, ancienneTaille);
+        aliments.addAll(items);
+        notifyItemRangeInserted(0, items.size);
     }
 
     override fun getItemCount(): Int {
@@ -38,6 +45,7 @@ class MealAdapter(private val context: Context) : Adapter<MealAdapter.MyVH>() {
             val intent = Intent(context, FoodActivity::class.java);
             intent.putExtra("id", aliments[position].foodId);
             intent.putExtra("poids", aliments[position].weight);
+            intent.putExtra("repasId", repadId);
             context.startActivity(intent);
         }
     }

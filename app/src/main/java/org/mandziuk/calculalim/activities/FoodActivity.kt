@@ -35,8 +35,9 @@ class FoodActivity : DrawerEnabledActivity() {
 
         initializeDrawer(binding.drawer, binding.navigation);
         mealWeight = intent.getIntExtra("poids", -1);
+        val repasId = intent.getLongExtra("repasId", -1L);
 
-        setUi();
+        setUi(repasId);
 
         lifecycleScope.launch {
             val foodId = intent.getLongExtra("id", 0L);
@@ -77,11 +78,12 @@ class FoodActivity : DrawerEnabledActivity() {
         nutrientAdapter.setList(foodDetailDTO.nutrients);
     }
 
-    private fun setUi(){
+    private fun setUi(repasId: Long){
         if (mealWeight != -1){
             binding.portionLayout.visibility = View.GONE;
             binding.setWeightLayout.visibility = View.GONE;
             binding.addToMeal.setText(R.string.supprimerAliment);
+            binding.addToMeal.visibility = if (repasId == -1L) View.VISIBLE else View.GONE;
         } else{
             binding.portionLayout.visibility = View.VISIBLE;
             binding.setWeightLayout.visibility = View.VISIBLE;
