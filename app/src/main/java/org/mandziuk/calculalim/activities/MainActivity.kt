@@ -15,7 +15,6 @@ import org.mandziuk.calculalim.R
 import org.mandziuk.calculalim.databinding.ActivityMainBinding
 import org.mandziuk.calculalim.db.dtos.FoodGroupDTO
 import org.mandziuk.calculalim.db.services.FoodService
-import org.mandziuk.calculalim.db.services.PreferencesService
 import org.mandziuk.calculalim.db.services.ProfileService
 
 var indexGroup : Long = 0L;

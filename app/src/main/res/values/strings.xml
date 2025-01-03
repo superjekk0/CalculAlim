@@ -47,6 +47,10 @@
     <string name="titreMentionsLegales">Legal mentions</string>
     <string name="envoyerCommentaire">Send a comment</string>
     <string name="repasAjoute">Meal has been saved</string>
+    <string name="detailsRepas">Details</string>
+    <!-- TODO: Ajouter les cas des jours commençant par 1, 2 ou 3 -->
+    <string name="dateHistorique">%1$tB %1$te %1$tY</string>
+    <string name="heureHistorique">%1$tIh%1$tM %1$tp</string>
     <string-array name="langues">
         <item>English</item>
         <item>Français (French)</item>

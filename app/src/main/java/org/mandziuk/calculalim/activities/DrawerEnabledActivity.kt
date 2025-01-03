@@ -13,7 +13,6 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.launch
 import org.mandziuk.calculalim.R
-import org.mandziuk.calculalim.db.services.PreferencesService
 import org.mandziuk.calculalim.db.services.ProfileService
 
 /**
@@ -78,7 +77,7 @@ open class DrawerEnabledActivity : AppCompatActivity() {
 
         lifecycleScope.launch{
             val context = this@DrawerEnabledActivity;
-            val profil = PreferencesService(context).getProfile();
+            val profil = ProfileService(context).getProfile();
             val header = navigationView.getHeaderView(0);
             header.findViewById<TextView>(R.id.nomProfil).text =
                 getString(R.string.salutation, profil.name);

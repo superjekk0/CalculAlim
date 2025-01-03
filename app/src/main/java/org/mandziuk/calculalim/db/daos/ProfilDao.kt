@@ -38,4 +38,7 @@ interface ProfilDao {
 
     @Transaction
     suspend fun insertFoodRepasList(foodRepas: List<FoodRepas>) = foodRepas.forEach { insertFoodRepas(it) };
+
+    @Query("SELECT * FROM Repas WHERE ProfilID = :profilId ORDER BY RepasDate DESC")
+    suspend fun getMeals(profilId: Long) : List<Repas>;
 }

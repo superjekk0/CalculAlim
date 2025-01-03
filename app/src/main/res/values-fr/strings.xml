@@ -43,6 +43,10 @@
     <string name="titreMentionsLegales">Mentions légales</string>
     <string name="envoyerCommentaire">Envoyer un commentaire</string>
     <string name="repasAjoute">Le repas a été enregistré</string>
+    <string name="detailsRepas">Détails</string>
+    <!-- TODO : Ajouter le cas du premier jour en français -->
+    <string name="dateHistorique">%1$te %1$tB %1$tY</string>
+    <string name="heureHistorique">%1$tHh%1$tM</string>
     <string-array name="langues">
         <item>English (Anglais)</item>
         <item>Français</item>
