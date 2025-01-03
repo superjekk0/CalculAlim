@@ -4,6 +4,8 @@ val mealDtoInstance = MealDTO();
 
 class MealDTO : ArrayList<MealDTO.FoodMealDTO>(){
     class FoodMealDTO(val foodId: Long, val foodName: String, var weight: Int){
+        var displayed: Boolean = true;
+        var index: Int = -1;
         constructor(foodDTO: FoodDTO, weight: Int) : this(foodDTO.foodId, foodDTO.foodName, weight);
 
     };
@@ -14,7 +16,9 @@ class MealDTO : ArrayList<MealDTO.FoodMealDTO>(){
             existingFoodMeal.weight += weight;
             return;
         }
-        this.add(FoodMealDTO(foodMealDTO, weight));
+        val newFoodMealDTO = FoodMealDTO(foodMealDTO, weight);
+        newFoodMealDTO.index = this.size;
+        this.add(newFoodMealDTO);
     }
 
     fun remove(foodId: Long){

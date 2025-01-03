@@ -1,10 +1,9 @@
 package org.mandziuk.calculalim.activities
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,6 +35,7 @@ class FoodActivity : DrawerEnabledActivity() {
         initializeDrawer(binding.drawer, binding.navigation);
         mealWeight = intent.getIntExtra("poids", -1);
         val repasId = intent.getLongExtra("repasId", -1L);
+        val position = intent.getIntExtra("position", -1);
 
         setUi(repasId);
 
@@ -60,7 +60,9 @@ class FoodActivity : DrawerEnabledActivity() {
 
         binding.addToMeal.setOnClickListener {
             if (mealWeight != -1){
-                mealDtoInstance.remove(foodDetailDTO.food.foodId);
+                val resultIntent = Intent();
+                resultIntent.putExtra("deletedFoodId", foodDetailDTO.food.foodId);
+                setResult(RESULT_OK, resultIntent);
                 Toast.makeText(this, getString(R.string.messageAlimentSupprime, foodDetailDTO.food.foodName), Toast.LENGTH_LONG).show();
             } else{
                 mealDtoInstance.add(foodDetailDTO.food, foodWeight);

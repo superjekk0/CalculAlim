@@ -2,17 +2,19 @@ package org.mandziuk.calculalim.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import org.mandziuk.calculalim.R
 import org.mandziuk.calculalim.activities.FoodActivity
 import org.mandziuk.calculalim.db.dtos.MealDTO
 
-class MealAdapter(private val context: Context, private val repadId: Long) : Adapter<MealAdapter.MyVH>() {
+class MealAdapter(private val context: Context, private val repadId: Long, private val removeResult: ActivityResultLauncher<Intent>) : Adapter<MealAdapter.MyVH>() {
     private val aliments : MealDTO = MealDTO();
     class MyVH(itemView: View) : ViewHolder(itemView) {
         val aliment : TextView = itemView.findViewById(R.id.food_name);
@@ -25,6 +27,14 @@ class MealAdapter(private val context: Context, private val repadId: Long) : Ada
         notifyItemRangeRemoved(0, ancienneTaille);
         aliments.addAll(items);
         notifyItemRangeInserted(0, items.size);
+    }
+
+    fun removeFood(foodId: Long) {
+        val index = aliments.indexOfFirst { it.foodId == foodId };
+        notifyItemRemoved(index);
+        aliments.removeAt(index);
+        val alimentsAffectes = aliments.subList(index, aliments.size);
+        notifyItemRangeChanged(index, alimentsAffectes.size);
     }
 
     override fun getItemCount(): Int {
@@ -46,7 +56,7 @@ class MealAdapter(private val context: Context, private val repadId: Long) : Ada
             intent.putExtra("id", aliments[position].foodId);
             intent.putExtra("poids", aliments[position].weight);
             intent.putExtra("repasId", repadId);
-            context.startActivity(intent);
+            removeResult.launch(intent);
         }
     }
 }

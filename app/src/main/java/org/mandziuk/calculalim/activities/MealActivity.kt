@@ -1,12 +1,13 @@
 package org.mandziuk.calculalim.activities
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.transition.Visibility
 import kotlinx.coroutines.launch
 import org.mandziuk.calculalim.R
 import org.mandziuk.calculalim.adapters.MealAdapter
@@ -27,9 +28,20 @@ class MealActivity : DrawerEnabledActivity() {
         setContentView(binding.root);
         initializeDrawer(binding.drawer, binding.navigation);
 
+        val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data;
+                val foodId = data?.getLongExtra("deletedFoodId", -1);
+                if (foodId != null && foodId != -1L){
+                    adapter.removeFood(foodId);
+                    mealDtoInstance.remove(foodId);
+                }
+            }
+        }
+
         profileService = ProfileService(this);
         val repasId = intent.getLongExtra("repasId", -1L);
-        adapter = MealAdapter(this, repasId);
+        adapter = MealAdapter(this, repasId, resultLauncher);
         binding.foods.adapter = adapter;
         binding.foods.layoutManager = LinearLayoutManager(this);
 
@@ -60,10 +72,5 @@ class MealActivity : DrawerEnabledActivity() {
         Toast.makeText(this, getString(R.string.repasAjoute), Toast.LENGTH_SHORT).show();
         val intent = Intent(this, MainActivity::class.java);
         startActivity(intent);
-    }
-
-    override fun onResume() {
-        super.onResume()
-        adapter.notifyDataSetChanged();
     }
 }

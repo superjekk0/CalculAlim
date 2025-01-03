@@ -55,7 +55,7 @@ class ProfileService(private val context: Context) {
         val profil = getProfile();
         val repas = Repas(0L, profil.id);
         repas.id = profilDao.insertRepas(repas);
-        val foodRepas = mealDtoInstance.map { f ->
+        val foodRepas = mealDtoInstance.filter { it.displayed }.map { f ->
             FoodRepas(f.foodId, repas.id, f.weight);
         }
         profilDao.insertFoodRepasList(foodRepas);
