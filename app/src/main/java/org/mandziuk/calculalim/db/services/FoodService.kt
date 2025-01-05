@@ -91,4 +91,22 @@ class FoodService(applicationContext: Context) {
                 .map { n -> n.nutrientId });
         }
     }
+
+    suspend fun foodNameTaken(foodName: String) : TakenStatus{
+        val exists = foodDao.foodExists(foodName);
+        if (!exists){
+            return TakenStatus.NOT_TAKEN;
+        }
+        return if (foodDao.foodExistsFr(foodName)){
+            TakenStatus.TAKEN_FR;
+        } else {
+            TakenStatus.TAKEN_EN;
+        }
+    }
+}
+
+enum class TakenStatus{
+    NOT_TAKEN,
+    TAKEN_FR,
+    TAKEN_EN
 }

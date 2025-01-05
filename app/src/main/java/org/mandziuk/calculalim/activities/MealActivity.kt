@@ -14,6 +14,7 @@ import org.mandziuk.calculalim.adapters.MealAdapter
 import org.mandziuk.calculalim.databinding.ActivityMealBinding
 import org.mandziuk.calculalim.db.dtos.mealDtoInstance
 import org.mandziuk.calculalim.db.services.ProfileService
+import org.mandziuk.calculalim.dialogs.AddMealDialog
 
 class MealActivity : DrawerEnabledActivity() {
 
@@ -65,6 +66,12 @@ class MealActivity : DrawerEnabledActivity() {
                 nouveauRepas();
             }
         };
+
+        binding.newRecipe.setOnClickListener {
+            val dialog = AddMealDialog(this@MealActivity);
+
+            dialog.show();
+        }
     }
 
     private suspend fun nouveauRepas(){

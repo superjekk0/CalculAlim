@@ -59,4 +59,10 @@ interface FoodDao {
             "SET Displayed = 0 " +
             "WHERE NutrientID IN (:nutrientIds)")
     suspend fun updateNutrientHidden(nutrientIds: List<Long>);
+
+    @Query("SELECT COUNT(FoodID) FROM Food WHERE UPPER(FoodDescription) = UPPER(:foodName) OR UPPER(FoodDescriptionF) = UPPER(:foodName)")
+    suspend fun foodExists(foodName: String) : Boolean;
+
+    @Query("SELECT COUNT(FoodID) FROM Food WHERE UPPER(FoodDescriptionF) = UPPER(:foodName)")
+    suspend fun foodExistsFr(foodName: String) : Boolean;
 }
