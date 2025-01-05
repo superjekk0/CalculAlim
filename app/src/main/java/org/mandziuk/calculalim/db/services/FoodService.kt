@@ -15,7 +15,7 @@ import org.mandziuk.calculalim.db.views.FoodNutrientDetails
 import org.mandziuk.calculalim.db.views.NutrientNameEnability
 import java.util.Locale
 
-class FoodService(applicationContext: Context) {
+class FoodService(private val applicationContext: Context) {
     private val foodDao: FoodDao = getFoodDao(applicationContext);
 
     suspend fun getFood(foodName: String, groupId: Long) : List<FoodDTO>{
@@ -35,7 +35,7 @@ class FoodService(applicationContext: Context) {
         };
     }
 
-    suspend fun getFoodGroups(context: Context) : List<FoodGroupDTO>{
+    suspend fun getFoodGroups(): List<FoodGroupDTO>{
         return withContext(Dispatchers.IO){
             val groupes = foodDao.getGroups();
             val locale = Locale.getDefault().displayLanguage;
@@ -44,7 +44,7 @@ class FoodService(applicationContext: Context) {
             } else {
                 groupes.map { g -> FoodGroupDTO(g.id, g.groupName) }.toMutableList();
             };
-            liste.add(0, FoodGroupDTO(0, context.getString(R.string.tousGroupes)));
+            liste.add(0, FoodGroupDTO(0, applicationContext.getString(R.string.tousGroupes)));
             return@withContext liste;
         }
     }

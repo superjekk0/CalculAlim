@@ -15,7 +15,6 @@ import org.mandziuk.calculalim.R
 import org.mandziuk.calculalim.databinding.ActivityMainBinding
 import org.mandziuk.calculalim.db.dtos.FoodGroupDTO
 import org.mandziuk.calculalim.db.services.FoodService
-import org.mandziuk.calculalim.db.services.ProfileService
 
 var indexGroup : Long = 0L;
 val Context.dataStore: DataStore<androidx.datastore.preferences.core.Preferences> by preferencesDataStore(name = "settings");
@@ -39,7 +38,7 @@ class MainActivity : DrawerEnabledActivity() {
 
 //        abToggle.syncState();
         lifecycleScope.launch{
-            choixGroupes = service.getFoodGroups(applicationContext);
+            choixGroupes = service.getFoodGroups();
             binding.choix.text = choixGroupes[indexGroup.toInt()].groupName;
             Log.i("EXEMPLE", choixGroupes.toString());
         };

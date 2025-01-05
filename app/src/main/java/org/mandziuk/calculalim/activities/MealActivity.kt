@@ -13,6 +13,7 @@ import org.mandziuk.calculalim.R
 import org.mandziuk.calculalim.adapters.MealAdapter
 import org.mandziuk.calculalim.databinding.ActivityMealBinding
 import org.mandziuk.calculalim.db.dtos.mealDtoInstance
+import org.mandziuk.calculalim.db.services.FoodService
 import org.mandziuk.calculalim.db.services.ProfileService
 import org.mandziuk.calculalim.dialogs.AddMealDialog
 
@@ -56,7 +57,7 @@ class MealActivity : DrawerEnabledActivity() {
             }
             else {
                 binding.newMeal.isEnabled = mealDtoInstance.isNotEmpty();
-                binding.newRecipe.isEnabled = mealDtoInstance.isNotEmpty();
+                binding.newRecipe.isEnabled = mealDtoInstance.size > 1;
                 adapter.setItems(mealDtoInstance);
             }
         }
@@ -68,9 +69,9 @@ class MealActivity : DrawerEnabledActivity() {
         };
 
         binding.newRecipe.setOnClickListener {
-            val dialog = AddMealDialog(this@MealActivity);
-
-            dialog.show();
+            lifecycle.coroutineScope.launch {
+                dialogueNouvelleRecette();
+            }
         }
     }
 
@@ -79,5 +80,14 @@ class MealActivity : DrawerEnabledActivity() {
         Toast.makeText(this, getString(R.string.repasAjoute), Toast.LENGTH_SHORT).show();
         val intent = Intent(this, MainActivity::class.java);
         startActivity(intent);
+    }
+
+    private suspend fun dialogueNouvelleRecette(){
+        val foodService = FoodService(this);
+        val groupes = foodService.getFoodGroups();
+        val vraisGroupes = groupes.drop(1);
+        val dialog = AddMealDialog(this@MealActivity, vraisGroupes);
+
+        dialog.show();
     }
 }
