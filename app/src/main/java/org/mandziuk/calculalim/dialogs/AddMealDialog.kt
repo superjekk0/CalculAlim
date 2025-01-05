@@ -1,41 +1,61 @@
 package org.mandziuk.calculalim.dialogs
 
 import android.content.Context
-import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
+import androidx.core.widget.doOnTextChanged
 import org.mandziuk.calculalim.R
+import org.mandziuk.calculalim.activities.indexGroup
 import org.mandziuk.calculalim.databinding.DialogAddMealBinding
+import org.mandziuk.calculalim.db.dtos.FoodGroupDTO
 
-class AddMealDialog(context: Context) : AlertDialog(context) {
-    var mealName: String = "";
-    var mealWeight: Int = 0;
-    private lateinit var dialogAddMealBinding : DialogAddMealBinding;
+class AddMealDialog(context: Context, groupes: List<FoodGroupDTO>) : AlertDialog.Builder(context) {
+    var mealName: String? = "";
+    var mealWeight: Int? = 0;
+    var indexGroup: Long = 0L;
+    private lateinit var binding : DialogAddMealBinding;
 
     init {
-        setButton(BUTTON_NEGATIVE, "HELP"){
-                dialog, _ -> dialog.dismiss();
+        initializeBinding();
+        setView(binding.root);
+
+        setNegativeButton( "HELP"){
+            dialog, _ -> dialog.dismiss();
         };
 
-        setButton(BUTTON_POSITIVE, "OK"){
-                dialog, _ -> dialog.dismiss();
+        setPositiveButton("OK"){
+            dialog, _ -> dialog.dismiss();
+        }
+
+
+        binding.groupeAliment.setOnClickListener { _  ->
+            val groupDialog = AlertDialog.Builder(context);
+            groupDialog.setTitle(R.string.typeNourriture).setSingleChoiceItems(groupes.map { cg -> cg.groupName }.toTypedArray(), indexGroup.toInt()) { dialog, index ->
+                binding.groupeAliment.text = groupes[index].groupName;
+                indexGroup = index.toLong();
+                dialog.dismiss();
+            }
+
+            groupDialog.show();
+        }
+
+        //dialogAddMealBinding.groupeAliment.getWindowVisibleDisplayFrame(Rect())
+
+        binding.quantiteMasse.doOnTextChanged { text, _, _, _ ->
+            mealWeight = when (text?.length) {
+                null -> null;
+                0 -> null;
+                else ->
+                    text.toString().toInt();
+            }
+        }
+
+        binding.nomAliment.doOnTextChanged { text, _, _, _ ->
+            mealName = text?.toString();
         }
     }
 
     private fun initializeBinding(){
-        dialogAddMealBinding = DialogAddMealBinding.inflate(layoutInflater);
-    }
-
-    override fun onStart() {
-        super.onStart();
-        dialogAddMealBinding.nomAliment.setText(mealName);
-        dialogAddMealBinding.quantiteMasse.setText(mealWeight.toString());
-        setView(dialogAddMealBinding.root);
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState);
-
-        initializeBinding();
-        setContentView(dialogAddMealBinding.root);
+        binding = DialogAddMealBinding.inflate(LayoutInflater.from(context));
     }
 }
