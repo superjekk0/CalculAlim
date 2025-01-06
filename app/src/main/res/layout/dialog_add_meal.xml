@@ -3,78 +3,164 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginVertical="15dp"
     style="@style/Dialogue">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@drawable/lower_border"
+        android:paddingVertical="5dp"
+        android:layout_marginHorizontal="15dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Poids"
+            android:text="@string/dialogueLabelPoidsReference"
             android:paddingHorizontal="10dp"
-            android:labelFor="@+id/quantiteMasse"/>
+            android:labelFor="@+id/quantiteMasse"
+            android:textSize="20sp"/>
         <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/quantiteMasse"
             android:autofillHints=""
-            android:inputType="number"/>
+            android:inputType="number"
+            android:textSize="20sp"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:background="@drawable/lower_border"
+        android:paddingVertical="10dp"
+        android:layout_marginHorizontal="15dp">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nom de portion: "
-            android:paddingHorizontal="10dp"
-            android:labelFor="@+id/nomPortion"
-            />
-        <EditText
-            android:layout_width="0dp"
+            android:text="@string/dialogueLabelSectionPortion"
+            android:textSize="26sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/nomPortion"
-            android:autofillHints=""
-            android:inputType="text"
-            />
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/labelNomPortion"
+                android:paddingHorizontal="10dp"
+                android:labelFor="@+id/nomPortion"
+                android:textSize="20sp"/>
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/nomPortion"
+                android:autofillHints=""
+                android:textSize="20sp"
+                android:inputType="text"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dialogueLabelQuantitePortion"
+                android:paddingHorizontal="10dp"
+                android:textSize="20sp"
+                android:labelFor="@+id/quantitePortion"
+                />
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/quantitePortion"
+                android:autofillHints=""
+                android:inputType="text"
+                android:textSize="20sp"/>
+        </LinearLayout>
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:layout_marginHorizontal="15dp">
+
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nom: "
-            android:paddingHorizontal="10dp"
-            android:labelFor="@id/nomAliment"/>
-        <EditText
-            android:layout_width="0dp"
+            android:text="@string/dialogueLabelSectionAliment"
+            android:textSize="26sp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/nomAliment"
-            android:autofillHints=""
-            android:inputType="text"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dialogueLabelNom"
+                android:paddingHorizontal="10dp"
+                android:labelFor="@id/nomAliment"
+                android:textSize="20sp"/>
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/nomAliment"
+                android:autofillHints=""
+                android:inputType="text"
+                android:textSize="20sp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Groupe d'aliment: "
-            android:labelFor="@id/groupeAliment"/>
-        <TextView
-            android:layout_width="0dp"
+            android:orientation="horizontal"
+            android:paddingVertical="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dialogueLabelGroupeAliment"
+                android:labelFor="@id/groupeAliment"
+                android:textSize="20sp"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:minHeight="24dp"
+                android:layout_weight="1"
+                android:id="@+id/groupeAliment"
+                android:textSize="20sp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="@string/placeholderNomGroupe"
+                android:background="@drawable/lower_border"/>
+        </LinearLayout>
+        <LinearLayout
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="24dp"
-            android:layout_weight="1"
-            android:id="@+id/groupeAliment"
-            android:foreground="?android:attr/selectableItemBackground"/>
+            android:gravity="end"
+            android:orientation="horizontal">
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/negatif"
+                android:text="@string/dialogueBoutonAnnuler"
+                android:textSize="22sp"
+                android:layout_marginHorizontal="10dp"/>
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/positif"
+                android:text="@string/dialogueBoutonCreer"
+                android:textSize="22sp"
+                android:layout_marginHorizontal="10dp"/>
+
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

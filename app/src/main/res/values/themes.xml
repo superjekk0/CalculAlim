@@ -24,9 +24,8 @@
 
     <style name="Dialogue" parent="ThemeOverlay.Material3.Dialog.Alert">
         <item name="fontWeight">700</item>
-        <item name="android:textSize">5sp</item>
-        <item name="marginHorizontal">10dp</item>
-        <item name="android:paddingVertical">15dp</item>
+        <item name="android:layout_marginHorizontal">10dp</item>
+        <item name="android:layout_marginVertical">15dp</item>
     </style>
 
     <style name="Theme.CalculAlim" parent="Base.Theme.CalculAlim" />

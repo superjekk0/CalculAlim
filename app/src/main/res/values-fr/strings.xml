@@ -47,6 +47,18 @@
     <!-- TODO : Ajouter le cas du premier jour en français -->
     <string name="dateHistorique">%1$te %1$tB %1$tY</string>
     <string name="heureHistorique">%1$tHh%1$tM</string>
+    <string name="placeholderNomGroupe">Choisir un groupe d\'aliments</string>
+    <string name="dialogueLabelPoidsReference">Poids final :</string>
+    <string name="dialogueLabelSectionPortion">"Portion : "</string>
+    <string name="dialogueLabelGroupeAliment">"Groupe d'aliment : "</string>
+    <string name="dialogueLabelSectionAliment">"Informations d\'aliment : "</string>
+    <string name="dialogueLabelNom">"Nom : "</string>
+    <string name="labelNomPortion">"Nom de portion : "</string>
+    <string name="dialogueLabelQuantitePortion">"Poids de la portion : "</string>
+    <string name="erreurGroupeAliment">Sélectionnez un groupe d\'aliment</string>
+    <string name="erreurNomAliment">Entrez un nom d\'aliment</string>
+    <string name="dialogueBoutonCreer">Ajouter</string>
+    <string name="dialogueBoutonAnnuler">Annuler</string>
     <string-array name="langues">
         <item>English (Anglais)</item>
         <item>Français</item>
