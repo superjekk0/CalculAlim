@@ -50,15 +50,18 @@
     <string name="placeholderNomGroupe">Choisir un groupe d\'aliments</string>
     <string name="dialogueLabelPoidsReference">Poids final :</string>
     <string name="dialogueLabelSectionPortion">"Portion : "</string>
-    <string name="dialogueLabelGroupeAliment">"Groupe d'aliment : "</string>
+    <string name="dialogueLabelGroupeAliment">"Groupe d'aliment* : "</string>
     <string name="dialogueLabelSectionAliment">"Informations d\'aliment : "</string>
-    <string name="dialogueLabelNom">"Nom : "</string>
+    <string name="dialogueLabelNom">"Nom* : "</string>
     <string name="labelNomPortion">"Nom de portion : "</string>
     <string name="dialogueLabelQuantitePortion">"Poids de la portion : "</string>
     <string name="erreurGroupeAliment">Sélectionnez un groupe d\'aliment</string>
     <string name="erreurNomAliment">Entrez un nom d\'aliment</string>
     <string name="dialogueBoutonCreer">Ajouter</string>
     <string name="dialogueBoutonAnnuler">Annuler</string>
+    <string name="erreurNomAlimentPrisEn">Ce nom d\'aliment est déjà utilisé en Anglais</string>
+    <string name="erreurNomAlimentPrisFr">Ce nom d\'aliment est déjà utilisé en Français</string>
+    <string name="erreurQuantitePortion">Un poids doit être associé avec la portion</string>
     <string-array name="langues">
         <item>English (Anglais)</item>
         <item>Français</item>

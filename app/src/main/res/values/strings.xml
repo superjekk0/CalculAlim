@@ -54,15 +54,18 @@
     <string name="placeholderNomGroupe">Choose a Food Group</string>
     <string name="dialogueLabelPoidsReference">"Final weight: "</string>
     <string name="dialogueLabelSectionPortion">"Portion: "</string>
-    <string name="dialogueLabelGroupeAliment">"Food Group: "</string>
+    <string name="dialogueLabelGroupeAliment">"Food Group*: "</string>
     <string name="dialogueLabelSectionAliment">"Food Information: "</string>
-    <string name="dialogueLabelNom">"Name: "</string>
+    <string name="dialogueLabelNom">"Name*: "</string>
     <string name="labelNomPortion">"Portion Name: "</string>
     <string name="dialogueLabelQuantitePortion">"Portion weight: "</string>
     <string name="erreurGroupeAliment">Please select a food group</string>
     <string name="erreurNomAliment">Please enter a food name</string>
+    <string name="erreurNomAlimentPrisEn">Food name is already taken in English</string>
+    <string name="erreurNomAlimentPrisFr">Food name is already taken in French</string>
     <string name="dialogueBoutonCreer">Create</string>
     <string name="dialogueBoutonAnnuler">Cancel</string>
+    <string name="erreurQuantitePortion">Weight must be associated with portion</string>
     <string-array name="langues">
         <item>English</item>
         <item>Français (French)</item>

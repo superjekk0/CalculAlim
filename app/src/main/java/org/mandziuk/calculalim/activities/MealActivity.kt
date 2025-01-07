@@ -88,6 +88,12 @@ class MealActivity : DrawerEnabledActivity() {
         val vraisGroupes = groupes.drop(1);
         val dialog = AddMealDialog(this@MealActivity, vraisGroupes);
 
+        dialog.setOnDismissListener {
+            lifecycle.coroutineScope.launch {
+                foodService.createFood(dialog, mealDtoInstance)
+            }
+        }
+
         dialog.show();
     }
 }

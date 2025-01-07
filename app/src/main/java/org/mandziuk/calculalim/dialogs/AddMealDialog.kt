@@ -3,12 +3,17 @@ package org.mandziuk.calculalim.dialogs
 import android.content.Context
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.coroutineScope
+import kotlinx.coroutines.launch
 import org.mandziuk.calculalim.R
 import org.mandziuk.calculalim.databinding.DialogAddMealBinding
 import org.mandziuk.calculalim.db.dtos.FoodGroupDTO
+import org.mandziuk.calculalim.db.services.FoodService
+import org.mandziuk.calculalim.db.services.TakenStatus
 
-class AddMealDialog(context: Context, groupes: List<FoodGroupDTO>) : AlertDialog.Builder(context) {
+class AddMealDialog(context: AppCompatActivity, private val groupes: List<FoodGroupDTO>) : AlertDialog.Builder(context) {
     var mealName: String? = null;
     var mealWeight: Int? = null;
     var foodGroupId: Long = 0L;
@@ -16,23 +21,23 @@ class AddMealDialog(context: Context, groupes: List<FoodGroupDTO>) : AlertDialog
     var portionName: String? = null;
     private lateinit var binding : DialogAddMealBinding;
     private lateinit var dialog: AlertDialog;
+    private val foodService = FoodService(context);
 
     init {
         initializeBinding();
         setView(binding.root);
 
         binding.positif.setOnClickListener {
-            var erreurActive = false;
+
             if (groupes.find { it.foodGroupId == foodGroupId } == null){
                 binding.groupeAliment.error = context.getString(R.string.erreurGroupeAliment);
-                erreurActive = true;
             }
 
             if (mealName == null || mealName == ""){
                 binding.nomAliment.error = context.getString(R.string.erreurNomAliment);
-                erreurActive = true;
             }
 
+            val erreurActive = !valid();
             if (!erreurActive){
                 dialog.dismiss();
             }
@@ -58,17 +63,41 @@ class AddMealDialog(context: Context, groupes: List<FoodGroupDTO>) : AlertDialog
             mealWeight = when (text?.length) {
                 null -> null;
                 0 -> null;
-                else ->
-                    text.toString().toInt();
+                else ->{
+                    if (text == "0")
+                        null
+                    else
+                        text.toString().toInt();
+                }
             }
         }
 
         binding.nomAliment.doOnTextChanged { text, _, _, _ ->
             mealName = text?.toString();
+            if (mealName != null){
+                context.lifecycle.coroutineScope.launch {
+                    when(foodService.foodNameTaken(mealName!!)){
+                        TakenStatus.TAKEN_EN -> {
+                            binding.nomAliment.error = context.getString(R.string.erreurNomAlimentPrisEn)
+                        };
+                        TakenStatus.TAKEN_FR -> {
+                            binding.nomAliment.error = context.getString(R.string.erreurNomAlimentPrisFr)
+                        };
+                        else -> {
+                            binding.nomAliment.error = null
+                        };
+                    }
+                }
+            }
         }
 
         binding.nomPortion.doOnTextChanged { text, _, _, _ ->
             portionName = text?.toString();
+            if (portionName != null && portionWeight == null){
+                binding.quantitePortion.error = context.getString(R.string.erreurQuantitePortion);
+            } else{
+                binding.quantitePortion.error = null;
+            }
         }
 
         binding.quantitePortion.doOnTextChanged { text, _, _, _ ->
@@ -88,5 +117,16 @@ class AddMealDialog(context: Context, groupes: List<FoodGroupDTO>) : AlertDialog
 
     private fun initializeBinding(){
         binding = DialogAddMealBinding.inflate(LayoutInflater.from(context));
+    }
+
+    private fun valid(): Boolean{
+        var erreurActive = false;
+
+        erreurActive = erreurActive || binding.groupeAliment.error != null;
+        erreurActive = erreurActive || binding.nomAliment.error != null;
+        erreurActive = erreurActive || binding.quantiteMasse.error != null;
+        erreurActive = erreurActive || binding.quantitePortion.error != null;
+
+        return !erreurActive;
     }
 }

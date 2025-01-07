@@ -80,8 +80,8 @@
                 android:layout_weight="1"
                 android:id="@+id/quantitePortion"
                 android:autofillHints=""
-                android:inputType="text"
-                android:textSize="20sp"/>
+                android:inputType="number"
+                android:textSize="20sp" />
         </LinearLayout>
 
     </LinearLayout>

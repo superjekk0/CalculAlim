@@ -8,6 +8,7 @@ import androidx.room.Update
 import org.mandziuk.calculalim.db.models.DiscardFood
 import org.mandziuk.calculalim.db.models.Food
 import org.mandziuk.calculalim.db.models.FoodGroup
+import org.mandziuk.calculalim.db.models.NutrientAmount
 import org.mandziuk.calculalim.db.views.ConversionDetails
 import org.mandziuk.calculalim.db.views.FoodAndGroupNames
 import org.mandziuk.calculalim.db.views.FoodNutrientDetails
@@ -36,7 +37,7 @@ interface FoodDao {
     suspend fun getFood(foodId: Long) : Food;
 
     @Query("SELECT * FROM FoodNutrientDetails " +
-            "WHERE FoodID = :foodId ")
+            "WHERE FoodID = :foodId AND Displayed = 1")
     suspend fun getFoodNutrients(foodId: Long) : List<FoodNutrientDetails>;
 
     @Query("SELECT * FROM DiscardFood " +
@@ -73,4 +74,11 @@ interface FoodDao {
 
     @Query("SELECT * FROM FoodGroup WHERE FoodGroupID = :foodId")
     suspend fun getFoodGroup(foodId: Long) : FoodGroup?;
+
+    @Query("SELECT * FROM FoodNutrientAmount WHERE FoodID IN (:foodIds)")
+    suspend fun getFoodAmounts(foodIds: List<Long>) : List<NutrientAmount>;
+
+    @Query("SELECT * FROM FoodNutrientDetails " +
+            "WHERE FoodID = :foodId")
+    suspend fun getFoodNutrientsList(foodId: Long) : List<FoodNutrientDetails>;
 }

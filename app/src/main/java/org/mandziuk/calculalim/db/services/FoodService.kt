@@ -8,11 +8,15 @@ import org.mandziuk.calculalim.db.daos.FoodDao
 import org.mandziuk.calculalim.db.dtos.FoodDTO
 import org.mandziuk.calculalim.db.dtos.FoodDetailDTO
 import org.mandziuk.calculalim.db.dtos.FoodGroupDTO
+import org.mandziuk.calculalim.db.dtos.MealDTO
 import org.mandziuk.calculalim.db.dtos.NutrientEnabledDTO
 import org.mandziuk.calculalim.db.getFoodDao
 import org.mandziuk.calculalim.db.models.Food
 import org.mandziuk.calculalim.db.views.FoodNutrientDetails
 import org.mandziuk.calculalim.db.views.NutrientNameEnability
+import org.mandziuk.calculalim.dialogs.AddMealDialog
+import java.time.Instant
+import java.util.Date
 import java.util.Locale
 
 class FoodService(private val applicationContext: Context) {
@@ -102,6 +106,50 @@ class FoodService(private val applicationContext: Context) {
         } else {
             TakenStatus.TAKEN_EN;
         }
+    }
+
+    suspend fun createFood(addMealDialog: AddMealDialog, aliments: MealDTO){
+        // TODO : Faire les étapes de création d'un aliment
+        val poidsTotal : Int = if (addMealDialog.mealWeight == null){
+            aliments.sumOf { a -> a.weight };
+        } else {
+            addMealDialog.mealWeight!!;
+        }
+
+        val group = foodDao.getFoodGroup(addMealDialog.foodGroupId);
+        if (group == null){
+            return;
+        }
+
+        val food = Food(
+            id = 0L,
+            description = addMealDialog.mealName!!,
+            descriptionFr = addMealDialog.mealName!!,
+            groupId = addMealDialog.foodGroupId,
+            code = 0L,
+            sourceId = null,
+            entryDate = null,
+            scientificName = null,
+            publicationDate = null,
+            countryCode = null
+        );
+
+        val nutrientAmount = aliments.map { a -> getAllNutrients(a.foodId, a.weight) };
+        // TODO : Continuer les calculs nutritionnels
+        val nutriments = nutrientAmount.map { na -> na.nutrients }.flatten().groupBy { n -> n.nutrientId }
+            .map { (i, j) -> j }
+
+
+        val foodId = foodDao.createFood(food);
+    }
+
+    private suspend fun getAllNutrients(foodId: Long, weight: Int) : FoodDetailDTO {
+        val locale: String = Locale.getDefault().displayLanguage;
+        val food : Food = foodDao.getFood(foodId);
+        val foodNutrients : List<FoodNutrientDetails> = foodDao.getFoodNutrients(foodId);
+        val foodDTO = FoodDetailDTO(food, foodNutrients, locale);
+        foodDTO.multiplyByWeight(weight.toLong());
+        return foodDTO;
     }
 }
 
