@@ -30,7 +30,7 @@ import org.mandziuk.calculalim.db.views.NutrientNameEnability
                      FoodRepas::class],
     views = [FoodAndGroupNames::class, FoodNutrientDetails::class, ConversionDetails::class, NutrientNameEnability::class,
             FoodRepasDetails::class],
-    version = 15,
+    version = 16,
     autoMigrations = [
         AutoMigration(from = 1, to = 2),
         AutoMigration(from = 2, to = 3),
@@ -45,7 +45,8 @@ import org.mandziuk.calculalim.db.views.NutrientNameEnability
         AutoMigration(from = 11, to = 12),
         AutoMigration(from = 12, to = 13),
         AutoMigration(from = 13, to = 14),
-        AutoMigration(from = 14, to = 15)
+        AutoMigration(from = 14, to = 15),
+        AutoMigration(from = 15, to = 16)
                      ],
     exportSchema = true)
 @TypeConverters(Converter::class)

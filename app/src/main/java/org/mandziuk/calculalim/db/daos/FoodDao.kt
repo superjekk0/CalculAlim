@@ -1,6 +1,8 @@
 package org.mandziuk.calculalim.db.daos
 
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import org.mandziuk.calculalim.db.models.DiscardFood
@@ -65,4 +67,10 @@ interface FoodDao {
 
     @Query("SELECT COUNT(FoodID) FROM Food WHERE UPPER(FoodDescriptionF) = UPPER(:foodName)")
     suspend fun foodExistsFr(foodName: String) : Boolean;
+
+    @Insert(onConflict = OnConflictStrategy.ABORT, entity = Food::class)
+    suspend fun createFood(food: Food) : Long
+
+    @Query("SELECT * FROM FoodGroup WHERE FoodGroupID = :foodId")
+    suspend fun getFoodGroup(foodId: Long) : FoodGroup?;
 }

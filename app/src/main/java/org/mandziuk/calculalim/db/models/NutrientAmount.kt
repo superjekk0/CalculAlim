@@ -7,7 +7,7 @@ import androidx.room.Index
 
 @Entity(tableName = "FoodNutrientAmount", primaryKeys = ["FoodID", "NutrientID"], foreignKeys = [
     ForeignKey(Food::class, childColumns = ["FoodID"], parentColumns = ["FoodID"], onDelete = ForeignKey.CASCADE),
-    //ForeignKey(Nutrient::class, childColumns = ["NutrientID"], parentColumns = ["NutrientID"], onDelete = ForeignKey.CASCADE)
+    ForeignKey(Nutrient::class, childColumns = ["NutrientID"], parentColumns = ["NutrientID"], onDelete = ForeignKey.CASCADE)
 ], indices = [
     Index(value = ["FoodID"], orders = [Index.Order.ASC], name = "IX_FoodNutrientAmount_FoodID"),
     Index(value = ["NutrientID"], orders = [Index.Order.ASC], name = "IX_FoodNutrientAmount_NutrientID")

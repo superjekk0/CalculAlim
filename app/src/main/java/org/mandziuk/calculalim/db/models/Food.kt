@@ -23,7 +23,7 @@ import java.util.Date
 data class Food(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "FoodID") val id : Long,
     @ColumnInfo(name = "FoodCode") val code : Long,
-    @ColumnInfo(name = "FoodGroupID") val groupId : Long?,
+    @ColumnInfo(name = "FoodGroupID") val groupId : Long,
     @ColumnInfo(name = "FoodSourceID") val sourceId : Long?,
     @ColumnInfo(name = "FoodDescription") val description : String,
     @ColumnInfo(name = "FoodDescriptionF") val descriptionFr: String,
