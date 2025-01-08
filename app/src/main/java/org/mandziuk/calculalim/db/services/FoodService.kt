@@ -9,6 +9,7 @@ import org.mandziuk.calculalim.db.dtos.FoodDTO
 import org.mandziuk.calculalim.db.dtos.FoodDetailDTO
 import org.mandziuk.calculalim.db.dtos.FoodGroupDTO
 import org.mandziuk.calculalim.db.dtos.MealDTO
+import org.mandziuk.calculalim.db.dtos.NewFoodDTO
 import org.mandziuk.calculalim.db.dtos.NutrientEnabledDTO
 import org.mandziuk.calculalim.db.getFoodDao
 import org.mandziuk.calculalim.db.models.ConversionFactor
@@ -17,7 +18,6 @@ import org.mandziuk.calculalim.db.models.MeasureName
 import org.mandziuk.calculalim.db.models.NutrientAmount
 import org.mandziuk.calculalim.db.views.FoodNutrientDetails
 import org.mandziuk.calculalim.db.views.NutrientNameEnability
-import org.mandziuk.calculalim.dialogs.AddMealDialog
 import java.time.Instant
 import java.util.Locale
 
@@ -112,13 +112,13 @@ class FoodService(private val applicationContext: Context) {
         }
     }
 
-    suspend fun createFood(addMealDialog: AddMealDialog, aliments: MealDTO){
+    suspend fun createFood(newFoodDTO: NewFoodDTO, aliments: MealDTO){
         // TODO : Faire les étapes de création d'un aliment
         withContext(Dispatchers.IO){
-            val group = foodDao.getFoodGroup(addMealDialog.foodGroupId) ?: return@withContext;
-            val poidsTotal: Int = poidsRepas(addMealDialog, aliments)
-            val measureId = recupererMeasureId(addMealDialog, poidsTotal)
-            val foodId = ajoutAliment(addMealDialog);
+            val group = foodDao.getFoodGroup(newFoodDTO.foodGroupId) ?: return@withContext;
+            val poidsTotal: Int = poidsRepas(newFoodDTO, aliments)
+            val measureId = recupererMeasureId(newFoodDTO, poidsTotal)
+            val foodId = ajoutAliment(newFoodDTO);
             creerPortionRepas(measureId, foodId, poidsTotal);
 
             creationNutriments(aliments, foodId, poidsTotal)
@@ -144,12 +144,12 @@ class FoodService(private val applicationContext: Context) {
         foodDao.insertNutrientsAmounts(nutriments);
     }
 
-    private suspend fun ajoutAliment(addMealDialog: AddMealDialog): Long {
+    private suspend fun ajoutAliment(newFoodDTO: NewFoodDTO): Long {
         val food = Food(
             id = 0L,
-            description = addMealDialog.mealName!!,
-            descriptionFr = addMealDialog.mealName!!,
-            groupId = addMealDialog.foodGroupId,
+            description = newFoodDTO.mealName!!,
+            descriptionFr = newFoodDTO.mealName!!,
+            groupId = newFoodDTO.foodGroupId,
             code = 0L,
             sourceId = null,
             entryDate = Instant.now(),
@@ -161,12 +161,12 @@ class FoodService(private val applicationContext: Context) {
         return foodDao.createFood(food);
     }
 
-    private suspend fun recupererMeasureId(addMealDialog: AddMealDialog, poidsTotal: Int): Long {
+    private suspend fun recupererMeasureId(newFoodDTO: NewFoodDTO, poidsTotal: Int): Long {
         val nomPortion =
-            if (addMealDialog.portionName == null && addMealDialog.portionWeight != null) {
-                "${addMealDialog.portionWeight}g"
-            } else if (addMealDialog.portionName != null) {
-                addMealDialog.portionName!!;
+            if (newFoodDTO.portionName == null && newFoodDTO.portionWeight != null) {
+                "${newFoodDTO.portionWeight}g"
+            } else if (newFoodDTO.portionName != null) {
+                newFoodDTO.portionName!!;
             } else {
                 "${poidsTotal}g";
             }
@@ -184,11 +184,11 @@ class FoodService(private val applicationContext: Context) {
         ));
     }
 
-    private fun poidsRepas(addMealDialog: AddMealDialog, aliments: MealDTO) : Int {
-        return if (addMealDialog.mealWeight == null) {
+    private fun poidsRepas(newFoodDTO: NewFoodDTO, aliments: MealDTO) : Int {
+        return if (newFoodDTO.mealWeight == null) {
             aliments.sumOf { a -> a.weight };
         } else {
-            addMealDialog.mealWeight!!;
+            newFoodDTO.mealWeight!!;
         }
     }
 
