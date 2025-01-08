@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
+import java.time.Instant
 
 @Entity(tableName = "FoodNutrientAmount", primaryKeys = ["FoodID", "NutrientID"], foreignKeys = [
     ForeignKey(Food::class, childColumns = ["FoodID"], parentColumns = ["FoodID"], onDelete = ForeignKey.CASCADE),
@@ -19,5 +20,5 @@ data class NutrientAmount(
     @ColumnInfo(name = "StandardError") val errorMargin : Float?,
     @ColumnInfo(name = "NumberOfObservations") val observationNumber : Long?,
     @ColumnInfo(name = "NutrientSourceID") val nutrientSourceId : Long,
-    @ColumnInfo(name = "NutrientDateOfEntry") val entryDate : String?
+    @ColumnInfo(name = "NutrientDateOfEntry") val entryDate : Instant?
 );

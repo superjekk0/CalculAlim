@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "MeasureName")
 data class MeasureName(
-    @PrimaryKey @ColumnInfo(name = "MeasureID") val measureId: Long,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "MeasureID") val measureId: Long,
     @ColumnInfo(name = "MeasureDescription") val measureName: String,
     @ColumnInfo(name = "MeasureDescriptionF") val measureNameFr: String
 );

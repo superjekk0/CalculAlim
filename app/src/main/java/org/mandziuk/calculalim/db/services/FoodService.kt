@@ -11,13 +11,17 @@ import org.mandziuk.calculalim.db.dtos.FoodGroupDTO
 import org.mandziuk.calculalim.db.dtos.MealDTO
 import org.mandziuk.calculalim.db.dtos.NutrientEnabledDTO
 import org.mandziuk.calculalim.db.getFoodDao
+import org.mandziuk.calculalim.db.models.ConversionFactor
 import org.mandziuk.calculalim.db.models.Food
+import org.mandziuk.calculalim.db.models.MeasureName
+import org.mandziuk.calculalim.db.models.NutrientAmount
 import org.mandziuk.calculalim.db.views.FoodNutrientDetails
 import org.mandziuk.calculalim.db.views.NutrientNameEnability
 import org.mandziuk.calculalim.dialogs.AddMealDialog
 import java.time.Instant
-import java.util.Date
 import java.util.Locale
+
+private const val pourCentGrammes = 100.0F;
 
 class FoodService(private val applicationContext: Context) {
     private val foodDao: FoodDao = getFoodDao(applicationContext);
@@ -110,17 +114,37 @@ class FoodService(private val applicationContext: Context) {
 
     suspend fun createFood(addMealDialog: AddMealDialog, aliments: MealDTO){
         // TODO : Faire les étapes de création d'un aliment
-        val poidsTotal : Int = if (addMealDialog.mealWeight == null){
-            aliments.sumOf { a -> a.weight };
-        } else {
-            addMealDialog.mealWeight!!;
-        }
+        withContext(Dispatchers.IO){
+            val group = foodDao.getFoodGroup(addMealDialog.foodGroupId) ?: return@withContext;
+            val poidsTotal: Int = poidsRepas(addMealDialog, aliments)
+            val measureId = recupererMeasureId(addMealDialog, poidsTotal)
+            val foodId = ajoutAliment(addMealDialog);
+            creerPortionRepas(measureId, foodId, poidsTotal);
 
-        val group = foodDao.getFoodGroup(addMealDialog.foodGroupId);
-        if (group == null){
-            return;
+            creationNutriments(aliments, foodId, poidsTotal)
         }
+    }
 
+    private suspend fun creationNutriments(aliments: MealDTO, foodId: Long, poidsTotal: Int) {
+        val nutrientAmount = aliments.map { a -> getAllNutrients(a.foodId, a.weight) };
+        // TODO : Continuer les calculs nutritionnels
+        val nutriments = nutrientAmount
+            .map { na -> na.nutrients }.flatten().groupBy { n -> n.nutrientId }
+            .map { (nutrientId, j) ->
+                NutrientAmount(
+                    foodId,
+                    nutrientId = nutrientId,
+                    value = j.sumOf { it.value.toDouble() }.toFloat() / (poidsTotal / pourCentGrammes),
+                    errorMargin = null,
+                    observationNumber = null,
+                    nutrientSourceId = 0L,
+                    entryDate = Instant.now(),
+                )
+            };
+        foodDao.insertNutrientsAmounts(nutriments);
+    }
+
+    private suspend fun ajoutAliment(addMealDialog: AddMealDialog): Long {
         val food = Food(
             id = 0L,
             description = addMealDialog.mealName!!,
@@ -128,19 +152,44 @@ class FoodService(private val applicationContext: Context) {
             groupId = addMealDialog.foodGroupId,
             code = 0L,
             sourceId = null,
-            entryDate = null,
+            entryDate = Instant.now(),
             scientificName = null,
-            publicationDate = null,
+            publicationDate = Instant.now(),
             countryCode = null
         );
 
-        val nutrientAmount = aliments.map { a -> getAllNutrients(a.foodId, a.weight) };
-        // TODO : Continuer les calculs nutritionnels
-        val nutriments = nutrientAmount.map { na -> na.nutrients }.flatten().groupBy { n -> n.nutrientId }
-            .map { (i, j) -> j }
+        return foodDao.createFood(food);
+    }
 
+    private suspend fun recupererMeasureId(addMealDialog: AddMealDialog, poidsTotal: Int): Long {
+        val nomPortion =
+            if (addMealDialog.portionName == null && addMealDialog.portionWeight != null) {
+                "${addMealDialog.portionWeight}g"
+            } else if (addMealDialog.portionName != null) {
+                addMealDialog.portionName!!;
+            } else {
+                "${poidsTotal}g";
+            }
+        val portion = foodDao.getMeasureName(nomPortion);
+        return portion?.measureId ?: foodDao.insertMeasureName(MeasureName(0L, nomPortion, nomPortion))
+    }
 
-        val foodId = foodDao.createFood(food);
+    private suspend fun creerPortionRepas(measureId: Long, foodId: Long, poidsTotal: Int){
+        val facteurConversion = poidsTotal / pourCentGrammes;
+        foodDao.insertConversionFactor(ConversionFactor(
+            foodId = foodId,
+            measureId = measureId,
+            conversionFactor = facteurConversion,
+            dateOfEntry = Instant.now()
+        ));
+    }
+
+    private fun poidsRepas(addMealDialog: AddMealDialog, aliments: MealDTO) : Int {
+        return if (addMealDialog.mealWeight == null) {
+            aliments.sumOf { a -> a.weight };
+        } else {
+            addMealDialog.mealWeight!!;
+        }
     }
 
     private suspend fun getAllNutrients(foodId: Long, weight: Int) : FoodDetailDTO {

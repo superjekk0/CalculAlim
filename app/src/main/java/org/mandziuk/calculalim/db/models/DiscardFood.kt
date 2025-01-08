@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
-import java.util.Date
+import java.time.Instant
 
 @Entity(tableName = "DiscardFood", primaryKeys = ["FoodID", "DiscardID"], foreignKeys = [
     ForeignKey(
@@ -25,5 +25,5 @@ data class DiscardFood(
     @ColumnInfo(name = "FoodID") val foodId: Long,
     @ColumnInfo(name = "DiscardID") val discardId: Long,
     @ColumnInfo(name = "DiscardPercentage", defaultValue = "0") val discardPercentage: Long,
-    @ColumnInfo(name = "DiscardDateOfEntry") val discardDateOfEntry: String?
+    @ColumnInfo(name = "DiscardDateOfEntry") val discardDateOfEntry: Instant?
 )

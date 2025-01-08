@@ -62,6 +62,7 @@
     <string name="erreurNomAlimentPrisEn">Ce nom d\'aliment est déjà utilisé en Anglais</string>
     <string name="erreurNomAlimentPrisFr">Ce nom d\'aliment est déjà utilisé en Français</string>
     <string name="erreurQuantitePortion">Un poids doit être associé avec la portion</string>
+    <string name="alimentAjouteListe">L\'aliment composé a été ajouté à la liste</string>
     <string-array name="langues">
         <item>English (Anglais)</item>
         <item>Français</item>

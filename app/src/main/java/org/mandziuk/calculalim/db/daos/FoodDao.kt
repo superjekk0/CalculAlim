@@ -5,9 +5,11 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import org.mandziuk.calculalim.db.models.ConversionFactor
 import org.mandziuk.calculalim.db.models.DiscardFood
 import org.mandziuk.calculalim.db.models.Food
 import org.mandziuk.calculalim.db.models.FoodGroup
+import org.mandziuk.calculalim.db.models.MeasureName
 import org.mandziuk.calculalim.db.models.NutrientAmount
 import org.mandziuk.calculalim.db.views.ConversionDetails
 import org.mandziuk.calculalim.db.views.FoodAndGroupNames
@@ -81,4 +83,17 @@ interface FoodDao {
     @Query("SELECT * FROM FoodNutrientDetails " +
             "WHERE FoodID = :foodId")
     suspend fun getFoodNutrientsList(foodId: Long) : List<FoodNutrientDetails>;
+
+    @Query("SELECT * FROM MeasureName " +
+            "WHERE MeasureDescriptionF = :measureName OR MeasureDescription = :measureName LIMIT 1")
+    suspend fun getMeasureName(measureName: String) : MeasureName?;
+
+    @Insert(onConflict = OnConflictStrategy.ABORT, entity = MeasureName::class)
+    suspend fun insertMeasureName(measureName: MeasureName) : Long;
+
+    @Insert(onConflict = OnConflictStrategy.ABORT, entity = ConversionFactor::class)
+    suspend fun insertConversionFactor(conversionFactor: ConversionFactor) : Long;
+
+    @Insert(onConflict = OnConflictStrategy.ABORT, entity = NutrientAmount::class)
+    suspend fun insertNutrientsAmounts(nutrientAmount: List<NutrientAmount>);
 }

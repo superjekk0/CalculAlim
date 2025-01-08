@@ -5,9 +5,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverter
-import org.mandziuk.calculalim.db.Converter
-import java.util.Date
+import java.time.Instant
 
 @Entity(foreignKeys = [ForeignKey(
     entity = FoodGroup::class,
@@ -27,8 +25,8 @@ data class Food(
     @ColumnInfo(name = "FoodSourceID") val sourceId : Long?,
     @ColumnInfo(name = "FoodDescription") val description : String,
     @ColumnInfo(name = "FoodDescriptionF") val descriptionFr: String,
-    @ColumnInfo(name = "FoodDateOfEntry") val entryDate : String?,
-    @ColumnInfo(name = "FoodDateOfPublication") val publicationDate : String?,
+    @ColumnInfo(name = "FoodDateOfEntry") val entryDate : Instant?,
+    @ColumnInfo(name = "FoodDateOfPublication") val publicationDate : Instant?,
     @ColumnInfo(name = "CountryCode") val countryCode : String?,
     @ColumnInfo(name = "ScientificName") val scientificName : String?
 );
