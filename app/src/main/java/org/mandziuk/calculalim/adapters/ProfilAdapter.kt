@@ -3,6 +3,7 @@ package org.mandziuk.calculalim.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -19,6 +20,7 @@ class ProfilAdapter(private val profils: List<Profil>) : RecyclerView.Adapter<Pr
         val edition: ImageButton = itemView.findViewById(R.id.editer);
         val editeurNom: EditText = itemView.findViewById(R.id.nomEdition);
         val imageProfil: ImageView = itemView.findViewById(R.id.imageProfil);
+        val boutonAjoutProfil: Button = itemView.findViewById(R.id.ajoutProfil);
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfilVH {
@@ -28,10 +30,18 @@ class ProfilAdapter(private val profils: List<Profil>) : RecyclerView.Adapter<Pr
     }
 
     override fun getItemCount(): Int {
-        return profils.size;
+        return profils.size + 1;
     }
 
     override fun onBindViewHolder(holder: ProfilVH, position: Int) {
+        if (position == profils.size){
+            ajouterProfil(holder);
+        } else{
+            afficherProfil(holder, position);
+        }
+    }
+
+    private fun afficherProfil(holder: ProfilVH, position: Int){
         holder.nom.text = profils[position].name;
 
         holder.edition.setOnClickListener {
@@ -39,5 +49,13 @@ class ProfilAdapter(private val profils: List<Profil>) : RecyclerView.Adapter<Pr
             holder.editeurNom.visibility = View.VISIBLE;
             holder.editeurNom.setText(profils[position].name);
         }
+    }
+
+    private fun ajouterProfil(holder: ProfilVH){
+        holder.imageProfil.setImageResource(R.drawable.ic_ajouter);
+        holder.boutonAjoutProfil.visibility = View.VISIBLE;
+        holder.nom.visibility = View.GONE;
+        holder.edition.visibility = View.GONE;
+        holder.editeurNom.visibility = View.GONE;
     }
 }

@@ -13,8 +13,6 @@ class ProfilDialog(context: Context, profils: List<Profil>) : AlertDialog.Builde
         DialogProfileBinding.inflate(LayoutInflater.from(context));
 
     init {;
-        setTitle("Changer de profil");
-
         setView(binding.root);
 
         binding.recycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
