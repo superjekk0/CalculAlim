@@ -59,7 +59,7 @@ class FoodServiceTest {
     }
 
     @Test
-    fun creationAlimentTotalementInvalide(){
+    fun creationAlimentEchecTotalementInvalide(){
         runBlocking {
             val newFoodDTO = NewFoodDTO();
             val nouvelAliment = insertionAliment(newFoodDTO, false)
@@ -68,7 +68,7 @@ class FoodServiceTest {
     }
 
     @Test
-    fun creationAlimentGroupeManquant(){
+    fun creationAlimentEchecGroupeManquant(){
         runBlocking {
             val newFoodDTO = NewFoodDTO();
             newFoodDTO.mealName = NOM_ALIMENT;
@@ -78,7 +78,7 @@ class FoodServiceTest {
     }
 
     @Test
-    fun creationAlimentNomManquant(){
+    fun creationAlimentEchecNomManquant(){
         runBlocking {
             val newFoodDTO = NewFoodDTO();
             newFoodDTO.foodGroupId = 18L;
@@ -114,14 +114,12 @@ class FoodServiceTest {
     }
 
     @Test
-    fun creationAlimentTotalInfosMinimum(){
-        runBlocking {
-            val newFoodDTO = NewFoodDTO();
-            newFoodDTO.foodGroupId = 18L;
-            newFoodDTO.mealName = NOM_ALIMENT;
+    fun creationAlimentReussiteInfosMinimum(){
+        val newFoodDTO = NewFoodDTO();
+        newFoodDTO.foodGroupId = 18L;
+        newFoodDTO.mealName = NOM_ALIMENT;
 
-//            foodService.createFood(newFoodDTO, mealDtoInstance);
-//
+        runBlocking {
             val nouvelAliment = insertionAliment(newFoodDTO, true);
             Assert.assertNotEquals(AUCUN_ALIMENT, nouvelAliment);
             val details = foodService.getFoodDetails(nouvelAliment);
@@ -134,7 +132,7 @@ class FoodServiceTest {
     }
 
     @Test
-    fun creationAlimentTotalSpecialise(){
+    fun creationAlimentReussitePoidsFinalDifferent(){
         runBlocking {
             val newFoodDTO = NewFoodDTO();
             newFoodDTO.foodGroupId = 18L;
@@ -152,7 +150,7 @@ class FoodServiceTest {
     }
 
     @Test
-    fun creationAlimentPortionSpecialiseePoidsImplicite(){
+    fun creationAlimentReussitePoidsFinalImplicite(){
         runBlocking {
             val newFoodDTO = NewFoodDTO();
             newFoodDTO.foodGroupId = 18L;
@@ -166,6 +164,63 @@ class FoodServiceTest {
             Assert.assertEquals(NOM_ALIMENT, details.food.foodName);
             Assert.assertEquals(mealDtoInstance.sumOf { it.weight }.toLong(), details.weight);
             Assert.assertEquals(PORTION, details.portionName);
+        }
+    }
+
+    @Test
+    fun creationAlimentReussitePortionComplete(){
+        val newFoodDTO = NewFoodDTO();
+        newFoodDTO.foodGroupId = 18L;
+        newFoodDTO.mealName = NOM_ALIMENT;
+        newFoodDTO.portionWeight = 200;
+
+        runBlocking {
+            val nouvelAliment = insertionAliment(newFoodDTO, true);
+            Assert.assertNotEquals(AUCUN_ALIMENT, nouvelAliment);
+
+            val details = foodService.getFoodDetails(nouvelAliment);
+
+            Assert.assertEquals(NOM_ALIMENT, details.food.foodName);
+            Assert.assertEquals(200L, details.weight);
+            Assert.assertEquals("200g", details.portionName);
+        }
+    }
+
+    @Test
+    fun creationAlimentReussitePortionNomSpecifie(){
+        val newFoodDTO = NewFoodDTO();
+        newFoodDTO.foodGroupId = 18L;
+        newFoodDTO.mealName = NOM_ALIMENT;
+        newFoodDTO.portionName = PORTION;
+
+        runBlocking {
+            val nouvelAliment = insertionAliment(newFoodDTO, true);
+            Assert.assertNotEquals(AUCUN_ALIMENT, nouvelAliment);
+
+            val details = foodService.getFoodDetails(nouvelAliment);
+
+            Assert.assertEquals(NOM_ALIMENT, details.food.foodName);
+            Assert.assertEquals(mealDtoInstance.sumOf { it.weight }.toLong(), details.weight);
+            Assert.assertEquals(PORTION, details.portionName);
+        }
+    }
+
+    @Test
+    fun creationAlimentReussitePortionNomImplicitePoidsSpecifie(){
+        val newFoodDTO = NewFoodDTO();
+        newFoodDTO.foodGroupId = 18L;
+        newFoodDTO.mealName = NOM_ALIMENT;
+        newFoodDTO.portionWeight = 200;
+
+        runBlocking {
+            val nouvelAliment = insertionAliment(newFoodDTO, true);
+            Assert.assertNotEquals(AUCUN_ALIMENT, nouvelAliment);
+
+            val details = foodService.getFoodDetails(nouvelAliment);
+
+            Assert.assertEquals(NOM_ALIMENT, details.food.foodName);
+            Assert.assertEquals(200L, details.weight);
+            Assert.assertEquals("200g", details.portionName);
         }
     }
 }

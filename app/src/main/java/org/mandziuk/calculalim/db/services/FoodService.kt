@@ -122,16 +122,15 @@ class FoodService(private val applicationContext: Context) {
             val poidsTotal: Int = poidsRepas(newFoodDTO, aliments)
             val measureId = recupererMeasureId(newFoodDTO, poidsTotal)
             val foodId = ajoutAliment(newFoodDTO);
-            creerPortionRepas(measureId, foodId, poidsTotal);
+            creerPortionRepas(measureId, foodId, newFoodDTO.portionWeight ?: poidsTotal);
 
-            creationNutriments(aliments, foodId, poidsTotal);
+            creationNutriments(aliments, foodId, newFoodDTO.portionWeight ?: poidsTotal);
             return@withContext foodId;
         }
     }
 
     private suspend fun creationNutriments(aliments: MealDTO, foodId: Long, poidsTotal: Int) {
         val nutrientAmount = aliments.map { a -> getAllNutrients(a.foodId, a.weight) };
-        // TODO : Continuer les calculs nutritionnels
         val nutriments = nutrientAmount
             .map { na -> na.nutrients }.flatten().groupBy { n -> n.nutrientId }
             .map { (nutrientId, j) ->
