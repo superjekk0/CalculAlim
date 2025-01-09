@@ -112,16 +112,20 @@ class FoodService(private val applicationContext: Context) {
         }
     }
 
-    suspend fun createFood(newFoodDTO: NewFoodDTO, aliments: MealDTO){
+    suspend fun createFood(newFoodDTO: NewFoodDTO, aliments: MealDTO): Long{
         // TODO : Faire les étapes de création d'un aliment
-        withContext(Dispatchers.IO){
-            val group = foodDao.getFoodGroup(newFoodDTO.foodGroupId) ?: return@withContext;
+        return withContext(Dispatchers.IO){
+            foodDao.getFoodGroup(newFoodDTO.foodGroupId) ?: return@withContext -1L;
+            if (newFoodDTO.mealName.isNullOrBlank()){
+                return@withContext -1L;
+            }
             val poidsTotal: Int = poidsRepas(newFoodDTO, aliments)
             val measureId = recupererMeasureId(newFoodDTO, poidsTotal)
             val foodId = ajoutAliment(newFoodDTO);
             creerPortionRepas(measureId, foodId, poidsTotal);
 
-            creationNutriments(aliments, foodId, poidsTotal)
+            creationNutriments(aliments, foodId, poidsTotal);
+            return@withContext foodId;
         }
     }
 

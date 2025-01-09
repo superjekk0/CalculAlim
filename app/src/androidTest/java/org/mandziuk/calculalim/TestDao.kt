@@ -16,4 +16,10 @@ interface TestDao {
 
     @Query("SELECT COUNT(*) FROM FoodNutrientAmount")
     suspend fun foodNutrientAmountCount(): Long;
+
+    @Query("SELECT COUNT(DISTINCT NutrientID) FROM FoodNutrientAmount WHERE FoodID IN (:foodIds)")
+    suspend fun nutrientCount(foodIds: List<Long>) : Long;
+
+    @Query("SELECT COUNT(*) FROM Food WHERE FoodDescriptionF = :nom")
+    suspend fun nomPris(nom: String): Boolean;
 }
