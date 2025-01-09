@@ -29,6 +29,7 @@
             android:title="@string/optionAlimentsSupprimes"
             android:summary="@string/optionAlimentsSupprimesDescription" />
         <Preference
+            android:key="reset"
             android:title="@string/optionReinitialisation"
             android:summary="@string/optionReinitialisationDescription" />
     </PreferenceCategory>
@@ -38,7 +39,9 @@
         app:allowDividerAbove="true">
 
         <Preference
-            android:title="@string/titreVersionApplication"/>
+            android:key="version"
+            android:title="@string/titreVersionApplication"
+            android:summary="@string/versionUtilisee"/>
         <Preference
             android:title="@string/titreMentionsLegales"/>
         <Preference

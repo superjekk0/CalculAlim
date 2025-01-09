@@ -67,6 +67,7 @@
     <string name="dialogueBoutonAnnuler">Cancel</string>
     <string name="erreurQuantitePortion">Weight must be associated with portion</string>
     <string name="alimentAjouteListe">Composed meal has been added</string>
+    <string name="versionUtilisee">You are currently using the %1$s version</string>
     <string-array name="langues">
         <item>English</item>
         <item>Français (French)</item>
