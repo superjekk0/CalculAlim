@@ -10,10 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import org.mandziuk.calculalim.R
 import org.mandziuk.calculalim.db.models.Repas
-import java.time.format.DateTimeFormatter
-import java.time.temporal.TemporalAccessor
-import java.time.temporal.TemporalField
-import java.time.temporal.TemporalQueries
 import java.util.Calendar
 import java.util.Date
 
@@ -51,7 +47,7 @@ class HistoryDateAdapter(private val context: Context, private val repas: List<R
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryDateVH {
         val view = LayoutInflater.from(parent.context).
-            inflate(R.layout.history_item, parent, false);
+            inflate(R.layout.item_history, parent, false);
         return HistoryDateVH(view, context);
     }
 

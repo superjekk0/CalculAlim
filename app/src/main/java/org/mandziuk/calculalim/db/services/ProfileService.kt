@@ -41,6 +41,10 @@ class ProfileService(private val context: Context) {
         return profile;
     }
 
+    suspend fun getProfiles(): List<Profil>{
+        return profilDao.getProfiles();
+    }
+
     private suspend fun getProfile(id: Long): Profil {
         if (profilDao.profilCount() == 0L){
             val profil = Profil(0L, "Profil 1");

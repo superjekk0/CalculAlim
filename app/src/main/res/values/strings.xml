@@ -68,6 +68,10 @@
     <string name="erreurQuantitePortion">Weight must be associated with portion</string>
     <string name="alimentAjouteListe">Composed meal has been added</string>
     <string name="versionUtilisee">You are currently using the %1$s version</string>
+    <string name="dialogueTitreReset">Application\'s reset</string>
+    <string name="dialogueResetDescription">Do you really want to reset the app? This action cannot be reversed, neither can you restore formerly saved data</string>
+    <string name="dialogueResetConfirmer">Reset</string>
+    <string name="dialogueResetAnnuler">Cancel</string>
     <string-array name="langues">
         <item>English</item>
         <item>Français (French)</item>

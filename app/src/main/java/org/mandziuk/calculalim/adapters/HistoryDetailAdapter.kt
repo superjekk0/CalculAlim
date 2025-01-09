@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import org.mandziuk.calculalim.R
@@ -32,7 +31,7 @@ class HistoryDetailAdapter(private val context: Context) : Adapter<HistoryDetail
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryDetailVH {
         val view = LayoutInflater.from(parent.context).
-            inflate(R.layout.history_date_details_item, parent, false);
+            inflate(R.layout.item_history_date_details, parent, false);
         return HistoryDetailVH(view);
     }
 

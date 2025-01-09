@@ -9,11 +9,13 @@ import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.launch
 import org.mandziuk.calculalim.R
 import org.mandziuk.calculalim.db.services.ProfileService
+import org.mandziuk.calculalim.dialogs.ProfilDialog
 
 /**
  * Classe de laquelle les activités ayant un tiroir doivent hériter pour avoir le même comportement
@@ -69,6 +71,15 @@ open class DrawerEnabledActivity : AppCompatActivity() {
                 R.id.parametres ->{
                     val intent = Intent(this, ParametersActivity::class.java);
                     startActivity(intent);
+                }
+                R.id.profil->{
+                    lifecycle.coroutineScope.launch {
+                        val profileService = ProfileService(this@DrawerEnabledActivity);
+                        val profils = profileService.getProfiles();
+                        val profilDialog = ProfilDialog(this@DrawerEnabledActivity, profils);
+
+                        profilDialog.show();
+                    }
                 }
             }
             drawerLayout.closeDrawers();

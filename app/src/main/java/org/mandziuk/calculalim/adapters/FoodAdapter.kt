@@ -33,7 +33,7 @@ class FoodAdapter(private val context: Context) : Adapter<FoodAdapter.MyVH>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyVH {
         val view = LayoutInflater.from(parent.context).
-                inflate(R.layout.food_item, parent, false);
+                inflate(R.layout.item_food, parent, false);
         return MyVH(view);
     }
 

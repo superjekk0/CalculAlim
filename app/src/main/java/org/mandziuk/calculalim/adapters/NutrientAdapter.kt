@@ -5,15 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.view.menu.MenuView.ItemView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
-import kotlinx.coroutines.NonDisposableHandle.parent
 import org.mandziuk.calculalim.R
-import org.mandziuk.calculalim.db.models.Nutrient
 import org.mandziuk.calculalim.db.views.FoodNutrientDetails
 import java.util.Locale
-import kotlin.concurrent.thread
 
 class NutrientAdapter(private val context: Context) : Adapter<NutrientAdapter.NutrientViewHolder>() {
 
@@ -29,7 +25,7 @@ class NutrientAdapter(private val context: Context) : Adapter<NutrientAdapter.Nu
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NutrientViewHolder {
         val view = LayoutInflater.from(parent.context).
-        inflate(R.layout.nutrient_item, parent, false);
+        inflate(R.layout.item_nutrient, parent, false);
         return NutrientViewHolder(view);
     }
 

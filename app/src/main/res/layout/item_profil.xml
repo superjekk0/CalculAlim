@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageProfil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="Image de profil"
+        app:srcCompat="@drawable/ic_profil" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <TextView
+            android:id="@+id/nom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/placeholder"
+            android:layout_weight="1"
+            android:textSize="30sp"
+            android:paddingVertical="15dp"
+            android:paddingHorizontal="20dp"/>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/nomEdition"
+            android:inputType="text"
+            android:autofillHints="username"
+            android:hint="Nom de profil"
+            android:visibility="gone"
+            android:layout_weight="1"
+            android:textSize="30sp"
+            android:paddingVertical="15dp"
+            android:paddingHorizontal="20dp"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Éditer le profil"
+            android:id="@+id/editer"
+            android:src="@drawable/ic_editer"
+            android:backgroundTint="#00000000"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="15dp"/>
+    </LinearLayout>
+</LinearLayout>

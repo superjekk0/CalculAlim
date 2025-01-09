@@ -2,16 +2,17 @@ package org.mandziuk.calculalim.dialogs
 
 import android.app.AlertDialog
 import android.content.Context
+import org.mandziuk.calculalim.R
 
 class ResetDialog(context: Context) : AlertDialog.Builder(context) {
     var annule = false;
 
     init {
-        setTitle("Réinitialisation de l'application");
-        setMessage("Voulez-vous vraiment réinitialiser l'application? Cette action est irréversible, sans possibilité de restaurer les données précédemment enregistrées.");
+        setTitle(context.getString(R.string.dialogueTitreReset));
+        setMessage(context.getString(R.string.dialogueResetDescription));
 
-        setPositiveButton("Réinitialiser") { _, _ ->};
-        setNegativeButton("Annuler") { dialog, _ -> dialog.cancel(); };
+        setPositiveButton(context.getString(R.string.dialogueResetConfirmer)) { _, _ ->};
+        setNegativeButton(context.getString(R.string.dialogueResetAnnuler)) { dialog, _ -> dialog.cancel(); };
 
         setOnCancelListener { annule = true; };
     }

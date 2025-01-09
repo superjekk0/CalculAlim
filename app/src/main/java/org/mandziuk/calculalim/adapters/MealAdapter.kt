@@ -2,7 +2,6 @@ package org.mandziuk.calculalim.adapters
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,7 +42,7 @@ class MealAdapter(private val context: Context, private val repadId: Long, priva
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyVH {
         val view = LayoutInflater.from(parent.context).
-                inflate(R.layout.meal_item, parent, false);
+                inflate(R.layout.item_meal, parent, false);
         return MyVH(view);
     }
 

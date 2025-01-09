@@ -25,6 +25,9 @@ interface ProfilDao {
     @Query("SELECT * FROM Profil WHERE ProfilID = :id")
     suspend fun getProfil(id: Long): Profil?;
 
+    @Query("SELECT * FROM Profil")
+    suspend fun getProfiles(): List<Profil>;
+
     /**
      * Récupère le premier profil de la base de données. Devrait être utilisé si aucun profil n'est trouvé.
      */
