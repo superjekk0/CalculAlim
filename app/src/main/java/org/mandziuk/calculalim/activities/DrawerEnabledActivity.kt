@@ -19,6 +19,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.launch
 import org.mandziuk.calculalim.R
+import org.mandziuk.calculalim.db.models.Profil
 import org.mandziuk.calculalim.db.services.ProfileService
 import org.mandziuk.calculalim.dialogs.ProfilDialog
 
@@ -29,9 +30,14 @@ import org.mandziuk.calculalim.dialogs.ProfilDialog
 
 var newPhotoUri = Uri.EMPTY;
 
-abstract class DrawerEnabledActivity : AppCompatActivity() {
+interface ProfileChangedListener {
+    fun onProfileChanged(profil: Profil);
+}
+
+abstract class DrawerEnabledActivity : AppCompatActivity(), ProfileChangedListener {
     protected lateinit var abToggle: ActionBarDrawerToggle;
     private lateinit var photoPickerLauncher: ActivityResultLauncher<String>;
+    private lateinit var navigation: NavigationView;
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (abToggle.onOptionsItemSelected(item)){
@@ -69,6 +75,7 @@ abstract class DrawerEnabledActivity : AppCompatActivity() {
      * @param navigationView Le tiroir de navigation
      */
     protected fun initializeDrawer(drawerLayout: DrawerLayout, navigationView: NavigationView) {
+        navigation = navigationView;
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
         abToggle = ActionBarDrawerToggle(this, drawerLayout, R.string.ouvrirTiroir, R.string.fermerTiroir);
         drawerLayout.addDrawerListener(abToggle);
@@ -110,9 +117,14 @@ abstract class DrawerEnabledActivity : AppCompatActivity() {
         lifecycleScope.launch{
             val context = this@DrawerEnabledActivity;
             val profil = ProfileService(context).getProfile();
-            val header = navigationView.getHeaderView(0);
+            val header = navigation.getHeaderView(0);
             header.findViewById<TextView>(R.id.nomProfil).text =
                 getString(R.string.salutation, profil.name);
         }
+    }
+
+    override fun onProfileChanged(profil: Profil) {
+        val header = navigation.getHeaderView(0);
+        header.findViewById<TextView>(R.id.nomProfil).text = getString(R.string.salutation, profil.name);
     }
 }

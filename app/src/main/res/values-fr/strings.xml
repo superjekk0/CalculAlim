@@ -75,6 +75,7 @@
     <string name="ajouterImageProfil">Ajouter un profil</string>
     <string name="creerProfil">Ajouter</string>
     <string name="imageProfil">Image de profil</string>
+    <string name="selectionner">Sélectionner</string>
     <string-array name="langues">
         <item>English (Anglais)</item>
         <item>Français</item>

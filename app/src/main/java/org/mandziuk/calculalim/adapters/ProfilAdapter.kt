@@ -1,11 +1,16 @@
 package org.mandziuk.calculalim.adapters
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
+import android.util.AttributeSet
 import android.util.Log
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -14,24 +19,53 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContract
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 import org.mandziuk.calculalim.R
 import org.mandziuk.calculalim.activities.newPhotoUri
 import org.mandziuk.calculalim.db.models.Profil
 import org.mandziuk.calculalim.db.services.ProfileService
+import org.mandziuk.calculalim.dialogs.IndexChangedListener
 
-class ProfilAdapter(private val profils: ArrayList<Profil>, private val context: AppCompatActivity, private val launcher: ActivityResultLauncher<String>) : RecyclerView.Adapter<ProfilAdapter.ProfilVH>() {
+class ProfilAdapter(private val profils: ArrayList<Profil>, private val context: AppCompatActivity, private val launcher: ActivityResultLauncher<String>, private val listener: IndexChangedListener) : RecyclerView.Adapter<ProfilAdapter.ProfilVH>() {
     private val profileService = ProfileService(context);
+    private val selectedVHManager = SelectedVHManager(context);
+
+//    val choixProfil: SharedFlow<Long> = profilChoisi(-1);
+//
+//    private fun profilChoisi(position: Int) : SharedFlow<Long>{
+//        return profils[position].id;
+//    }
+
+    private class SelectedVHManager(private val context: AppCompatActivity){
+        private var selectedVH: ProfilVH? = null;
+        private var position: Int = -1;
+
+        fun setSelectedVH(vh: ProfilVH, position: Int){
+            this.position = position;
+            selectedVH?.item?.background = null;
+            selectedVH = vh;
+            selectedVH?.item?.background = AppCompatResources.getDrawable(context, R.color.itemSelected);
+        }
+
+        fun drawIfSelected(vh: ProfilVH, position: Int){
+            if (position == this.position){
+                selectedVH?.item?.background = null;
+                selectedVH = vh;
+                selectedVH?.item?.background = AppCompatResources.getDrawable(context, R.color.itemSelected);
+            }
+        }
+    }
 
     class ProfilVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val item: View = itemView.findViewById(R.id.item);
+        val item: LinearLayout = itemView.findViewById(R.id.item);
         val profil: LinearLayout = itemView.findViewById(R.id.profil);
         val imageProfil: ImageView = itemView.findViewById(R.id.imageProfil);
         val nom: TextView = itemView.findViewById(R.id.nom);
@@ -54,7 +88,10 @@ class ProfilAdapter(private val profils: ArrayList<Profil>, private val context:
         return profils.size + 1;
     }
 
+    @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: ProfilVH, position: Int) {
+        selectedVHManager.drawIfSelected(holder, position);
+
         if (position == profils.size){
             ajouterProfil(holder);
         } else{
@@ -116,6 +153,11 @@ class ProfilAdapter(private val profils: ArrayList<Profil>, private val context:
 
         holder.ajoutProfil.setOnClickListener {
             afficherEdition(holder);
+        }
+
+        holder.item.setOnClickListener {
+            selectedVHManager.setSelectedVH(holder, position);
+            listener.indexChanged(profils[position].id);
         }
     }
 

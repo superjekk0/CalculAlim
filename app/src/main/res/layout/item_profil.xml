@@ -4,7 +4,8 @@
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:id="@+id/item">
+    android:id="@+id/item"
+    android:foreground="?attr/selectableItemBackground">
     <LinearLayout
         android:id="@+id/profil"
         android:layout_width="200dp"

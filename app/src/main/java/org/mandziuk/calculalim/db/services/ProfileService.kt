@@ -58,6 +58,13 @@ class ProfileService(private val context: Context) {
         return Profil(profilId, profil.name);
     }
 
+    suspend fun setProfile(profilId: Long): Profil{
+        preferences.edit { p ->
+            p[profilKey] = profilId.toInt();
+        }
+        return getProfile(profilId);
+    }
+
     private suspend fun getProfile(id: Long): Profil {
         if (profilDao.profilCount() == 0L){
             val profil = Profil(0L, "Profil 1");
