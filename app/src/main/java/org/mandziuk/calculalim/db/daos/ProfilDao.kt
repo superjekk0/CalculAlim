@@ -1,11 +1,11 @@
 package org.mandziuk.calculalim.db.daos
 
 import androidx.room.Dao
-import androidx.room.Index
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
+import androidx.room.Update
 import org.mandziuk.calculalim.db.models.FoodRepas
 import org.mandziuk.calculalim.db.models.Profil
 import org.mandziuk.calculalim.db.models.Repas
@@ -48,4 +48,10 @@ interface ProfilDao {
 
     @Query("SELECT * FROM FoodRepasDetails WHERE RepasID = :repasId")
     suspend fun getFoodRepasDetails(repasId: Long): List<FoodRepasDetails>;
+
+    @Query("SELECT COUNT(ProfilName) FROM Profil WHERE ProfilName = :name")
+    suspend fun takenProfileName(name: String): Boolean;
+
+    @Update(entity = Profil::class, onConflict = OnConflictStrategy.ABORT)
+    suspend fun updateProfileName(profil: Profil);
 }

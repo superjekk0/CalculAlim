@@ -41,8 +41,16 @@ class ProfileService(private val context: Context) {
         return profile;
     }
 
-    suspend fun getProfiles(): List<Profil>{
-        return profilDao.getProfiles();
+    suspend fun getProfiles(): ArrayList<Profil>{
+        return ArrayList(profilDao.getProfiles());
+    }
+
+    suspend fun availableProfileName(name: String): Boolean{
+        return ! profilDao.takenProfileName(name);
+    }
+
+    suspend fun updateProfileName(profil: Profil){
+        profilDao.updateProfileName(profil);
     }
 
     private suspend fun getProfile(id: Long): Profil {

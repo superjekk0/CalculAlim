@@ -68,6 +68,13 @@
     <string name="dialogueResetDescription">Voulez-vous vraiment réinitialiser l\'application? Cette action est irréversible, sans possibilité de restaurer les données précédemment enregistrées.</string>
     <string name="dialogueResetConfirmer">Réinitialiser</string>
     <string name="dialogueResetAnnuler">Annuler</string>
+    <string name="erreurNomProfilPris">Ce nom de profil est déjà utilisé</string>
+    <string name="erreurNomProfilVide">Il faut rentrer un nom</string>
+    <string name="nomProfil">Nom de profil</string>
+    <string name="editerProfil">Éditer le profil</string>
+    <string name="ajouterImageProfil">Ajouter un profil</string>
+    <string name="creerProfil">Ajouter</string>
+    <string name="imageProfil">Image de profil</string>
     <string-array name="langues">
         <item>English (Anglais)</item>
         <item>Français</item>

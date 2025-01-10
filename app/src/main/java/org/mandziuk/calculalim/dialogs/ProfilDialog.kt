@@ -1,14 +1,13 @@
 package org.mandziuk.calculalim.dialogs
 
-import android.content.Context
-import android.os.Bundle
 import android.view.LayoutInflater
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.mandziuk.calculalim.adapters.ProfilAdapter
 import org.mandziuk.calculalim.databinding.DialogProfileBinding
 import org.mandziuk.calculalim.db.models.Profil
 
-class ProfilDialogBuilder(context: Context, profils: List<Profil>) : CustomDialog(context) {
+class ProfilDialog(context: AppCompatActivity, profils: ArrayList<Profil>) : CustomDialog(context) {
     private val binding: DialogProfileBinding =
         DialogProfileBinding.inflate(LayoutInflater.from(context));
 

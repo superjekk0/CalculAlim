@@ -1,26 +1,28 @@
 package org.mandziuk.calculalim.adapters
 
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.launch
 import org.mandziuk.calculalim.R
-import org.mandziuk.calculalim.databinding.ItemProfilBinding
 import org.mandziuk.calculalim.db.models.Profil
+import org.mandziuk.calculalim.db.services.ProfileService
 
-class ProfilAdapter(private val profils: List<Profil>, private val context: Context) : RecyclerView.Adapter<ProfilAdapter.ProfilVH>() {
+class ProfilAdapter(private val profils: ArrayList<Profil>, private val context: AppCompatActivity) : RecyclerView.Adapter<ProfilAdapter.ProfilVH>() {
+    private val profileService = ProfileService(context);
 
     class ProfilVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val item: View = itemView.findViewById(R.id.item);
         val profil: LinearLayout = itemView.findViewById(R.id.profil);
         val imageProfil: ImageView = itemView.findViewById(R.id.imageProfil);
         val nom: TextView = itemView.findViewById(R.id.nom);
@@ -53,21 +55,41 @@ class ProfilAdapter(private val profils: List<Profil>, private val context: Cont
         }
 
         holder.nomEdition.doOnTextChanged { text, _, _, _ ->
-            Log.i("ProfilAdapter", "Text changed to $text");
-        }
+            if (text.isNullOrBlank()){
+                holder.nomEdition.error = context.getString(R.string.erreurNomProfilVide);
+            } else{
+                context.lifecycle.coroutineScope.launch {
+                    val available = profileService.availableProfileName(text.toString());
+                    if (!available){
+                        holder.nomEdition.error = context.getString(R.string.erreurNomProfilPris);
+                    } else{
+                        holder.nomEdition.error = null;
+                    }
+                }
+            }
 
-        holder.nomEdition.setOnClickListener{
-            Log.i("ProfilAdapter", "Câlice");
-        }
-
-        holder.nomEdition.setOnContextClickListener { v ->
-            Log.i("ProfilAdapter", "Context click");
-            true;
         }
 
         holder.editer.setOnClickListener {
             afficherEdition(holder);
-            context.getSystemService(InputMethodManager::class.java);
+        }
+
+        holder.sauvegarder.setOnClickListener {
+            if (holder.nomEdition.error != null){
+                return@setOnClickListener;
+            }
+
+            context.lifecycle.coroutineScope.launch {
+                val profil = profils[position];
+                val nouveauProfil = Profil(
+                  id = profil.id,
+                    name = holder.nomEdition.text.toString()
+                );
+                profileService.updateProfileName(nouveauProfil);
+                profils[position] = nouveauProfil;
+                holder.nom.text = nouveauProfil.name;
+                afficherProfil(holder);
+            }
         }
     }
 

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="wrap_content"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/item">
     <LinearLayout
         android:id="@+id/profil"
         android:layout_width="200dp"
@@ -14,7 +15,7 @@
             android:id="@+id/imageProfil"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:contentDescription="Image de profil"
+            android:contentDescription="@string/imageProfil"
             app:srcCompat="@drawable/ic_profil"
             android:layout_gravity="center_horizontal"
             android:foreground="@drawable/cadre_profil"
@@ -35,7 +36,7 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="Éditer le profil"
+                android:contentDescription="@string/editerProfil"
                 android:id="@+id/editer"
                 android:src="@drawable/ic_editer"
                 android:backgroundTint="#00000000"
@@ -55,7 +56,7 @@
             android:id="@+id/imageProfilEdition"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:contentDescription="Image de profil"
+            android:contentDescription="@string/imageProfil"
             app:srcCompat="@drawable/ic_profil"
             android:layout_gravity="center_horizontal"
             android:foreground="@drawable/cadre_profil_edition"
@@ -71,7 +72,7 @@
                 android:id="@+id/nomEdition"
                 android:inputType="text"
                 android:autofillHints="username,name"
-                android:hint="Nom de profil"
+                android:hint="@string/nomProfil"
                 android:textSize="30sp"
                 android:paddingVertical="5dp"
                 android:paddingHorizontal="10dp"
@@ -79,7 +80,7 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="Éditer le profil"
+                android:contentDescription="@string/editerProfil"
                 android:id="@+id/sauvegarder"
                 android:src="@drawable/ic_sauvegarder"
                 android:backgroundTint="#00000000"
@@ -99,15 +100,16 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/ic_ajouter"
-            android:contentDescription="Ajouter un profil"
+            android:contentDescription="@string/ajouterImageProfil"
             android:layout_gravity="center_horizontal"
             android:foreground="@drawable/cadre_profil"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:id="@+id/ajoutProfil"
-            android:text="Ajouter"
+            android:text="@string/creerProfil"
             android:textSize="24sp"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:layout_marginVertical="20dp"/>
     </LinearLayout>
 </LinearLayout>

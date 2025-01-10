@@ -72,6 +72,13 @@
     <string name="dialogueResetDescription">Do you really want to reset the app? This action cannot be reversed, neither can you restore formerly saved data</string>
     <string name="dialogueResetConfirmer">Reset</string>
     <string name="dialogueResetAnnuler">Cancel</string>
+    <string name="erreurNomProfilPris">This Profile Name is already taken</string>
+    <string name="erreurNomProfilVide">You must write a profile name</string>
+    <string name="nomProfil">Profile Name</string>
+    <string name="editerProfil">Edit Profile</string>
+    <string name="ajouterImageProfil">Create a Profile</string>
+    <string name="creerProfil">Create</string>
+    <string name="imageProfil">Profile Image</string>
     <string-array name="langues">
         <item>English</item>
         <item>Français (French)</item>

@@ -15,7 +15,7 @@ import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.launch
 import org.mandziuk.calculalim.R
 import org.mandziuk.calculalim.db.services.ProfileService
-import org.mandziuk.calculalim.dialogs.ProfilDialogBuilder
+import org.mandziuk.calculalim.dialogs.ProfilDialog
 
 /**
  * Classe de laquelle les activités ayant un tiroir doivent hériter pour avoir le même comportement
@@ -75,9 +75,9 @@ abstract class DrawerEnabledActivity : AppCompatActivity() {
                     lifecycle.coroutineScope.launch {
                         val profileService = ProfileService(this@DrawerEnabledActivity);
                         val profils = profileService.getProfiles();
-                        val profilDialogBuilder = ProfilDialogBuilder(this@DrawerEnabledActivity, profils);
+                        val profilDialog = ProfilDialog(this@DrawerEnabledActivity, profils);
 
-                        profilDialogBuilder.show();
+                        profilDialog.show();
                     }
                 }
             }
