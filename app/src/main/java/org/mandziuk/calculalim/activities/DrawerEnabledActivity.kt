@@ -1,7 +1,9 @@
 package org.mandziuk.calculalim.activities
 
+import android.content.ContentResolver
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -22,22 +24,30 @@ import org.mandziuk.calculalim.R
 import org.mandziuk.calculalim.db.models.Profil
 import org.mandziuk.calculalim.db.services.ProfileService
 import org.mandziuk.calculalim.dialogs.ProfilDialog
-
-/**
- * Classe de laquelle les activités ayant un tiroir doivent hériter pour avoir le même comportement
- * quel que soit l'activité.
- */
-
-var newPhotoUri = Uri.EMPTY;
+import java.io.InputStream
+import java.io.InputStreamReader
 
 interface ProfileChangedListener {
     fun onProfileChanged(profil: Profil);
 }
 
-abstract class DrawerEnabledActivity : AppCompatActivity(), ProfileChangedListener {
+interface PhotoChosenListener{
+    fun onPhotoChosen(action: (Uri, ContentResolver) -> Unit);
+}
+
+/**
+ * Classe de laquelle les activités ayant un tiroir doivent hériter pour avoir le même comportement
+ * quel que soit l'activité.
+ */
+abstract class DrawerEnabledActivity : AppCompatActivity(), ProfileChangedListener, PhotoChosenListener {
     protected lateinit var abToggle: ActionBarDrawerToggle;
     private lateinit var photoPickerLauncher: ActivityResultLauncher<String>;
     private lateinit var navigation: NavigationView;
+    private var photoChosenAction: (Uri, ContentResolver) -> Unit = {_, _ ->};
+
+    override fun onPhotoChosen(action: (Uri, ContentResolver) -> Unit) {
+        photoChosenAction = action;
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (abToggle.onOptionsItemSelected(item)){
@@ -63,9 +73,7 @@ abstract class DrawerEnabledActivity : AppCompatActivity(), ProfileChangedListen
                 return@ActivityResultCallback;
             }
 
-            Log.i("Profil", "Bravo! Tu as choisi une image");
-            Log.i("Profil", result.toString());
-            newPhotoUri = result;
+            photoChosenAction.invoke(result, contentResolver);
         });
     }
 
