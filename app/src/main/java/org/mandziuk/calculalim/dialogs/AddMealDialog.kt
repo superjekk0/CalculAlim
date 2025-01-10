@@ -14,7 +14,7 @@ import org.mandziuk.calculalim.db.dtos.NewFoodDTO
 import org.mandziuk.calculalim.db.services.FoodService
 import org.mandziuk.calculalim.db.services.TakenStatus
 
-class AddMealDialog(context: AppCompatActivity, private val groupes: List<FoodGroupDTO>) : AlertDialog.Builder(context) {
+class AddMealDialog(context: AppCompatActivity, private val groupes: List<FoodGroupDTO>) : CustomDialog(context) {
     val newFoodDTO = NewFoodDTO();
     private lateinit var binding : DialogAddMealBinding;
     private lateinit var dialog: AlertDialog;

@@ -88,13 +88,8 @@ class MealActivity : DrawerEnabledActivity() {
         val vraisGroupes = groupes.drop(1);
         val dialog = AddMealDialog(this@MealActivity, vraisGroupes);
 
-        var annule = false;
-        dialog.setOnCancelListener {
-            annule = true;
-        }
-
         dialog.setOnDismissListener {
-            if (annule){
+            if (dialog.annule){
                 return@setOnDismissListener;
             }
             lifecycle.coroutineScope.launch {

@@ -8,11 +8,11 @@ import org.mandziuk.calculalim.adapters.ProfilAdapter
 import org.mandziuk.calculalim.databinding.DialogProfileBinding
 import org.mandziuk.calculalim.db.models.Profil
 
-class ProfilDialog(context: Context, profils: List<Profil>) : AlertDialog.Builder(context) {
+class ProfilDialog(context: Context, profils: List<Profil>) : CustomDialog(context) {
     private val binding =
         DialogProfileBinding.inflate(LayoutInflater.from(context));
 
-    init {;
+    init {
         setView(binding.root);
 
         binding.recycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
