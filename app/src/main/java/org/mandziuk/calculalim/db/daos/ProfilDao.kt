@@ -54,4 +54,7 @@ interface ProfilDao {
 
     @Update(entity = Profil::class, onConflict = OnConflictStrategy.ABORT)
     suspend fun updateProfileName(profil: Profil);
+
+    @Insert(onConflict = OnConflictStrategy.ABORT, entity = Profil::class)
+    suspend fun insertProfile(profil: Profil) : Long;
 }

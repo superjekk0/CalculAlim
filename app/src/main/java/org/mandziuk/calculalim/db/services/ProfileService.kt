@@ -53,6 +53,11 @@ class ProfileService(private val context: Context) {
         profilDao.updateProfileName(profil);
     }
 
+    suspend fun createProfile(profil: Profil): Profil{
+        val profilId = profilDao.insertProfile(profil);
+        return Profil(profilId, profil.name);
+    }
+
     private suspend fun getProfile(id: Long): Profil {
         if (profilDao.profilCount() == 0L){
             val profil = Profil(0L, "Profil 1");

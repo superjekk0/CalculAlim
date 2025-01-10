@@ -89,14 +89,22 @@ class ProfilAdapter(private val profils: ArrayList<Profil>, private val context:
             }
 
             context.lifecycle.coroutineScope.launch {
-                val profil = profils[position];
-                val nouveauProfil = Profil(
-                  id = profil.id,
-                    name = holder.nomEdition.text.toString()
-                );
-                profileService.updateProfileName(nouveauProfil);
-                profils[position] = nouveauProfil;
-                holder.nom.text = nouveauProfil.name;
+                if (position == profils.size) {
+                    val profil = Profil(0L, holder.nomEdition.text.toString());
+                    val nouveauProfil = profileService.createProfile(profil);
+                    profils.add(nouveauProfil);
+                    notifyItemInserted(profils.size);
+                    notifyItemMoved(profils.size, profils.size + 1);
+                } else{
+                    val profil =  profils[position];
+                    val nouveauProfil = Profil(
+                        id = profil.id,
+                        name = holder.nomEdition.text.toString()
+                    );
+                    profileService.updateProfileName(nouveauProfil);
+                    profils[position] = nouveauProfil;
+                }
+                holder.nom.text = holder.nomEdition.text.toString();
                 afficherProfil(holder);
             }
         }
