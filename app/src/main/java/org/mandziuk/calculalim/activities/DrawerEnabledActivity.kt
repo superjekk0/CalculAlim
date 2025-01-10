@@ -2,10 +2,15 @@ package org.mandziuk.calculalim.activities
 
 import android.content.Intent
 import android.content.res.Configuration
+import android.net.Uri
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
@@ -21,8 +26,12 @@ import org.mandziuk.calculalim.dialogs.ProfilDialog
  * Classe de laquelle les activités ayant un tiroir doivent hériter pour avoir le même comportement
  * quel que soit l'activité.
  */
+
+var newPhotoUri = Uri.EMPTY;
+
 abstract class DrawerEnabledActivity : AppCompatActivity() {
     protected lateinit var abToggle: ActionBarDrawerToggle;
+    private lateinit var photoPickerLauncher: ActivityResultLauncher<String>;
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (abToggle.onOptionsItemSelected(item)){
@@ -39,6 +48,19 @@ abstract class DrawerEnabledActivity : AppCompatActivity() {
     override fun onConfigurationChanged(newConfig: Configuration) {
         abToggle.onConfigurationChanged(newConfig);
         super.onConfigurationChanged(newConfig);
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState);
+        photoPickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent(), ActivityResultCallback { result ->
+            if (result == null){
+                return@ActivityResultCallback;
+            }
+
+            Log.i("Profil", "Bravo! Tu as choisi une image");
+            Log.i("Profil", result.toString());
+            newPhotoUri = result;
+        });
     }
 
     /**
@@ -75,7 +97,7 @@ abstract class DrawerEnabledActivity : AppCompatActivity() {
                     lifecycle.coroutineScope.launch {
                         val profileService = ProfileService(this@DrawerEnabledActivity);
                         val profils = profileService.getProfiles();
-                        val profilDialog = ProfilDialog(this@DrawerEnabledActivity, profils);
+                        val profilDialog = ProfilDialog(this@DrawerEnabledActivity, profils, photoPickerLauncher);
 
                         profilDialog.show();
                     }

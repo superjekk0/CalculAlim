@@ -1,5 +1,8 @@
 package org.mandziuk.calculalim.adapters
 
+import android.content.Intent
+import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,16 +12,22 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
 import org.mandziuk.calculalim.R
+import org.mandziuk.calculalim.activities.newPhotoUri
 import org.mandziuk.calculalim.db.models.Profil
 import org.mandziuk.calculalim.db.services.ProfileService
 
-class ProfilAdapter(private val profils: ArrayList<Profil>, private val context: AppCompatActivity) : RecyclerView.Adapter<ProfilAdapter.ProfilVH>() {
+class ProfilAdapter(private val profils: ArrayList<Profil>, private val context: AppCompatActivity, private val launcher: ActivityResultLauncher<String>) : RecyclerView.Adapter<ProfilAdapter.ProfilVH>() {
     private val profileService = ProfileService(context);
 
     class ProfilVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -90,6 +99,15 @@ class ProfilAdapter(private val profils: ArrayList<Profil>, private val context:
                 holder.nom.text = nouveauProfil.name;
                 afficherProfil(holder);
             }
+        }
+
+        // TODO : Gérer les images
+        holder.imageProfilEdition.setOnClickListener{
+            launcher.launch("image/*")
+        }
+
+        holder.ajoutProfil.setOnClickListener {
+            afficherEdition(holder);
         }
     }
 
