@@ -3,57 +3,111 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:foreground="?android:attr/selectableItemBackground">
-
-    <ImageView
-        android:id="@+id/imageProfil"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:contentDescription="Image de profil"
-        app:srcCompat="@drawable/ic_profil"
-        android:layout_gravity="center_horizontal"
-        android:foreground="@drawable/cadre_profil"
-        android:scaleType="centerCrop"/>
+    android:layout_height="match_parent">
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
-        <TextView
-            android:id="@+id/nom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/placeholder"
-            android:textSize="30sp"
-            android:paddingVertical="15dp"
-            android:paddingHorizontal="20dp"/>
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/nomEdition"
-            android:inputType="text"
-            android:autofillHints="username"
-            android:hint="Nom de profil"
-            android:visibility="gone"
-            android:textSize="30sp"
-            android:paddingVertical="5dp"
-            android:paddingHorizontal="10dp"/>
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="Éditer le profil"
-            android:id="@+id/editer"
-            android:src="@drawable/ic_editer"
-            android:backgroundTint="#00000000"
-            android:paddingVertical="10dp"
-            android:paddingHorizontal="15dp"/>
-        <Button
+        android:id="@+id/profil"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless">
+        <ImageView
+            android:id="@+id/imageProfil"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="Image de profil"
+            app:srcCompat="@drawable/ic_profil"
+            android:layout_gravity="center_horizontal"
+            android:foreground="@drawable/cadre_profil"
+            android:scaleType="centerCrop"/>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/nom"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/placeholder"
+                android:textSize="30sp"
+                android:paddingVertical="15dp"
+                android:paddingHorizontal="20dp"
+                android:layout_weight="1"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Éditer le profil"
+                android:id="@+id/editer"
+                android:src="@drawable/ic_editer"
+                android:backgroundTint="#00000000"
+                android:paddingVertical="10dp"
+                android:paddingHorizontal="15dp"
+                android:adjustViewBounds="true"
+                />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/editionProfil"
+        android:visibility="gone">
+        <ImageView
+            android:id="@+id/imageProfilEdition"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="Image de profil"
+            app:srcCompat="@drawable/ic_profil"
+            android:layout_gravity="center_horizontal"
+            android:foreground="@drawable/cadre_profil_edition"
+            android:scaleType="centerCrop"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/nomEdition"
+                android:inputType="text"
+                android:autofillHints="username,name"
+                android:hint="Nom de profil"
+                android:textSize="30sp"
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="10dp"
+                android:layout_weight="1" />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Éditer le profil"
+                android:id="@+id/sauvegarder"
+                android:src="@drawable/ic_sauvegarder"
+                android:backgroundTint="#00000000"
+                android:paddingVertical="10dp"
+                android:paddingHorizontal="15dp"
+                android:adjustViewBounds="true"
+                />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/nouveauProfil"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_ajouter"
+            android:contentDescription="Ajouter un profil"
+            android:layout_gravity="center_horizontal"
+            android:foreground="@drawable/cadre_profil"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:id="@+id/ajoutProfil"
             android:text="Ajouter"
-            android:textSize="24sp"/>
+            android:textSize="24sp"
+            android:layout_weight="1"/>
     </LinearLayout>
 </LinearLayout>

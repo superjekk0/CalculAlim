@@ -90,11 +90,6 @@ class AddMealDialog(context: AppCompatActivity, private val groupes: List<FoodGr
 
         binding.nomPortion.doOnTextChanged { text, _, _, _ ->
             newFoodDTO.portionName = text?.toString();
-//            if (portionName != null && portionWeight == null){
-//                binding.quantitePortion.error = context.getString(R.string.erreurQuantitePortion);
-//            } else{
-//                binding.quantitePortion.error = null;
-//            }
         }
 
         binding.quantitePortion.doOnTextChanged { text, _, _, _ ->

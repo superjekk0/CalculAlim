@@ -15,18 +15,17 @@ import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.launch
 import org.mandziuk.calculalim.R
 import org.mandziuk.calculalim.db.services.ProfileService
-import org.mandziuk.calculalim.dialogs.ProfilDialog
+import org.mandziuk.calculalim.dialogs.ProfilDialogBuilder
 
 /**
  * Classe de laquelle les activités ayant un tiroir doivent hériter pour avoir le même comportement
  * quel que soit l'activité.
  */
-open class DrawerEnabledActivity : AppCompatActivity() {
+abstract class DrawerEnabledActivity : AppCompatActivity() {
     protected lateinit var abToggle: ActionBarDrawerToggle;
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (abToggle.onOptionsItemSelected(item)){
-
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -76,9 +75,9 @@ open class DrawerEnabledActivity : AppCompatActivity() {
                     lifecycle.coroutineScope.launch {
                         val profileService = ProfileService(this@DrawerEnabledActivity);
                         val profils = profileService.getProfiles();
-                        val profilDialog = ProfilDialog(this@DrawerEnabledActivity, profils);
+                        val profilDialogBuilder = ProfilDialogBuilder(this@DrawerEnabledActivity, profils);
 
-                        profilDialog.show();
+                        profilDialogBuilder.show();
                     }
                 }
             }
