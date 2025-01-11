@@ -14,6 +14,9 @@ import androidx.preference.SwitchPreference
 import kotlinx.coroutines.launch
 import org.mandziuk.calculalim.R
 import org.mandziuk.calculalim.activities.MainActivity
+import org.mandziuk.calculalim.db.foodDao
+import org.mandziuk.calculalim.db.foodDb
+import org.mandziuk.calculalim.db.profilDao
 import org.mandziuk.calculalim.db.services.FoodService
 import org.mandziuk.calculalim.dialogs.ResetDialog
 import java.util.Locale
@@ -49,7 +52,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
             alertDialog.setOnDismissListener {
                 if (!alertDialog.annule) {
-                    Log.i("EXEMPLE", "Réinitialisation");
+                    requireContext().deleteDatabase("food.db");
+                    foodDb = null;
+                    foodDao = null;
+                    profilDao = null;
+                    Runtime.getRuntime().exit(0);
                 }
             }
 

@@ -40,11 +40,10 @@ class MainActivity : DrawerEnabledActivity() {
         intent.getBooleanExtra("elementsSupprimes", false).let{
             elementsSupprimes = it;
         }
-//        abToggle.syncState();
+
         lifecycleScope.launch{
             choixGroupes = service.getFoodGroups();
             binding.choix.text = choixGroupes[indexGroup.toInt()].groupName;
-            Log.i("EXEMPLE", choixGroupes.toString());
         };
         binding.choix.setOnClickListener {
             val builder = AlertDialog.Builder(this);
