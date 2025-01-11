@@ -31,7 +31,7 @@ import org.mandziuk.calculalim.dialogs.IndexChangedListener
 import java.io.File
 import java.io.OutputStream
 
-class ProfilAdapter(private val profils: ArrayList<Profil>, private val context: DrawerEnabledActivity, private val launcher: ActivityResultLauncher<String>, private val listener: IndexChangedListener) : Adapter<ProfilAdapter.ProfilVH>() {
+class ProfilAdapter(private val profils: ArrayList<Profil>, private val context: DrawerEnabledActivity/*, private val launcher: ActivityResultLauncher<String>*/, private val listener: IndexChangedListener) : Adapter<ProfilAdapter.ProfilVH>() {
     private val profileService = ProfileService(context);
     private val selectedVHManager = SelectedVHManager(context);
 

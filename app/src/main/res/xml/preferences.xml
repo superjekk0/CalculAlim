@@ -25,7 +25,8 @@
             android:key="nutriments"
             android:title="@string/optionNutrimentsAffiches"
             android:summary="@string/choixNutrimentsDescription" />
-        <ListPreference
+        <Preference
+            android:key="corbeille"
             android:title="@string/optionAlimentsSupprimes"
             android:summary="@string/optionAlimentsSupprimesDescription" />
         <Preference

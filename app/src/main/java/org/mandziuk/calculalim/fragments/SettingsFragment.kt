@@ -1,5 +1,6 @@
 package org.mandziuk.calculalim.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
@@ -12,6 +13,7 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
 import kotlinx.coroutines.launch
 import org.mandziuk.calculalim.R
+import org.mandziuk.calculalim.activities.MainActivity
 import org.mandziuk.calculalim.db.services.FoodService
 import org.mandziuk.calculalim.dialogs.ResetDialog
 import java.util.Locale
@@ -52,6 +54,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
 
             alertDialog.show();
+            true;
+        }
+
+        findPreference<Preference>("corbeille")?.setOnPreferenceClickListener {
+            val intent = Intent(requireContext(), MainActivity::class.java);
+            intent.putExtra("elementsSupprimes", true);
+            startActivity(intent);
             true;
         }
 

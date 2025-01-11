@@ -43,6 +43,23 @@ class FoodService(private val applicationContext: Context) {
         };
     }
 
+    suspend fun getDeletedFood(foodName: String, groupId: Long): List<FoodDTO>{
+        return withContext(Dispatchers.IO){
+            val locale = Locale.getDefault().displayLanguage;
+            val result = if (locale.contains("fr", true)){
+                foodDao.getDeletedFoodsFr(groupId, foodName);
+            } else {
+                foodDao.getDeletedFoodsEn(groupId, foodName);
+            };
+
+            if (locale.contains("fr", true)){
+                return@withContext result.map { f -> FoodDTO(f.foodDescriptionFr, f.foodGroupNameFr, f.foodId)};
+            } else {
+                return@withContext result.map { f -> FoodDTO(f.foodDescription, f.foodGroupName, f.foodId)};
+            };
+        }
+    }
+
     suspend fun getFoodGroups(): List<FoodGroupDTO>{
         return withContext(Dispatchers.IO){
             val groupes = foodDao.getGroups();
@@ -132,6 +149,12 @@ class FoodService(private val applicationContext: Context) {
     suspend fun deleteFood(foodId: Long){
         withContext(Dispatchers.IO){
             foodDao.deleteFood(foodId);
+        }
+    }
+
+    suspend fun restoreFood(foodId: Long){
+        withContext(Dispatchers.IO){
+            foodDao.restoreFood(foodId);
         }
     }
 

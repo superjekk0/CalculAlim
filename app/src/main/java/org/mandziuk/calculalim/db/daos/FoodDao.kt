@@ -34,6 +34,18 @@ interface FoodDao {
             "ORDER BY instr(FoodDescription ,:nom) ASC, FoodGroupID ASC")
     suspend fun getFoodsEn(groupId: Long, nom: String) : List<FoodAndGroupNames>;
 
+    @Query("SELECT * FROM FoodAndGroupNames " +
+            "WHERE Deleted = 1 AND (:groupId = 0 OR FoodGroupID = :groupId) " +
+            "AND (:nom IS NULL OR FoodDescriptionF LIKE '%' || :nom || '%') " +
+            "ORDER BY instr(FoodDescriptionF ,:nom) ASC, FoodGroupID ASC")
+    suspend fun getDeletedFoodsFr(groupId: Long, nom: String) : List<FoodAndGroupNames>;
+
+    @Query("SELECT * FROM FoodAndGroupNames " +
+            "WHERE Deleted = 1 AND (:groupId = 0 OR FoodGroupID = :groupId)" +
+            "AND (:nom IS NULL OR FoodDescription LIKE '%' || :nom || '%') " +
+            "ORDER BY instr(FoodDescription ,:nom) ASC, FoodGroupID ASC")
+    suspend fun getDeletedFoodsEn(groupId: Long, nom: String) : List<FoodAndGroupNames>;
+
     @Query("SELECT * FROM Food " +
             "WHERE FoodID = :foodId")
     suspend fun getFood(foodId: Long) : Food;
@@ -99,4 +111,7 @@ interface FoodDao {
 
     @Query("UPDATE Food SET Deleted = 1 WHERE FoodID = :foodId")
     suspend fun deleteFood(foodId: Long);
+
+    @Query("UPDATE Food SET Deleted = 0 WHERE FoodID = :foodId")
+    suspend fun restoreFood(foodId: Long);
 }

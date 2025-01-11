@@ -18,6 +18,7 @@ import org.mandziuk.calculalim.db.dtos.FoodDetailDTO
 import org.mandziuk.calculalim.db.dtos.mealDtoInstance
 import org.mandziuk.calculalim.db.services.FoodService
 import org.mandziuk.calculalim.dialogs.DeleteDialog
+import org.mandziuk.calculalim.dialogs.RestoreDialog
 
 class FoodActivity : DrawerEnabledActivity() {
     private lateinit var binding: ActivityFoodBinding;
@@ -27,12 +28,14 @@ class FoodActivity : DrawerEnabledActivity() {
     private val nutrientAdapter: NutrientAdapter = NutrientAdapter(this);
     private var foodWeight: Int = 0;
     private var mealWeight: Int = -1;
-    private var afficherMenu: Boolean = false;
+    private var afficherMenuSuppression: Boolean = false;
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         Log.i("FoodActivity", "CREATION MENU");
-        if (afficherMenu)
+        if (afficherMenuSuppression)
             menuInflater.inflate(R.menu.food, menu);
+        else
+            menuInflater.inflate(R.menu.food_deleted, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -53,7 +56,24 @@ class FoodActivity : DrawerEnabledActivity() {
                 }
 
                 dialog.show();
-                true
+                true;
+            }
+            R.id.restaurer ->{
+                val dialog = RestoreDialog(this);
+
+                dialog.setOnDismissListener {
+                    if (! dialog.annule){
+                        lifecycleScope.launch {
+                            foodService.restoreFood(foodDetailDTO.food.foodId);
+                            Toast.makeText(this@FoodActivity,
+                                getString(R.string.alimentRestaure), Toast.LENGTH_LONG).show();
+                            finish();
+                        }
+                    }
+                }
+
+                dialog.show();
+                true;
             }
             else ->{
                 super.onOptionsItemSelected(item);
@@ -85,7 +105,7 @@ class FoodActivity : DrawerEnabledActivity() {
                     foodService.getFoodDetails(foodId)
                 else
                     foodService.getFoodDetails(foodId, mealWeight.toLong());
-            afficherMenu = ! foodDetailDTO.deleted;
+            afficherMenuSuppression = ! foodDetailDTO.deleted;
             invalidateOptionsMenu();
             updateData();
         }

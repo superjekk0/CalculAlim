@@ -85,6 +85,8 @@
     <string name="supprimerAlimentTitre">Delete this Food</string>
     <string name="confirmer">Confirm</string>
     <string name="toastAlimentSupprime">Food has been deleted</string>
+    <string name="restaurerAliment">Restore Food</string>
+    <string name="alimentRestaure">Food has been restored</string>
     <string-array name="langues">
         <item>English</item>
         <item>Français (French)</item>

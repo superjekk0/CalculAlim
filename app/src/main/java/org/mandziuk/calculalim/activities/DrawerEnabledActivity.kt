@@ -37,7 +37,7 @@ interface ProfileChangedListener {
  */
 abstract class DrawerEnabledActivity : AppCompatActivity(), ProfileChangedListener {
     protected lateinit var abToggle: ActionBarDrawerToggle;
-    private lateinit var photoPickerLauncher: ActivityResultLauncher<String>;
+//    private lateinit var photoPickerLauncher: ActivityResultLauncher<String>;
     private lateinit var navigation: NavigationView;
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -92,7 +92,7 @@ abstract class DrawerEnabledActivity : AppCompatActivity(), ProfileChangedListen
                     lifecycle.coroutineScope.launch {
                         val profileService = ProfileService(this@DrawerEnabledActivity);
                         val profils = profileService.getProfiles();
-                        val profilDialog = ProfilDialog(this@DrawerEnabledActivity, profils, photoPickerLauncher);
+                        val profilDialog = ProfilDialog(this@DrawerEnabledActivity, profils/*, photoPickerLauncher*/);
 
                         profilDialog.show();
                     }

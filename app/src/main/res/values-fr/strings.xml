@@ -81,6 +81,8 @@
     <string name="supprimerAlimentTitre">Supprimer l\'aliment</string>
     <string name="confirmer">Confirmer</string>
     <string name="toastAlimentSupprime">L\'aliment a été supprimé.</string>
+    <string name="restaurerAliment">Restaurer l\'aliment</string>
+    <string name="alimentRestaure">L\'aliment a été restauré</string>
     <string-array name="langues">
         <item>English (Anglais)</item>
         <item>Français</item>

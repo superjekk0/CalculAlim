@@ -27,6 +27,7 @@ class MainActivity : DrawerEnabledActivity() {
 
     private var name: String = "";
     private lateinit var adapter: FoodAdapter;
+    private var elementsSupprimes = false;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +37,9 @@ class MainActivity : DrawerEnabledActivity() {
         service = FoodService(this);
         initializeDrawer(binding.drawer, binding.navigation);
 
+        intent.getBooleanExtra("elementsSupprimes", false).let{
+            elementsSupprimes = it;
+        }
 //        abToggle.syncState();
         lifecycleScope.launch{
             choixGroupes = service.getFoodGroups();
@@ -73,7 +77,16 @@ class MainActivity : DrawerEnabledActivity() {
 
     private fun maJListe(){
         lifecycleScope.launch {
-            adapter.setList(service.getFood(name, indexGroup));
+            if (elementsSupprimes){
+                adapter.setList(service.getDeletedFood(name, indexGroup));
+            } else{
+                adapter.setList(service.getFood(name, indexGroup));
+            }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        maJListe();
     }
 }
