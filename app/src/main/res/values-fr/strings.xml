@@ -18,7 +18,7 @@
     <string name="enregistrerAlimentCompose">Enregistrer comme aliment</string>
     <string name="enregistrerRepas">Enregistrer le repas</string>
     <string name="messageAlimentAjoute">L\'aliment « %1$s » a été ajouté au repas</string>
-    <string name="supprimerAliment">Supprimer l\'aliment du repas</string>
+    <string name="supprimerAlimentRepas">Supprimer l\'aliment du repas</string>
     <string name="messageAlimentSupprime">L\'aliment « %1$s » a été retiré du repas</string>
     <string name="historique">Anciens repas</string>
     <string name="altImageProfil">Image de profil</string>
@@ -76,6 +76,11 @@
     <string name="creerProfil">Ajouter</string>
     <string name="imageProfil">Image de profil</string>
     <string name="selectionner">Sélectionner</string>
+    <string name="supprimerAliment">Supprimer l\'aliment</string>
+    <string name="messageSuppressionAliment">Voulez-vous vraiment supprimer cet élément? Il sera possible de le restaurer à partir des option.</string>
+    <string name="supprimerAlimentTitre">Supprimer l\'aliment</string>
+    <string name="confirmer">Confirmer</string>
+    <string name="toastAlimentSupprime">L\'aliment a été supprimé.</string>
     <string-array name="langues">
         <item>English (Anglais)</item>
         <item>Français</item>

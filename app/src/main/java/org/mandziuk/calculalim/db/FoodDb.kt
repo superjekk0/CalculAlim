@@ -6,7 +6,6 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import androidx.room.migration.Migration
 import org.mandziuk.calculalim.db.daos.FoodDao
 import org.mandziuk.calculalim.db.daos.ProfilDao;
 import org.mandziuk.calculalim.db.models.ConversionFactor
@@ -31,7 +30,7 @@ import org.mandziuk.calculalim.db.views.NutrientNameEnability
                      FoodRepas::class],
     views = [FoodAndGroupNames::class, FoodNutrientDetails::class, ConversionDetails::class, NutrientNameEnability::class,
             FoodRepasDetails::class],
-    version = 18,
+    version = 20,
     autoMigrations = [
         AutoMigration(from = 1, to = 2),
         AutoMigration(from = 2, to = 3),
@@ -50,6 +49,8 @@ import org.mandziuk.calculalim.db.views.NutrientNameEnability
         AutoMigration(from = 15, to = 16),
         AutoMigration(from = 16, to = 17),
         AutoMigration(from = 17, to = 18),
+        AutoMigration(from = 18, to = 19),
+        AutoMigration(from = 19, to = 20)
                      ],
     exportSchema = true)
 @TypeConverters(Converter::class)

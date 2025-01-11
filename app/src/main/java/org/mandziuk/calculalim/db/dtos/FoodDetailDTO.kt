@@ -11,6 +11,7 @@ class FoodDetailDTO() {
     lateinit var nutrients : List<FoodNutrientDetails>;
     var weight: Long = 100;
     var portionName: String = "";
+    var deleted: Boolean = false;
 
     constructor(food: Food, nutrients : List<FoodNutrientDetails>, locale : String) : this() {
         if (locale.contains("Fr", true)){
@@ -19,6 +20,7 @@ class FoodDetailDTO() {
             this.food = FoodDTO(food.description, food.groupId.toString(), food.id);
         }
         this.nutrients = nutrients;
+        deleted = food.deleted;
     }
 
     fun multiplyByFactor(conversionFactor: ConversionDetails, locale: String){

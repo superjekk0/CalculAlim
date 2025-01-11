@@ -129,6 +129,12 @@ class FoodService(private val applicationContext: Context) {
         }
     }
 
+    suspend fun deleteFood(foodId: Long){
+        withContext(Dispatchers.IO){
+            foodDao.deleteFood(foodId);
+        }
+    }
+
     private suspend fun creationNutriments(aliments: MealDTO, foodId: Long, poidsTotal: Int) {
         val nutrientAmount = aliments.map { a -> getAllNutrients(a.foodId, a.weight) };
         val nutriments = nutrientAmount

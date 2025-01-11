@@ -22,7 +22,7 @@
     <string name="enregistrerAlimentCompose">Register as Food</string>
     <string name="enregistrerRepas">Register the Meal</string>
     <string name="messageAlimentAjoute">Food \"%1$s\" has been added to the meal</string>
-    <string name="supprimerAliment">Delete Food from Meal</string>
+    <string name="supprimerAlimentRepas">Delete Food from Meal</string>
     <string name="messageAlimentSupprime">Food \"%1$s\" has been removed from the meal</string>
     <string name="historique">Previous meals</string>
     <string name="altImageProfil">Profile picture</string>
@@ -80,6 +80,11 @@
     <string name="creerProfil">Create</string>
     <string name="imageProfil">Profile Image</string>
     <string name="selectionner">Select</string>
+    <string name="supprimerAliment">Delete Food</string>
+    <string name="messageSuppressionAliment">Do you really want to delete this food? It will be possible to restore it from settings.</string>
+    <string name="supprimerAlimentTitre">Delete this Food</string>
+    <string name="confirmer">Confirm</string>
+    <string name="toastAlimentSupprime">Food has been deleted</string>
     <string-array name="langues">
         <item>English</item>
         <item>Français (French)</item>

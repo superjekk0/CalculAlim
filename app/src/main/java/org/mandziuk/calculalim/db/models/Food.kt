@@ -28,5 +28,6 @@ data class Food(
     @ColumnInfo(name = "FoodDateOfEntry") val entryDate : Instant?,
     @ColumnInfo(name = "FoodDateOfPublication") val publicationDate : Instant?,
     @ColumnInfo(name = "CountryCode") val countryCode : String?,
-    @ColumnInfo(name = "ScientificName") val scientificName : String?
+    @ColumnInfo(name = "ScientificName") val scientificName : String?,
+    @ColumnInfo(name = "Deleted", defaultValue = "0") val deleted : Boolean = false
 );

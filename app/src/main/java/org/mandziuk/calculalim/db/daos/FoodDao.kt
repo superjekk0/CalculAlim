@@ -23,13 +23,13 @@ interface FoodDao {
     suspend fun getGroups() : List<FoodGroup>
 
     @Query("SELECT * FROM FoodAndGroupNames " +
-            "WHERE (:groupId = 0 OR FoodGroupID = :groupId)" +
+            "WHERE Deleted = 0 AND (:groupId = 0 OR FoodGroupID = :groupId) " +
             "AND (:nom IS NULL OR FoodDescriptionF LIKE '%' || :nom || '%') " +
             "ORDER BY instr(FoodDescriptionF ,:nom) ASC, FoodGroupID ASC")
     suspend fun getFoodsFr(groupId: Long, nom: String) : List<FoodAndGroupNames>
 
     @Query("SELECT * FROM FoodAndGroupNames " +
-            "WHERE (:groupId = 0 OR FoodGroupID = :groupId)" +
+            "WHERE Deleted = 0 AND (:groupId = 0 OR FoodGroupID = :groupId)" +
             "AND (:nom IS NULL OR FoodDescription LIKE '%' || :nom || '%') " +
             "ORDER BY instr(FoodDescription ,:nom) ASC, FoodGroupID ASC")
     suspend fun getFoodsEn(groupId: Long, nom: String) : List<FoodAndGroupNames>;
@@ -96,4 +96,7 @@ interface FoodDao {
 
     @Insert(onConflict = OnConflictStrategy.ABORT, entity = NutrientAmount::class)
     suspend fun insertNutrientsAmounts(nutrientAmount: List<NutrientAmount>);
+
+    @Query("UPDATE Food SET Deleted = 1 WHERE FoodID = :foodId")
+    suspend fun deleteFood(foodId: Long);
 }

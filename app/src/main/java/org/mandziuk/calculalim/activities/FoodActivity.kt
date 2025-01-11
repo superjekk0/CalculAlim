@@ -2,6 +2,9 @@ package org.mandziuk.calculalim.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
@@ -14,6 +17,7 @@ import org.mandziuk.calculalim.databinding.ActivityFoodBinding
 import org.mandziuk.calculalim.db.dtos.FoodDetailDTO
 import org.mandziuk.calculalim.db.dtos.mealDtoInstance
 import org.mandziuk.calculalim.db.services.FoodService
+import org.mandziuk.calculalim.dialogs.DeleteDialog
 
 class FoodActivity : DrawerEnabledActivity() {
     private lateinit var binding: ActivityFoodBinding;
@@ -23,11 +27,46 @@ class FoodActivity : DrawerEnabledActivity() {
     private val nutrientAdapter: NutrientAdapter = NutrientAdapter(this);
     private var foodWeight: Int = 0;
     private var mealWeight: Int = -1;
+    private var afficherMenu: Boolean = false;
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        Log.i("FoodActivity", "CREATION MENU");
+        if (afficherMenu)
+            menuInflater.inflate(R.menu.food, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId){
+            R.id.supprimer ->{
+                val dialog = DeleteDialog(this);
+
+                dialog.setOnDismissListener {
+                    if (! dialog.annule){
+                        lifecycleScope.launch {
+                            foodService.deleteFood(foodDetailDTO.food.foodId);
+                            Toast.makeText(this@FoodActivity, getString(R.string.messageAlimentSupprime, foodDetailDTO.food.foodName), Toast.LENGTH_LONG).show();
+                            finish();
+                        }
+                    }
+                }
+
+                dialog.show();
+                true
+            }
+            else ->{
+                super.onOptionsItemSelected(item);
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState);
+        Log.i("FoodActivity", "CREATION");
         binding = ActivityFoodBinding.inflate(layoutInflater);
         setContentView(binding.root);
+        Log.i("FoodActivity", "CREATION 2");
 
         foodService = FoodService(applicationContext);
         binding.nutrients.layoutManager = LinearLayoutManager(this);
@@ -46,6 +85,8 @@ class FoodActivity : DrawerEnabledActivity() {
                     foodService.getFoodDetails(foodId)
                 else
                     foodService.getFoodDetails(foodId, mealWeight.toLong());
+            afficherMenu = ! foodDetailDTO.deleted;
+            invalidateOptionsMenu();
             updateData();
         }
 
@@ -70,6 +111,8 @@ class FoodActivity : DrawerEnabledActivity() {
             }
             finish();
         }
+
+        Log.i("FoodActivity", "FIN CREATION");
     }
 
     private fun updateData(){
@@ -84,7 +127,7 @@ class FoodActivity : DrawerEnabledActivity() {
         if (mealWeight != -1){
             binding.portionLayout.visibility = View.GONE;
             binding.setWeightLayout.visibility = View.GONE;
-            binding.addToMeal.setText(R.string.supprimerAliment);
+            binding.addToMeal.setText(R.string.supprimerAlimentRepas);
             binding.addToMeal.visibility = if (repasId == -1L) View.VISIBLE else View.GONE;
         } else{
             binding.portionLayout.visibility = View.VISIBLE;
