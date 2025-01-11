@@ -1,8 +1,10 @@
 package org.mandziuk.calculalim.adapters
 
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
+import android.os.Environment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -19,14 +21,17 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.Adapter
 import kotlinx.coroutines.launch
 import org.mandziuk.calculalim.R
 import org.mandziuk.calculalim.activities.DrawerEnabledActivity
 import org.mandziuk.calculalim.db.models.Profil
 import org.mandziuk.calculalim.db.services.ProfileService
 import org.mandziuk.calculalim.dialogs.IndexChangedListener
+import java.io.File
+import java.io.OutputStream
 
-class ProfilAdapter(private val profils: ArrayList<Profil>, private val context: DrawerEnabledActivity, private val launcher: ActivityResultLauncher<String>, private val listener: IndexChangedListener) : RecyclerView.Adapter<ProfilAdapter.ProfilVH>() {
+class ProfilAdapter(private val profils: ArrayList<Profil>, private val context: DrawerEnabledActivity, private val launcher: ActivityResultLauncher<String>, private val listener: IndexChangedListener) : Adapter<ProfilAdapter.ProfilVH>() {
     private val profileService = ProfileService(context);
     private val selectedVHManager = SelectedVHManager(context);
 
@@ -76,17 +81,6 @@ class ProfilAdapter(private val profils: ArrayList<Profil>, private val context:
 
     override fun onBindViewHolder(holder: ProfilVH, position: Int) {
         selectedVHManager.drawIfSelected(holder, position);
-        context.onPhotoChosen { uri, contentResolver ->
-            val stream = contentResolver.openInputStream(uri);
-            val options = BitmapFactory.Options();
-            options.outWidth = 100;
-            options.outHeight = 100;
-            val drawable = Drawable.createFromStream(stream, uri.toString());
-            stream?.close();
-            Log.i("IMAGE", "Fin du stream");
-            //val drawable: Drawable? = Drawable.createFromPath(uri.path);
-            holder.imageProfilEdition.setImageDrawable(drawable);
-        }
 
         if (position == profils.size){
             ajouterProfil(holder);
@@ -143,9 +137,9 @@ class ProfilAdapter(private val profils: ArrayList<Profil>, private val context:
         }
 
         // TODO : Gérer les images
-        holder.imageProfilEdition.setOnClickListener{
-            launcher.launch("image/*")
-        }
+//        holder.imageProfilEdition.setOnClickListener{
+//            launcher.launch("image/*")
+//        }
 
         holder.ajoutProfil.setOnClickListener {
             afficherEdition(holder);

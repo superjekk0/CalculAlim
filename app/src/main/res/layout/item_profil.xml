@@ -60,7 +60,7 @@
             android:contentDescription="@string/imageProfil"
             app:srcCompat="@drawable/ic_profil"
             android:layout_gravity="center_horizontal"
-            android:foreground="@drawable/cadre_profil_edition"
+            android:foreground="@drawable/cadre_profil"
             android:scaleType="centerCrop"/>
         <LinearLayout
             android:layout_width="match_parent"

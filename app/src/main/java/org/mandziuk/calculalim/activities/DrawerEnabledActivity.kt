@@ -31,23 +31,14 @@ interface ProfileChangedListener {
     fun onProfileChanged(profil: Profil);
 }
 
-interface PhotoChosenListener{
-    fun onPhotoChosen(action: (Uri, ContentResolver) -> Unit);
-}
-
 /**
  * Classe de laquelle les activités ayant un tiroir doivent hériter pour avoir le même comportement
  * quel que soit l'activité.
  */
-abstract class DrawerEnabledActivity : AppCompatActivity(), ProfileChangedListener, PhotoChosenListener {
+abstract class DrawerEnabledActivity : AppCompatActivity(), ProfileChangedListener {
     protected lateinit var abToggle: ActionBarDrawerToggle;
     private lateinit var photoPickerLauncher: ActivityResultLauncher<String>;
     private lateinit var navigation: NavigationView;
-    private var photoChosenAction: (Uri, ContentResolver) -> Unit = {_, _ ->};
-
-    override fun onPhotoChosen(action: (Uri, ContentResolver) -> Unit) {
-        photoChosenAction = action;
-    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (abToggle.onOptionsItemSelected(item)){
@@ -64,17 +55,6 @@ abstract class DrawerEnabledActivity : AppCompatActivity(), ProfileChangedListen
     override fun onConfigurationChanged(newConfig: Configuration) {
         abToggle.onConfigurationChanged(newConfig);
         super.onConfigurationChanged(newConfig);
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState);
-        photoPickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent(), ActivityResultCallback { result ->
-            if (result == null){
-                return@ActivityResultCallback;
-            }
-
-            photoChosenAction.invoke(result, contentResolver);
-        });
     }
 
     /**
