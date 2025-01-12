@@ -4,6 +4,7 @@ import android.content.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.mandziuk.calculalim.R
+import org.mandziuk.calculalim.activities.NutrientAmountDTO
 import org.mandziuk.calculalim.db.daos.FoodDao
 import org.mandziuk.calculalim.db.dtos.FoodDTO
 import org.mandziuk.calculalim.db.dtos.FoodDetailDTO
@@ -144,6 +145,30 @@ class FoodService(private val applicationContext: Context) {
 
             creationNutriments(aliments, foodId, newFoodDTO.portionWeight ?: poidsTotal);
             return@withContext foodId;
+        }
+    }
+
+    suspend fun createFood(newFoodDTO: NewFoodDTO, nutriments: List<NutrientAmountDTO>){
+        withContext(Dispatchers.IO){
+            foodDao.getFoodGroup(newFoodDTO.foodGroupId) ?: return@withContext;
+            newFoodDTO.mealWeight ?: return@withContext;
+            if (newFoodDTO.mealName.isNullOrBlank()){
+                return@withContext;
+            }
+            val foodId = ajoutAliment(newFoodDTO);
+            val measureId = recupererMeasureId(newFoodDTO, newFoodDTO.mealWeight!!);
+            creerPortionRepas(measureId, foodId, newFoodDTO.mealWeight!!);
+            foodDao.insertNutrientsAmounts(nutriments.map { na ->
+                NutrientAmount(
+                    foodId,
+                    nutrientId = na.nutrientId,
+                    value = na.amount / (newFoodDTO.mealWeight!! / pourCentGrammes),
+                    errorMargin = null,
+                    observationNumber = null,
+                    nutrientSourceId = 0L,
+                    entryDate = Instant.now()
+                )
+            });
         }
     }
 

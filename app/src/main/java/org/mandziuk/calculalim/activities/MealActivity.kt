@@ -94,7 +94,7 @@ class MealActivity : DrawerEnabledActivity() {
             }
             lifecycle.coroutineScope.launch {
                 foodService.createFood(dialog.newFoodDTO, mealDtoInstance);
-                Toast.makeText(this@MealActivity, R.string.alimentAjouteListe, Toast.LENGTH_LONG).show();
+                Toast.makeText(this@MealActivity, R.string.alimentComposeAjouteListe, Toast.LENGTH_LONG).show();
                 val intent = Intent(this@MealActivity, MainActivity::class.java);
                 startActivity(intent);
             }

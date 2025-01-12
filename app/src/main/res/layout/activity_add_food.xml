@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer"
     android:layout_width="match_parent"
@@ -60,12 +59,15 @@
                     android:text="@string/poidsObligatoire"
                     android:labelFor="@+id/poidsAliment"/>
                 <EditText
-                    android:layout_width="0dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:inputType="number"
                     android:id="@+id/poidsAliment"
                     android:autofillHints=""/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/symboleGramme"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -101,7 +103,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/ajouterNutriment"
                 android:layout_marginHorizontal="25dp"
-                android:id="@+id/ajouterNutriment"/>
+                android:id="@+id/ajouterNutriment"
+                android:layout_marginTop="10dp"/>
 
             <Button
                 android:layout_width="match_parent"

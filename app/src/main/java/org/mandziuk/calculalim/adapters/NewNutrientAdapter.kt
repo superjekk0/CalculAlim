@@ -10,6 +10,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import org.mandziuk.calculalim.R
+import org.mandziuk.calculalim.activities.NutrientAmountDTO
 import org.mandziuk.calculalim.db.models.Nutrient
 import java.text.NumberFormat
 import java.util.Locale
@@ -28,6 +29,10 @@ class NewNutrientAdapter(private val context: Context) : Adapter<NewNutrientAdap
     fun add(nutrient: Nutrient){
         nutrients.add(NutrientValue(nutrient, null));
         this.notifyItemInserted(nutrients.size - 1);
+    }
+
+    fun getNutrients(): List<NutrientAmountDTO>{
+        return nutrients.map { NutrientAmountDTO(it.nutrient.id, it.value ?: 0.0F) }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewNutrientVH {
@@ -51,12 +56,17 @@ class NewNutrientAdapter(private val context: Context) : Adapter<NewNutrientAdap
 
         holder.valeur.doOnTextChanged { text, _, _, _ ->
             if (! text.isNullOrEmpty()){
-                val formatteur = NumberFormat.getInstance(Locale.getDefault());
-                try{
-                    nutrients[position].value = formatteur.parse(text.toString())?.toFloat();
-                    holder.valeur.error = null;
-                } catch (e: NumberFormatException){
-                    holder.valeur.error = context.getString(R.string.chiffreInvalide);
+                if (text.contains('.')){
+                    nutrients[position].nutrient.decimals.let {
+                        val indexPoint = text.indexOf('.');
+                        val decimal = text.substring(indexPoint + 1);
+                        if (decimal.length > it){
+                            holder.valeur.setText(text.substring(0, indexPoint + 1 + it.toInt()));
+                            holder.valeur.setSelection(indexPoint + 1 + it.toInt());
+                        }
+                    }
+                } else{
+                    nutrients[position].value = text.toString().toFloat();
                 }
             }
         }

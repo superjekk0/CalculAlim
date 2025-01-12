@@ -65,7 +65,7 @@
     <string name="dialogueBoutonCreer">Create</string>
     <string name="dialogueBoutonAnnuler">Cancel</string>
     <string name="erreurQuantitePortion">Weight must be associated with portion</string>
-    <string name="alimentAjouteListe">Composed meal has been added</string>
+    <string name="alimentComposeAjouteListe">Composed meal has been added</string>
     <string name="versionUtilisee">You are currently using the %1$s version</string>
     <string name="dialogueTitreReset">Application\'s reset</string>
     <string name="dialogueResetDescription">Do you really want to reset the app? This action cannot be reversed, neither can you restore formerly saved data</string>
@@ -95,6 +95,7 @@
     <string name="ajouterNutriment">Add Nutrient</string>
     <string name="placeholderNombreDecimal" translatable="false">1.5</string>
     <string name="chiffreInvalide">Rentrez un nombre valide</string>
+    <string name="alimentAjoute">This Food has been saved</string>
     <string-array name="langues">
         <item>English</item>
         <item>Français (French)</item>
