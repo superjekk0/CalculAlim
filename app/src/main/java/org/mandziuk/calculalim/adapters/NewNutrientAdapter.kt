@@ -63,6 +63,7 @@ class NewNutrientAdapter(private val context: Context) : Adapter<NewNutrientAdap
                         if (decimal.length > it){
                             holder.valeur.setText(text.substring(0, indexPoint + 1 + it.toInt()));
                             holder.valeur.setSelection(indexPoint + 1 + it.toInt());
+                            nutrients[position].value = text.substring(0, indexPoint + 1 + it.toInt()).toFloat();
                         }
                     }
                 } else{
