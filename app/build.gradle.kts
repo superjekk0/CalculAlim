@@ -53,6 +53,8 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.9.3")
     implementation("androidx.datastore:datastore-preferences:1.1.1")
     implementation("androidx.preference:preference-ktx:1.2.1")
+    implementation("androidx.activity:activity:1.9.3")
+    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
 
     val roomVersion = "2.6.1"
 

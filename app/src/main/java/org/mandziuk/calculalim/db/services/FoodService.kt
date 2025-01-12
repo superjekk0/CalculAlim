@@ -15,6 +15,7 @@ import org.mandziuk.calculalim.db.getFoodDao
 import org.mandziuk.calculalim.db.models.ConversionFactor
 import org.mandziuk.calculalim.db.models.Food
 import org.mandziuk.calculalim.db.models.MeasureName
+import org.mandziuk.calculalim.db.models.Nutrient
 import org.mandziuk.calculalim.db.models.NutrientAmount
 import org.mandziuk.calculalim.db.views.FoodNutrientDetails
 import org.mandziuk.calculalim.db.views.NutrientNameEnability
@@ -155,6 +156,13 @@ class FoodService(private val applicationContext: Context) {
     suspend fun restoreFood(foodId: Long){
         withContext(Dispatchers.IO){
             foodDao.restoreFood(foodId);
+        }
+    }
+
+    suspend fun getNutrients() : ArrayList<Nutrient>{
+        return withContext(Dispatchers.IO){
+            val nutrients = foodDao.getNutrients();
+            return@withContext ArrayList(nutrients);
         }
     }
 

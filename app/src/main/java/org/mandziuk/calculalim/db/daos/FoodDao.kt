@@ -10,6 +10,7 @@ import org.mandziuk.calculalim.db.models.DiscardFood
 import org.mandziuk.calculalim.db.models.Food
 import org.mandziuk.calculalim.db.models.FoodGroup
 import org.mandziuk.calculalim.db.models.MeasureName
+import org.mandziuk.calculalim.db.models.Nutrient
 import org.mandziuk.calculalim.db.models.NutrientAmount
 import org.mandziuk.calculalim.db.views.ConversionDetails
 import org.mandziuk.calculalim.db.views.FoodAndGroupNames
@@ -77,10 +78,10 @@ interface FoodDao {
             "WHERE NutrientID IN (:nutrientIds)")
     suspend fun updateNutrientHidden(nutrientIds: List<Long>);
 
-    @Query("SELECT COUNT(FoodID) FROM Food WHERE UPPER(FoodDescription) = UPPER(:foodName) OR UPPER(FoodDescriptionF) = UPPER(:foodName)")
+    @Query("SELECT COUNT(FoodID) FROM Food WHERE Deleted = 0 AND UPPER(FoodDescription) = UPPER(:foodName) OR UPPER(FoodDescriptionF) = UPPER(:foodName)")
     suspend fun foodExists(foodName: String) : Boolean;
 
-    @Query("SELECT COUNT(FoodID) FROM Food WHERE UPPER(FoodDescriptionF) = UPPER(:foodName)")
+    @Query("SELECT COUNT(FoodID) FROM Food WHERE Deleted = 0 AND UPPER(FoodDescriptionF) = UPPER(:foodName)")
     suspend fun foodExistsFr(foodName: String) : Boolean;
 
     @Insert(onConflict = OnConflictStrategy.ABORT, entity = Food::class)
@@ -114,4 +115,7 @@ interface FoodDao {
 
     @Query("UPDATE Food SET Deleted = 0 WHERE FoodID = :foodId")
     suspend fun restoreFood(foodId: Long);
+
+    @Query("SELECT * FROM Nutrient")
+    suspend fun getNutrients() : List<Nutrient>;
 }

@@ -1,6 +1,7 @@
 package org.mandziuk.calculalim.activities
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle;
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
@@ -69,6 +70,11 @@ class MainActivity : DrawerEnabledActivity() {
             text, _, _, _ ->
             name = text.toString();
             maJListe();
+        }
+
+        binding.creation.setOnClickListener {
+            val intent = Intent(this, AddFoodActivity::class.java);
+            startActivity(intent);
         }
 
         maJListe();

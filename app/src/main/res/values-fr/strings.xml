@@ -83,6 +83,14 @@
     <string name="toastAlimentSupprime">L\'aliment a été supprimé.</string>
     <string name="restaurerAliment">Restaurer l\'aliment</string>
     <string name="alimentRestaure">L\'aliment a été restauré</string>
+    <string name="creerAliment">Créer un aliment</string>
+    <string name="poidsObligatoire">"Poids* : "</string>
+    <string name="portionLabel">"Portion : "</string>
+    <string name="nutrimentsLabel">Nutriments :</string>
+    <string name="choisirNutriment">Choisir un nutriment</string>
+    <string name="erreurPoidsRequis">Le poids doit être rentré</string>
+    <string name="ajouterNutriment">Ajouter un nutriment</string>
+    <string name="chiffreInvalide">Rentrez un nombre valide</string>
     <string-array name="langues">
         <item>English (Anglais)</item>
         <item>Français</item>

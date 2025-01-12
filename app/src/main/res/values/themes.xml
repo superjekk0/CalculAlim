@@ -3,6 +3,7 @@
     <style name="Base.Theme.CalculAlim" parent="Theme.Material3.Light">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:textViewStyle">@style/TextView</item>
     </style>
 
     <style name="BoutonParametre" parent="Theme.Material3.Light">
@@ -10,6 +11,10 @@
         <item name="android:paddingHorizontal">20dp</item>
         <item name="android:paddingVertical">15dp</item>
         <item name="fontWeight">700</item>
+    </style>
+
+    <style name="TextView">
+        <item name="android:textSize">20sp</item>
     </style>
 
     <!-- Si jamais tu veux changer la gravité avec autre chose que "start" ou "end", passe dans le

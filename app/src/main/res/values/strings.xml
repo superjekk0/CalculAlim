@@ -5,7 +5,6 @@
     <string name="nomNourriture">Food Name</string>
     <string name="typeNourriture">Food Type</string>
     <string name="nutriments" formatted="true">Nutrients (per %1$d g)</string>
-    <string name="symbole_gramme" translatable="false">g</string>
     <string name="quantiteNutriment">%1$.*f %2$s</string>
     <string name="rechercheAliment">Search food</string>
     <string name="ouvrirTiroir">Open drawer</string>
@@ -87,6 +86,15 @@
     <string name="toastAlimentSupprime">Food has been deleted</string>
     <string name="restaurerAliment">Restore Food</string>
     <string name="alimentRestaure">Food has been restored</string>
+    <string name="creerAliment">Create Food</string>
+    <string name="poidsObligatoire">"Weight*: "</string>
+    <string name="portionLabel">"Portion: "</string>
+    <string name="nutrimentsLabel">"Nutrients: "</string>
+    <string name="choisirNutriment">Choose a nutrient</string>
+    <string name="erreurPoidsRequis">Weight must be filled</string>
+    <string name="ajouterNutriment">Add Nutrient</string>
+    <string name="placeholderNombreDecimal" translatable="false">1.5</string>
+    <string name="chiffreInvalide">Rentrez un nombre valide</string>
     <string-array name="langues">
         <item>English</item>
         <item>Français (French)</item>
