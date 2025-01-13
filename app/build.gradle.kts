@@ -7,12 +7,6 @@ plugins {
     id("androidx.room")
 }
 
-val keystoreProperties = Properties()
-val keystorePropertiesFile = rootProject.file("keystore.properties")
-if (keystorePropertiesFile.exists()) {
-    keystoreProperties.load(keystorePropertiesFile.inputStream())
-}
-
 android {
     namespace = "org.mandziuk.calculalim"
     compileSdk = 35
@@ -38,21 +32,11 @@ android {
     buildFeatures{
         viewBinding = true;
     }
-    signingConfigs{
-        create("release") {
-            storeFile = file(keystoreProperties["storeFile"]!!)
-            storePassword = keystoreProperties["storePassword"]?.toString()
-            keyAlias = keystoreProperties["keyAlias"]?.toString()
-            keyPassword = keystoreProperties["keyPassword"]?.toString()
-        }
-    }
-
     buildTypes {
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             isDebuggable = false
-            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {
