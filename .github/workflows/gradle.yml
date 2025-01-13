@@ -11,7 +11,9 @@ jobs:
 
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents:
+        read
+        write
 
     steps:
     - uses: actions/checkout@v4
@@ -47,7 +49,7 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: app/build/outputs/apk/release/app-release.apk
-        asset_name: app-release.apk
+        asset_name: calculalim.apk
         asset_content_type: application/vnd.android.package-archive
 
   dependency-submission:
