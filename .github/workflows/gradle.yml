@@ -37,7 +37,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        gh release create "${{github.event.head_commit.message}}" app/build/outputs/apk/release/app-release.apk
+        gh release create "${{github.event.head_commit.message}}" app-release.apk
    # - name: Publication de Release  
     #  env:
      #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
