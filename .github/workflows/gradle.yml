@@ -42,7 +42,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        gh release upload ${{github.event.head_commit.message}} app/build/outputs/apk/release/app-release.apk
+        gh release upload ${{ github.event.head_commit.message }} app/build/outputs/apk/release/app-release.apk
   dependency-submission:
 
     runs-on: ubuntu-latest
