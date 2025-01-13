@@ -1,0 +1,80 @@
+name: Java CI with Gradle
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 11
+      uses: actions/setup-java@v4
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+
+    # Configure Gradle for optimal use in GitHub Actions, including caching of downloaded dependencies.
+    # See: https://github.com/gradle/actions/blob/main/setup-gradle/README.md
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
+
+    - name: Setup Signature
+      run: echo ${{secrets.JKS}} > ${{secrets.CHEMIN_JKS}}
+
+    - name: Informations de signature
+      run: | 
+        echo storeFile=${{secrets.CHEMIN_JSK}} > ./keystore.properties 
+        echo storePassword=${{secrets.TROGNON}} >> ./keystore.properties
+        echo keyAlias=${{secrets.POMME}} >> ./keystore.properties
+        echo keyPassword=${{secrets.TROGNON}} >> ./keystore.properties
+
+    - name: Build with Gradle Wrapper
+      run: ./gradlew build
+
+    - name: Creation de Release
+      env:
+        TITRE: ${{github.event.head_commit.message}}
+      uses: actions/create-release@1
+      with:
+        tag_name: $TITRE
+        release_name: V $TITRE
+        draft: false
+        prerelease: false
+
+    - name: Publication de Release
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: app/build/outputs/apk/release/app-release.apk
+        asset_name: app-release.apk
+        asset_content_type: application/vnd.android.package-archive
+
+  dependency-submission:
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 11
+      uses: actions/setup-java@v4
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: gradle
+
+    # Generates and submits a dependency graph, enabling Dependabot Alerts for all project dependencies.
+    # See: https://github.com/gradle/actions/blob/main/dependency-submission/README.md
+    - name: Generate and submit dependency graph
+      uses: gradle/actions/dependency-submission@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
