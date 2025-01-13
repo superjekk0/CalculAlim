@@ -18,6 +18,7 @@ import org.mandziuk.calculalim.db.foodDao
 import org.mandziuk.calculalim.db.foodDb
 import org.mandziuk.calculalim.db.profilDao
 import org.mandziuk.calculalim.db.services.FoodService
+import org.mandziuk.calculalim.dialogs.MentionDialog
 import org.mandziuk.calculalim.dialogs.ResetDialog
 import java.util.Locale
 
@@ -78,6 +79,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
             AppCompatDelegate.setApplicationLocales(localeListPreference);
 
             return@setOnPreferenceChangeListener true;
+        }
+
+        findPreference<Preference>("mentions")?.setOnPreferenceClickListener {
+            MentionDialog(requireContext()).show();
+            return@setOnPreferenceClickListener true;
         }
 
         nutrimentsAffiches?.setOnPreferenceChangeListener {

@@ -92,6 +92,7 @@
     <string name="ajouterNutriment">Ajouter un nutriment</string>
     <string name="chiffreInvalide">Rentrez un nombre valide</string>
     <string name="alimentAjoute">Cet aliment a été enregistré</string>
+    <string name="mentions">Application développée par Charles Mandziuk \u00A9 2025.\nLes données préexistantes sont fournies par Santé-Canada. Vous pouvez consulter la base de données existante ici: https://www.canada.ca/fr/sante-canada/services/aliments-nutrition/saine-alimentation/donnees-nutritionnelles.html</string>
     <string-array name="langues">
         <item>English (Anglais)</item>
         <item>Français</item>

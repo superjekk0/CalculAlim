@@ -44,6 +44,7 @@
             android:title="@string/titreVersionApplication"
             android:summary="@string/versionUtilisee"/>
         <Preference
+            android:key="mentions"
             android:title="@string/titreMentionsLegales"/>
         <Preference
             android:title="@string/envoyerCommentaire"/>
