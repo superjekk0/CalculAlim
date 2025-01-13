@@ -36,22 +36,13 @@ jobs:
     - name: Creation de Release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      uses: actions/create-release@v1
-      with:
-        tag_name: ${{github.event.head_commit.message}}
-        release_name: V ${{github.event.head_commit.message}}
-        draft: false
-        prerelease: false
-    - name: Publication de Release
-      uses: actions/upload-release-asset@v1
+      run: |
+        gh release create "${{github.event.head_commit.message}}" 
+    - name: Publication de Release  
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: app/build/outputs/apk/release/app-release.apk
-        asset_name: calculalim.apk
-        asset_content_type: application/vnd.android.package-archive
-
+      run: |
+        gh release upload ${{github.event.head_commit.message}} app/build/outputs/apk/release/app-release.apk
   dependency-submission:
 
     runs-on: ubuntu-latest
