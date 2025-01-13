@@ -11,7 +11,7 @@ jobs:
 
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: read,write
 
     steps:
     - uses: actions/checkout@v4
@@ -27,7 +27,7 @@ jobs:
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
 
     - name: Setup Signature
-      run: echo ${{secrets.JKS}} | base64 --decode > ${{secrets.CHEMIN_JKS}}
+      run: echo ${{secrets.JKS}} | base64 --decode > ${{env.CHEMIN_JKS}}${{secrets.CHEMIN_JKS}}
 
     - name: Informations de signature
       run: | 
