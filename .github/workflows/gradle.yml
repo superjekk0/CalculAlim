@@ -37,7 +37,7 @@ jobs:
         echo keyPassword=${{secrets.TROGNON}} >> ./keystore.properties
 
     - name: Build with Gradle Wrapper
-      run: ./gradlew build
+      run: ./gradlew assembleRelease
 
     - name: Creation de Release
       env:
