@@ -32,7 +32,7 @@ jobs:
       env:
         CHEMIN_JKS: ${{env.CHEMIN_JKS}}${{secrets.NOM_JKS}}
       run: | 
-        echo storeFile=${{CHEMIN_JKS}} > ./keystore.properties 
+        echo storeFile=${CHEMIN_JKS} > ./keystore.properties 
         echo storePassword=${{secrets.TROGNON}} >> ./keystore.properties
         echo keyAlias=${{secrets.POMME}} >> ./keystore.properties
         echo keyPassword=${{secrets.TROGNON}} >> ./keystore.properties
@@ -63,7 +63,7 @@ jobs:
       env:
         CHEMIN_JKS: ${{env.CHEMIN_JKS}}${{secrets.NOM_JKS}}
       run: | 
-        echo storeFile=${{CHEMIN_JKS}} > ./keystore.properties 
+        echo storeFile=${CHEMIN_JKS} > ./keystore.properties 
         echo storePassword=${{secrets.TROGNON}} >> ./keystore.properties
         echo keyAlias=${{secrets.POMME}} >> ./keystore.properties
         echo keyPassword=${{secrets.TROGNON}} >> ./keystore.properties
