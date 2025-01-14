@@ -1,0 +1,204 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 3,
+    "identityHash": "a0661f75733f50556754a4a109854a98",
+    "entities": [
+      {
+        "tableName": "FoodGroup",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`FoodGroupID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `FoodGroupName` TEXT NOT NULL, `FoodGroupNameF` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "FoodGroupID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "groupName",
+            "columnName": "FoodGroupName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "groupNameFr",
+            "columnName": "FoodGroupNameF",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "FoodGroupID"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Nutrient",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`NutrientID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `NutrientCode` INTEGER NOT NULL, `NutrientSymbol` TEXT NOT NULL, `NutrientUnit` TEXT NOT NULL, `NutrientName` TEXT NOT NULL, `NutrientNameF` TEXT NOT NULL, `Tagname` TEXT, `NutrientDecimals` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "NutrientID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "code",
+            "columnName": "NutrientCode",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "symbol",
+            "columnName": "NutrientSymbol",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "unit",
+            "columnName": "NutrientUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "NutrientName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nameFr",
+            "columnName": "NutrientNameF",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tagName",
+            "columnName": "Tagname",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "decimals",
+            "columnName": "NutrientDecimals",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "NutrientID"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Food",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`FoodID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `FoodCode` INTEGER NOT NULL, `FoodGroupID` INTEGER, `FoodSourceID` INTEGER, `FoodDescription` TEXT NOT NULL, `FoodDescriptionF` TEXT NOT NULL, `FoodDateOfEntry` TEXT, `FoodDateOfPublication` TEXT, `CountryCode` TEXT, `ScientificName` TEXT, FOREIGN KEY(`FoodGroupID`) REFERENCES `FoodGroup`(`FoodGroupID`) ON UPDATE NO ACTION ON DELETE SET NULL )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "FoodID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "code",
+            "columnName": "FoodCode",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "groupId",
+            "columnName": "FoodGroupID",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sourceId",
+            "columnName": "FoodSourceID",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "FoodDescription",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descriptionFr",
+            "columnName": "FoodDescriptionF",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "entryDate",
+            "columnName": "FoodDateOfEntry",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "publicationDate",
+            "columnName": "FoodDateOfPublication",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "countryCode",
+            "columnName": "CountryCode",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "scientificName",
+            "columnName": "ScientificName",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "FoodID"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_Food_FoodGroupID",
+            "unique": false,
+            "columnNames": [
+              "FoodGroupID"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Food_FoodGroupID` ON `${TABLE_NAME}` (`FoodGroupID`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "FoodGroup",
+            "onDelete": "SET NULL",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "FoodGroupID"
+            ],
+            "referencedColumns": [
+              "FoodGroupID"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a0661f75733f50556754a4a109854a98')"
+    ]
+  }
+}

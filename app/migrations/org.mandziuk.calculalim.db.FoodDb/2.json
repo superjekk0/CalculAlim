@@ -1,0 +1,108 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "209fa2553982d19eae44bd0722d34dce",
+    "entities": [
+      {
+        "tableName": "FoodGroup",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`FoodGroupID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `FoodGroupName` TEXT NOT NULL, `FoodGroupNameF` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "FoodGroupID",
+            "columnName": "FoodGroupID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "groupName",
+            "columnName": "FoodGroupName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "groupNameFr",
+            "columnName": "FoodGroupNameF",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "FoodGroupID"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Nutrient",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`NutrientID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `NutrientCode` INTEGER NOT NULL, `NutrientSymbol` TEXT NOT NULL, `NutrientUnit` TEXT NOT NULL, `NutrientName` TEXT NOT NULL, `NutrientNameF` TEXT NOT NULL, `Tagname` TEXT, `NutrientDecimals` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "NutrientID",
+            "columnName": "NutrientID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "code",
+            "columnName": "NutrientCode",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "symbol",
+            "columnName": "NutrientSymbol",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "unit",
+            "columnName": "NutrientUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "NutrientName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nameFr",
+            "columnName": "NutrientNameF",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tagName",
+            "columnName": "Tagname",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "decimals",
+            "columnName": "NutrientDecimals",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "NutrientID"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '209fa2553982d19eae44bd0722d34dce')"
+    ]
+  }
+}

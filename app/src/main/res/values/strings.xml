@@ -1,3 +1,109 @@
 <resources>
-    <string name="app_name">CalculAlim</string>
+    <string name="app_name" translatable="false">CalculAlim</string>
+    <string name="portion">Portion</string>
+    <string name="tousGroupes">All groups</string>
+    <string name="nomNourriture">Food Name</string>
+    <string name="typeNourriture">Food Type</string>
+    <string name="nutriments" formatted="true">Nutrients (per %1$d g)</string>
+    <string name="quantiteNutriment">%1$.*f %2$s</string>
+    <string name="rechercheAliment">Search food</string>
+    <string name="ouvrirTiroir">Open drawer</string>
+    <string name="fermerTiroir">Close drawer</string>
+    <string name="monRepas">My meal</string>
+    <string name="symboleGramme" translatable="false">g</string>
+    <string name="ajoutRepas">Add to meal</string>
+    <string name="groupeAliment">Food Group</string>
+    <string name="aliment">Food</string>
+    <string name="poids">Weight (g)</string>
+    <string name="placeholderAliment" translatable="false">100</string>
+    <string name="quantite">Quantity: </string>
+    <string name="placeholder" translatable="false">Insérer valeur</string>
+    <string name="enregistrerAlimentCompose">Register as Food</string>
+    <string name="enregistrerRepas">Register the Meal</string>
+    <string name="messageAlimentAjoute">Food \"%1$s\" has been added to the meal</string>
+    <string name="supprimerAlimentRepas">Delete Food from Meal</string>
+    <string name="messageAlimentSupprime">Food \"%1$s\" has been removed from the meal</string>
+    <string name="historique">Previous meals</string>
+    <string name="altImageProfil">Profile picture</string>
+    <string name="salutation">Hello %1$s</string>
+    <string name="changerProfil">Change profile</string>
+    <string name="parametres">Parameters</string>
+    <string name="changerLangue">Change language</string>
+    <string name="sectionInterface">Interface</string>
+    <string name="modeSombre">Dark mode</string>
+    <string name="descriptionModeSombre">Activate dark mode interface</string>
+    <string name="optionLangue">Language</string>
+    <string name="optionLangueDescription">Choose application\'s language</string>
+    <string name="optionNutrimentsAffiches">Displayed Nutrients</string>
+    <string name="choixNutrimentsDescription">Select nutrients to display</string>
+    <string name="sectionDonnees">Data</string>
+    <string name="optionAlimentsSupprimes">Deleted Food</string>
+    <string name="optionAlimentsSupprimesDescription">Displays all previously deleted food</string>
+    <string name="optionReinitialisation">Delete Saved Data</string>
+    <string name="optionReinitialisationDescription">Resets the App by wiping out existing profiles, food and meal history</string>
+    <string name="sectionInformations">General information</string>
+    <string name="titreVersionApplication">Application\'s version</string>
+    <string name="titreMentionsLegales">Legal mentions</string>
+    <string name="envoyerCommentaire">Send a comment</string>
+    <string name="repasAjoute">Meal has been saved</string>
+    <string name="detailsRepas">Details</string>
+    <!-- TODO: Ajouter les cas des jours commençant par 1, 2 ou 3 -->
+    <string name="dateHistorique">%1$tB %1$te %1$tY</string>
+    <string name="heureHistorique">%1$tIh%1$tM %1$tp</string>
+    <string name="placeholderNomGroupe">Choose a Food Group</string>
+    <string name="dialogueLabelPoidsReference">"Final weight: "</string>
+    <string name="dialogueLabelSectionPortion">"Portion: "</string>
+    <string name="dialogueLabelGroupeAliment">"Food Group*: "</string>
+    <string name="dialogueLabelSectionAliment">"Food Information: "</string>
+    <string name="dialogueLabelNom">"Name*: "</string>
+    <string name="labelNomPortion">"Portion Name: "</string>
+    <string name="dialogueLabelQuantitePortion">"Portion weight: "</string>
+    <string name="erreurGroupeAliment">Please select a food group</string>
+    <string name="erreurNomAliment">Please enter a food name</string>
+    <string name="erreurNomAlimentPrisEn">Food name is already taken in English</string>
+    <string name="erreurNomAlimentPrisFr">Food name is already taken in French</string>
+    <string name="dialogueBoutonCreer">Create</string>
+    <string name="dialogueBoutonAnnuler">Cancel</string>
+    <string name="erreurQuantitePortion">Weight must be associated with portion</string>
+    <string name="alimentComposeAjouteListe">Composed meal has been added</string>
+    <string name="versionUtilisee">You are currently using the %1$s version</string>
+    <string name="dialogueTitreReset">Application\'s reset</string>
+    <string name="dialogueResetDescription">Do you really want to reset the app? This action cannot be reversed, neither can you restore formerly saved data</string>
+    <string name="dialogueResetConfirmer">Reset</string>
+    <string name="dialogueResetAnnuler">Cancel</string>
+    <string name="erreurNomProfilPris">This Profile Name is already taken</string>
+    <string name="erreurNomProfilVide">You must write a profile name</string>
+    <string name="nomProfil">Profile Name</string>
+    <string name="editerProfil">Edit Profile</string>
+    <string name="ajouterImageProfil">Create a Profile</string>
+    <string name="creerProfil">Create</string>
+    <string name="imageProfil">Profile Image</string>
+    <string name="selectionner">Select</string>
+    <string name="supprimerAliment">Delete Food</string>
+    <string name="messageSuppressionAliment">Do you really want to delete this food? It will be possible to restore it from settings.</string>
+    <string name="supprimerAlimentTitre">Delete this Food</string>
+    <string name="confirmer">Confirm</string>
+    <string name="toastAlimentSupprime">Food has been deleted</string>
+    <string name="restaurerAliment">Restore Food</string>
+    <string name="alimentRestaure">Food has been restored</string>
+    <string name="creerAliment">Create Food</string>
+    <string name="poidsObligatoire">"Weight*: "</string>
+    <string name="portionLabel">"Portion: "</string>
+    <string name="nutrimentsLabel">"Nutrients: "</string>
+    <string name="choisirNutriment">Choose a nutrient</string>
+    <string name="erreurPoidsRequis">Weight must be filled</string>
+    <string name="ajouterNutriment">Add Nutrient</string>
+    <string name="placeholderNombreDecimal" translatable="false">1.5</string>
+    <string name="chiffreInvalide">Rentrez un nombre valide</string>
+    <string name="alimentAjoute">This Food has been saved</string>
+    <string name="mentions">Application developed by Charles Mandziuk \u00A9 2025.\nPreexisting data furnished by Health Canada. Database consultation can be done here: https://www.canada.ca/en/health-canada/services/food-nutrition/healthy-eating/nutrient-data.html</string>
+    <string name="ok" translatable="false">OK</string>
+    <string-array name="langues">
+        <item>English</item>
+        <item>Français (French)</item>
+    </string-array>
+    <string-array name="valeurLangues" translatable="false">
+        <item>en-CA</item>
+        <item>fr-CA</item>
+    </string-array>
 </resources>

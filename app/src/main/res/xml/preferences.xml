@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fragment="org.mandziuk.calculalim.fragments.SettingsFragment">
+
+    <PreferenceCategory
+        app:allowDividerBelow="true"
+        android:title="@string/sectionInterface">
+        <SwitchPreference
+            android:key="modeSombre"
+            android:title="@string/modeSombre"
+            android:summary="@string/descriptionModeSombre"
+            android:defaultValue="false"/>
+        <ListPreference
+            android:key="language"
+            android:title="@string/optionLangue"
+            android:summary="@string/optionLangueDescription"
+            app:entries="@array/langues"
+            app:entryValues="@array/valeurLangues"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/sectionDonnees">
+        <MultiSelectListPreference
+            android:key="nutriments"
+            android:title="@string/optionNutrimentsAffiches"
+            android:summary="@string/choixNutrimentsDescription" />
+        <Preference
+            android:key="corbeille"
+            android:title="@string/optionAlimentsSupprimes"
+            android:summary="@string/optionAlimentsSupprimesDescription" />
+        <Preference
+            android:key="reset"
+            android:title="@string/optionReinitialisation"
+            android:summary="@string/optionReinitialisationDescription" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/sectionInformations"
+        app:allowDividerAbove="true">
+
+        <Preference
+            android:key="version"
+            android:title="@string/titreVersionApplication"
+            android:summary="@string/versionUtilisee"/>
+        <Preference
+            android:key="mentions"
+            android:title="@string/titreMentionsLegales"/>
+        <Preference
+            android:title="@string/envoyerCommentaire"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>
