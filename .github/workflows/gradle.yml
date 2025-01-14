@@ -33,17 +33,11 @@ jobs:
         echo keyAlias=${{secrets.POMME}} >> ./keystore.properties
         echo keyPassword=${{secrets.TROGNON}} >> ./keystore.properties
 
-    - name: Build with Gradle Wrapper
-      run: gradle assembleRelease
-
-    - name: Verification Depot
-      uses: actions/checkout@v3
-
-    - name: Creation de Release
+    - name: Compilation et publication
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        ls ./ -l -R
+        gradle assembleRelease
         gh release create "${{github.event.head_commit.message}}" ./app/build/outputs/apk/release/app-release.apk --title "${{github.event.head_commit.message}}"
    # - name: Publication de Release  
     #  env:
