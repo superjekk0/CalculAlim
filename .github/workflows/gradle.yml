@@ -23,8 +23,8 @@ jobs:
 
     # Configure Gradle for optimal use in GitHub Actions, including caching of downloaded dependencies.
     # See: https://github.com/gradle/actions/blob/main/setup-gradle/README.md
-    - name: Parametrage Signature
-      run: echo ${{secrets.JKS}} | base64 --decode > ${{env.CHEMIN_JKS}}${{secrets.NOM_JKS}}
+    #- name: Parametrage Signature
+     # run: echo ${{secrets.JKS}} | base64 --decode > ${{env.CHEMIN_JKS}}${{secrets.NOM_JKS}}
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
 
@@ -32,7 +32,8 @@ jobs:
       env:
         CHEMIN: ${{env.CHEMIN_JKS}}${{secrets.NOM_JKS}}
       run: | 
-        echo storeFile=${{env.CHEMIN}} > ./keystore.properties 
+        echo ${{secrets.JKS}} | base64 --decode > ${{CHEMIN}}
+        echo storeFile=${{CHEMIN}} > ./keystore.properties 
         echo storePassword=${{secrets.TROGNON}} >> ./keystore.properties
         echo keyAlias=${{secrets.POMME}} >> ./keystore.properties
         echo keyPassword=${{secrets.TROGNON}} >> ./keystore.properties
@@ -54,8 +55,6 @@ jobs:
       contents: write
 
     steps:
-    - name: Parametrage Signature
-      run: echo ${{secrets.JKS}} | base64 --decode > ${{env.CHEMIN_JKS}}${{secrets.NOM_JKS}}
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
 
@@ -63,7 +62,8 @@ jobs:
       env:
         CHEMIN: ${{env.CHEMIN_JKS}}${{secrets.NOM_JKS}}
       run: | 
-        echo storeFile=${{env.CHEMIN}} > ./keystore.properties 
+        echo ${{secrets.JKS}} | base64 --decode > ${{CHEMIN}}
+        echo storeFile=${{CHEMIN}} > ./keystore.properties 
         echo storePassword=${{secrets.TROGNON}} >> ./keystore.properties
         echo keyAlias=${{secrets.POMME}} >> ./keystore.properties
         echo keyPassword=${{secrets.TROGNON}} >> ./keystore.properties
