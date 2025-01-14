@@ -39,7 +39,8 @@ jobs:
       run: |
         gradle assembleRelease
         ls -l -R
-        gh release create "${{github.event.head_commit.message}}" ./app/build/outputs/apk/release/app-release.apk --title "${{github.event.head_commit.message}}"
+        
+        gh release create "${{github.event.head_commit.message}}" ./app/build/outputs/apk/release/app-release-unsigned.apk --title "${{github.event.head_commit.message}}"
    # - name: Publication de Release  
     #  env:
      #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
