@@ -53,7 +53,7 @@ jobs:
       contents: write
 
     steps:
-      - name: Informations de signature
+    - name: Informations de signature
       env:
         CHEMIN: ${{env.CHEMIN_JKS}}${{secrets.NOM_JKS}}
       run: | 
