@@ -24,13 +24,15 @@ jobs:
     # Configure Gradle for optimal use in GitHub Actions, including caching of downloaded dependencies.
     # See: https://github.com/gradle/actions/blob/main/setup-gradle/README.md
     - name: Parametrage Signature
-      run: echo ${{secrets.JKS}} | base64 --decode > ${{env.CHEMIN_JKS}}${{secrets.CHEMIN_JKS}}
+      run: echo ${{secrets.JKS}} | base64 --decode > ${{env.CHEMIN_JKS}}${{secrets.NOM_JKS}}
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
 
     - name: Informations de signature
+      env:
+        CHEMIN_JKS: ${{env.CHEMIN_JKS}}${{secrets.NOM_JKS}}
       run: | 
-        echo storeFile=${{secrets.CHEMIN_JKS}} > ./keystore.properties 
+        echo storeFile=${CHEMIN_JKS} > ./keystore.properties 
         echo storePassword=${{secrets.TROGNON}} >> ./keystore.properties
         echo keyAlias=${{secrets.POMME}} >> ./keystore.properties
         echo keyPassword=${{secrets.TROGNON}} >> ./keystore.properties
@@ -45,11 +47,6 @@ jobs:
         gh release create ${{github.event.head_commit.message}} calculalim.apk \
           --title "${{github.event.head_commit.message}}" \
           --notes "${{github.event.head_commit.message}}"
-   # - name: Publication de Release  
-    #  env:
-     #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #  run: |
-    #    gh release upload ${{ github.event.head_commit.message }} app/build/outputs/apk/release/app-release.apk
   dependency-submission:
 
     runs-on: ubuntu-latest
@@ -58,13 +55,15 @@ jobs:
 
     steps:
     - name: Parametrage Signature
-      run: echo ${{secrets.JKS}} | base64 --decode > ${{env.CHEMIN_JKS}}${{secrets.CHEMIN_JKS}}
+      run: echo ${{secrets.JKS}} | base64 --decode > ${{env.CHEMIN_JKS}}${{secrets.NOM_JKS}}
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
 
     - name: Informations de signature
+      env:
+        CHEMIN_JKS: ${{env.CHEMIN_JKS}}${{secrets.NOM_JKS}}
       run: | 
-        echo storeFile=${{secrets.CHEMIN_JKS}} > ./keystore.properties 
+        echo storeFile=${CHEMIN_JKS} > ./keystore.properties 
         echo storePassword=${{secrets.TROGNON}} >> ./keystore.properties
         echo keyAlias=${{secrets.POMME}} >> ./keystore.properties
         echo keyPassword=${{secrets.TROGNON}} >> ./keystore.properties
