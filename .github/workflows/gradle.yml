@@ -38,7 +38,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         gradle assembleRelease
-        ls -l -R
         cd ./app/build/outputs/apk/release/
         mv app-release*.apk calculalim.apk
         gh release create ${{github.event.head_commit.message}} calculalim.apk \
