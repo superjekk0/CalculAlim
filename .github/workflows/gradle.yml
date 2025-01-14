@@ -27,21 +27,19 @@ jobs:
      # run: echo ${{secrets.JKS}} | base64 --decode > ${{env.CHEMIN_JKS}}${{secrets.NOM_JKS}}
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
-
-    - name: Informations de signature
+    - name: Compilation et publication
       env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         CHEMIN: ${{env.CHEMIN_JKS}}${{secrets.NOM_JKS}}
-      run: | 
+      # Configuration de la signature puis compilation
+      run: |
+      
         echo ${{secrets.JKS}} | base64 --decode > ${{env.CHEMIN}}
         echo storeFile=${{env.CHEMIN}} > ./keystore.properties 
         echo storePassword=${{secrets.TROGNON}} >> ./keystore.properties
         echo keyAlias=${{secrets.POMME}} >> ./keystore.properties
         echo keyPassword=${{secrets.TROGNON}} >> ./keystore.properties
 
-    - name: Compilation et publication
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
         gradle assembleRelease
         cd ./app/build/outputs/apk/release/
         mv app-release*.apk calculalim.apk
@@ -55,10 +53,7 @@ jobs:
       contents: write
 
     steps:
-    - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
-
-    - name: Informations de signature
+      - name: Informations de signature
       env:
         CHEMIN: ${{env.CHEMIN_JKS}}${{secrets.NOM_JKS}}
       run: | 
@@ -67,6 +62,8 @@ jobs:
         echo storePassword=${{secrets.TROGNON}} >> ./keystore.properties
         echo keyAlias=${{secrets.POMME}} >> ./keystore.properties
         echo keyPassword=${{secrets.TROGNON}} >> ./keystore.properties
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
     - uses: actions/checkout@v4
     - name: Set up JDK 17
       uses: actions/setup-java@v4
