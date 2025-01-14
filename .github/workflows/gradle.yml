@@ -30,12 +30,11 @@ jobs:
     - name: Compilation et publication
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        CHEMIN: ${{env.CHEMIN_JKS}}${{secrets.NOM_JKS}}
       # Configuration de la signature puis compilation
       run: |
       
-        echo ${{secrets.JKS}} | base64 --decode > ${{env.CHEMIN}}
-        echo storeFile=${{env.CHEMIN}} > ./keystore.properties 
+        echo ${{secrets.JKS}} | base64 --decode > ${{env.CHEMIN_JKS}}
+        echo storeFile=${{env.CHEMIN_JKS}} > ./keystore.properties 
         echo storePassword=${{secrets.TROGNON}} >> ./keystore.properties
         echo keyAlias=${{secrets.POMME}} >> ./keystore.properties
         echo keyPassword=${{secrets.TROGNON}} >> ./keystore.properties
@@ -54,11 +53,9 @@ jobs:
 
     steps:
     - name: Informations de signature
-      env:
-        CHEMIN: ${{env.CHEMIN_JKS}}${{secrets.NOM_JKS}}
       run: | 
-        echo ${{secrets.JKS}} | base64 --decode > ${{env.CHEMIN}}
-        echo storeFile=${{env.CHEMIN}} > ./keystore.properties 
+        echo ${{secrets.JKS}} | base64 --decode > ${{env.CHEMIN_JKS}}
+        echo storeFile=${{env.CHEMIN_JKS}} > ./keystore.properties 
         echo storePassword=${{secrets.TROGNON}} >> ./keystore.properties
         echo keyAlias=${{secrets.POMME}} >> ./keystore.properties
         echo keyPassword=${{secrets.TROGNON}} >> ./keystore.properties
