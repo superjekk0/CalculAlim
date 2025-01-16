@@ -94,7 +94,7 @@ class FoodActivity : DrawerEnabledActivity() {
         initializeDrawer(binding.drawer, binding.navigation);
         mealWeight = intent.getIntExtra("poids", -1);
         val repasId = intent.getLongExtra("repasId", -1L);
-        val position = intent.getIntExtra("position", -1);
+//        val position = intent.getIntExtra("position", -1);
 
         setUi(repasId);
 

@@ -132,7 +132,6 @@ class FoodService(private val applicationContext: Context) {
     }
 
     suspend fun createFood(newFoodDTO: NewFoodDTO, aliments: MealDTO): Long{
-        // TODO : Faire les étapes de création d'un aliment
         return withContext(Dispatchers.IO){
             foodDao.getFoodGroup(newFoodDTO.foodGroupId) ?: return@withContext -1L;
             if (newFoodDTO.mealName.isNullOrBlank()){

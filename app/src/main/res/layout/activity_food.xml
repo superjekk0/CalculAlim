@@ -72,12 +72,12 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:inputType="number"
                     android:hint="@string/placeholderAliment"
                     android:gravity="right"
                     android:id="@+id/food_weight"
                     android:textSize="24sp"
-                    android:autofillHints="none"/>
+                    android:autofillHints="none"
+                    style="@style/NombreEntier"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
