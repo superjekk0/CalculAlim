@@ -15,6 +15,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
@@ -31,7 +32,7 @@ import org.mandziuk.calculalim.dialogs.IndexChangedListener
 import java.io.File
 import java.io.OutputStream
 
-class ProfilAdapter(private val profils: ArrayList<Profil>, private val context: DrawerEnabledActivity/*, private val launcher: ActivityResultLauncher<String>*/, private val listener: IndexChangedListener) : Adapter<ProfilAdapter.ProfilVH>() {
+class ProfilAdapter(private val profils: ArrayList<Profil>, private val context: DrawerEnabledActivity, private val launcher: ActivityResultLauncher<String>, private val listener: IndexChangedListener) : Adapter<ProfilAdapter.ProfilVH>() {
     private val profileService = ProfileService(context);
     private val selectedVHManager = SelectedVHManager(context);
 
@@ -72,7 +73,9 @@ class ProfilAdapter(private val profils: ArrayList<Profil>, private val context:
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfilVH {
         val view = LayoutInflater.from(parent.context).
         inflate(R.layout.item_profil, parent, false);
-        return ProfilVH(view);
+        val holder = ProfilVH(view);
+
+        return holder;
     }
 
     override fun getItemCount(): Int {
@@ -137,9 +140,15 @@ class ProfilAdapter(private val profils: ArrayList<Profil>, private val context:
         }
 
         // TODO : Gérer les images
-//        holder.imageProfilEdition.setOnClickListener{
-//            launcher.launch("image/*")
-//        }
+        holder.imageProfilEdition.setOnClickListener{
+            launcher.launch("image/*")
+        }
+
+        context.setOnImageChosenListener { uri, _ ->
+            Toast.makeText(context, "Une image a été choisie", Toast.LENGTH_LONG).show();
+            holder.imageProfil.setImageURI(null);
+            holder.imageProfilEdition.setImageURI(null);
+        }
 
         holder.ajoutProfil.setOnClickListener {
             afficherEdition(holder);

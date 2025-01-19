@@ -37,8 +37,9 @@ interface ProfileChangedListener {
  */
 abstract class DrawerEnabledActivity : AppCompatActivity(), ProfileChangedListener {
     protected lateinit var abToggle: ActionBarDrawerToggle;
-//    private lateinit var photoPickerLauncher: ActivityResultLauncher<String>;
+    private lateinit var photoPickerLauncher: ActivityResultLauncher<String>;
     private lateinit var navigation: NavigationView;
+    private var action: (Uri, ContentResolver) -> Unit = { _, _ -> };
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (abToggle.onOptionsItemSelected(item)){
@@ -55,6 +56,26 @@ abstract class DrawerEnabledActivity : AppCompatActivity(), ProfileChangedListen
     override fun onConfigurationChanged(newConfig: Configuration) {
         abToggle.onConfigurationChanged(newConfig);
         super.onConfigurationChanged(newConfig);
+    }
+
+    fun setOnImageChosenListener(callback: (Uri, ContentResolver) -> Unit){
+        action = callback;
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState);
+        photoPickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+//            val inputStream = uri?.let { contentResolver.openInputStream(it) };
+            action.invoke(uri!!, contentResolver);
+//            val bitmap = BitmapFactory.decodeStream(inputStream);
+//            val profileService = ProfileService(this);
+////            lifecycleScope.launch {
+////                val profile = profileService.getProfile();
+////                profile.photo = bitmap;
+////                profileService.updateProfileName(profile);
+////                onProfileChanged(profile);
+////            }
+        };
     }
 
     /**
@@ -92,7 +113,7 @@ abstract class DrawerEnabledActivity : AppCompatActivity(), ProfileChangedListen
                     lifecycle.coroutineScope.launch {
                         val profileService = ProfileService(this@DrawerEnabledActivity);
                         val profils = profileService.getProfiles();
-                        val profilDialog = ProfilDialog(this@DrawerEnabledActivity, profils/*, photoPickerLauncher*/);
+                        val profilDialog = ProfilDialog(this@DrawerEnabledActivity, profils, photoPickerLauncher);
 
                         profilDialog.show();
                     }

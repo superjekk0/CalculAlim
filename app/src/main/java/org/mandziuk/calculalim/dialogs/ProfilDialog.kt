@@ -1,6 +1,7 @@
 package org.mandziuk.calculalim.dialogs
 
 import android.view.LayoutInflater
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.coroutineScope
@@ -16,7 +17,7 @@ interface IndexChangedListener {
     fun indexChanged(index: Long);
 }
 
-class ProfilDialog(context: DrawerEnabledActivity, profils: ArrayList<Profil>/*, launcher: ActivityResultLauncher<String>*/) : CustomDialog(context), IndexChangedListener {
+class ProfilDialog(context: DrawerEnabledActivity, profils: ArrayList<Profil>, launcher: ActivityResultLauncher<String>) : CustomDialog(context), IndexChangedListener {
     private val binding: DialogProfileBinding =
         DialogProfileBinding.inflate(LayoutInflater.from(context));
 
@@ -32,7 +33,7 @@ class ProfilDialog(context: DrawerEnabledActivity, profils: ArrayList<Profil>/*,
         setView(binding.root);
 
         binding.recycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-        binding.recycler.adapter = ProfilAdapter(profils, context/*, launcher*/, this);
+        binding.recycler.adapter = ProfilAdapter(profils, context, launcher, this);
 
         binding.changement.setOnClickListener {
             val profileService = ProfileService(context);
