@@ -17,7 +17,6 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:contentDescription="@string/imageProfil"
-            app:srcCompat="@drawable/ic_profil"
             android:layout_gravity="center_horizontal"
             android:foreground="@drawable/cadre_profil"
             android:scaleType="centerCrop"/>
@@ -40,50 +39,6 @@
                 android:contentDescription="@string/editerProfil"
                 android:id="@+id/editer"
                 android:src="@drawable/ic_editer"
-                android:backgroundTint="#00000000"
-                android:paddingVertical="10dp"
-                android:paddingHorizontal="15dp"
-                android:adjustViewBounds="true"
-                />
-        </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="200dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/editionProfil"
-        android:visibility="gone">
-        <ImageView
-            android:id="@+id/imageProfilEdition"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:contentDescription="@string/imageProfil"
-            android:src="@drawable/ic_profil"
-            android:layout_gravity="center_horizontal"
-            android:foreground="@drawable/cadre_profil_edition"
-            android:scaleType="centerCrop"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <EditText
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/nomEdition"
-                android:inputType="text"
-                android:autofillHints="username,name"
-                android:hint="@string/nomProfil"
-                android:textSize="26sp"
-                android:paddingVertical="5dp"
-                android:paddingHorizontal="10dp"
-                android:layout_weight="1" />
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/editerProfil"
-                android:id="@+id/sauvegarder"
-                android:src="@drawable/ic_sauvegarder"
                 android:backgroundTint="#00000000"
                 android:paddingVertical="10dp"
                 android:paddingHorizontal="15dp"

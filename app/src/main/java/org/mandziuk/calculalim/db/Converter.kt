@@ -1,5 +1,6 @@
 package org.mandziuk.calculalim.db
 
+import android.net.Uri
 import androidx.room.TypeConverter
 import java.text.SimpleDateFormat
 import java.time.Instant
@@ -25,5 +26,15 @@ class Converter {
     @TypeConverter
     fun longToDate(value: Long): Date {
         return Date(value);
+    }
+
+    @TypeConverter
+    fun stringToUri(value: String): Uri {
+        return Uri.parse(value);
+    }
+
+    @TypeConverter
+    fun uriToString(value: Uri): String {
+        return value.toString();
     }
 }

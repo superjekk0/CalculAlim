@@ -65,16 +65,8 @@ abstract class DrawerEnabledActivity : AppCompatActivity(), ProfileChangedListen
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
         photoPickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-//            val inputStream = uri?.let { contentResolver.openInputStream(it) };
-            action.invoke(uri!!, contentResolver);
-//            val bitmap = BitmapFactory.decodeStream(inputStream);
-//            val profileService = ProfileService(this);
-////            lifecycleScope.launch {
-////                val profile = profileService.getProfile();
-////                profile.photo = bitmap;
-////                profileService.updateProfileName(profile);
-////                onProfileChanged(profile);
-////            }
+            if (uri != null)
+                action.invoke(uri, contentResolver);
         };
     }
 

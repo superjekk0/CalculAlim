@@ -17,11 +17,55 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"/>
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/image"
-        android:src="@drawable/ic_profil"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/editionProfil"
+        android:visibility="gone">
+        <androidx.cardview.widget.CardView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:cardCornerRadius="50dp"
+            android:foreground="@drawable/cadre_profil_edition"
+            android:layout_gravity="center_horizontal">
+
+            <ImageView
+                android:id="@+id/imageProfilEdition"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:contentDescription="@string/imageProfil"
+                android:scaleType="centerCrop" />
+        </androidx.cardview.widget.CardView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/nomEdition"
+                android:inputType="text"
+                android:autofillHints="username,name"
+                android:hint="@string/nomProfil"
+                android:textSize="26sp"
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="10dp"
+                android:layout_weight="1" />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/editerProfil"
+                android:id="@+id/sauvegarder"
+                android:src="@drawable/ic_sauvegarder"
+                android:backgroundTint="#00000000"
+                android:paddingVertical="10dp"
+                android:paddingHorizontal="15dp"
+                android:adjustViewBounds="true"
+                />
+        </LinearLayout>
+    </LinearLayout>
     <Button
         style="?android:attr/buttonBarButtonStyle"
         android:layout_width="wrap_content"
