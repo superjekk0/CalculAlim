@@ -1,12 +1,16 @@
 package org.mandziuk.calculalim.db.services
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.util.Log
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import org.mandziuk.calculalim.activities.dataStore
 import org.mandziuk.calculalim.db.daos.ProfilDao
 import org.mandziuk.calculalim.db.dtos.MealDTO
@@ -49,13 +53,53 @@ class ProfileService(private val context: Context) {
         return ! profilDao.takenProfileName(name);
     }
 
-    suspend fun updateProfileName(profil: Profil){
+    suspend fun updateProfile(profil: Profil, bitmap: Bitmap? = null): Profil{
         profilDao.updateProfileName(profil);
+        if (bitmap != null){
+            val outputStream = context.openFileOutput("profil_${profil.id}.jpg", Context.MODE_PRIVATE);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream!!);
+            withContext(Dispatchers.IO) {
+                outputStream.close()
+            };
+        }
+        return profil;
     }
 
-    suspend fun createProfile(profil: Profil): Profil{
+    suspend fun createProfile(profil: Profil, bitmap: Bitmap? = null): Profil{
         val profilId = profilDao.insertProfile(profil);
-        return Profil(profilId, profil.name, null);
+        if (bitmap != null){
+            val outputStream = context.openFileOutput("profil_$profilId.jpg", Context.MODE_PRIVATE);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream!!);
+            withContext(Dispatchers.IO) {
+                outputStream.close()
+            };
+        }
+        return Profil(profilId, profil.name);
+    }
+
+    suspend fun getProfilePicture() : Bitmap?{
+        val profil = getProfile();
+        if (! context.fileList().contains("profil_${profil.id}.jpg")){
+            return null;
+        }
+        val inputStream = context.openFileInput("profil_${profil.id}.jpg");
+        val bitmap = BitmapFactory.decodeStream(inputStream);
+        withContext(Dispatchers.IO) {
+            inputStream.close()
+        };
+        return bitmap;
+    }
+
+    suspend fun getProfilePicture(profilId: Long) : Bitmap?{
+        if (! context.fileList().contains("profil_$profilId.jpg")){
+            return null;
+        }
+        val inputStream = context.openFileInput("profil_$profilId.jpg");
+        val bitmap = BitmapFactory.decodeStream(inputStream);
+        withContext(Dispatchers.IO) {
+            inputStream.close()
+        };
+        return bitmap;
     }
 
     suspend fun setProfile(profilId: Long): Profil{
@@ -67,7 +111,7 @@ class ProfileService(private val context: Context) {
 
     private suspend fun getProfile(id: Long): Profil {
         if (profilDao.profilCount() == 0L){
-            val profil = Profil(0L, "Profil 1", null);
+            val profil = Profil(0L, "Profil 1");
             profilDao.insertProfil(profil.name, profil.id);
             return profil;
         }

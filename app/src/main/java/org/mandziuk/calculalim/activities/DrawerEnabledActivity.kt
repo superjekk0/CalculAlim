@@ -3,14 +3,12 @@ package org.mandziuk.calculalim.activities
 import android.content.ContentResolver
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.util.Log
 import android.view.MenuItem
+import android.widget.ImageView
 import android.widget.TextView
-import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -24,8 +22,6 @@ import org.mandziuk.calculalim.R
 import org.mandziuk.calculalim.db.models.Profil
 import org.mandziuk.calculalim.db.services.ProfileService
 import org.mandziuk.calculalim.dialogs.ProfilDialog
-import java.io.InputStream
-import java.io.InputStreamReader
 
 interface ProfileChangedListener {
     fun onProfileChanged(profil: Profil);
@@ -116,16 +112,29 @@ abstract class DrawerEnabledActivity : AppCompatActivity(), ProfileChangedListen
         }
 
         lifecycleScope.launch{
-            val context = this@DrawerEnabledActivity;
-            val profil = ProfileService(context).getProfile();
-            val header = navigation.getHeaderView(0);
-            header.findViewById<TextView>(R.id.nomProfil).text =
-                getString(R.string.salutation, profil.name);
+            majEntete()
+        }
+    }
+
+    private suspend fun majEntete() {
+        val context = this@DrawerEnabledActivity;
+        val profileService = ProfileService(context);
+        val profil = profileService.getProfile();
+        val header = navigation.getHeaderView(0);
+        header.findViewById<TextView>(R.id.nomProfil).text =
+            getString(R.string.salutation, profil.name);
+        val imageView = header.findViewById<ImageView>(R.id.imageProfil);
+        val bitmap = profileService.getProfilePicture();
+        if (bitmap == null) {
+            imageView.setImageResource(R.drawable.ic_profil);
+        } else {
+            imageView.setImageBitmap(bitmap);
         }
     }
 
     override fun onProfileChanged(profil: Profil) {
-        val header = navigation.getHeaderView(0);
-        header.findViewById<TextView>(R.id.nomProfil).text = getString(R.string.salutation, profil.name);
+        lifecycle.coroutineScope.launch {
+            majEntete();
+        }
     }
 }

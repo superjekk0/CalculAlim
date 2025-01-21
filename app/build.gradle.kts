@@ -74,6 +74,7 @@ dependencies {
     implementation("androidx.preference:preference-ktx:1.2.1")
     implementation("androidx.activity:activity:1.9.3")
     implementation("androidx.constraintlayout:constraintlayout:2.2.0")
+    implementation("androidx.exifinterface:exifinterface:1.3.7")
 
     val roomVersion = "2.6.1"
 

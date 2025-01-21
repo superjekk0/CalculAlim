@@ -9,5 +9,4 @@ import androidx.room.PrimaryKey
 data class Profil(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "ProfilID") val id: Long,
     @ColumnInfo(name = "ProfilName") val name: String,
-    @ColumnInfo(name = "ProfilPicture") val picture: Uri?
 )

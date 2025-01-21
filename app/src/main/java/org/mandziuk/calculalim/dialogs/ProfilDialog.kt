@@ -2,25 +2,13 @@ package org.mandziuk.calculalim.dialogs
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Canvas
 import android.graphics.Matrix
-import android.graphics.Paint
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffXfermode
-import android.graphics.Rect
-import android.graphics.RectF
-import android.media.ExifInterface
+import androidx.exifinterface.media.ExifInterface
 import android.net.Uri
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
-import android.view.Display
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AlertDialog
-import androidx.core.net.toFile
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,10 +19,6 @@ import org.mandziuk.calculalim.adapters.ProfilAdapter
 import org.mandziuk.calculalim.databinding.DialogProfileBinding
 import org.mandziuk.calculalim.db.models.Profil
 import org.mandziuk.calculalim.db.services.ProfileService
-import java.io.File
-import java.io.FileDescriptor
-import java.io.InputStream
-import java.net.URI
 
 interface IndexChangedListener {
     fun indexChanged(index: Long);
@@ -48,6 +32,8 @@ class ProfilDialog(private val context: DrawerEnabledActivity, profils: ArrayLis
     private lateinit var dialog: AlertDialog;
     private var selectedProfil: Long = -1L;
     private var nouvelleImage: Bitmap? = null;
+    private var profilId: Long? = null;
+    private val profilAdapter: ProfilAdapter;
 
     override fun show(): AlertDialog {
         dialog = super.show();
@@ -58,7 +44,8 @@ class ProfilDialog(private val context: DrawerEnabledActivity, profils: ArrayLis
         setView(binding.root);
 
         binding.recycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-        binding.recycler.adapter = ProfilAdapter(profils, context, launcher, this);
+        profilAdapter = ProfilAdapter(profils, context, this);
+        binding.recycler.adapter = profilAdapter;
 
         binding.changement.setOnClickListener {
             val profileService = ProfileService(context);
@@ -89,10 +76,17 @@ class ProfilDialog(private val context: DrawerEnabledActivity, profils: ArrayLis
 
         binding.nomEdition.setText(profil?.name);
 
-        if (profil?.picture != null){
-            binding.imageProfilEdition.setImageURI(profil.picture);
-        } else{
-            binding.imageProfilEdition.setImageResource(R.drawable.ic_profil);
+        context.lifecycle.coroutineScope.launch {
+            if (profil?.id == null){
+                binding.imageProfilEdition.setImageResource(R.drawable.ic_profil);
+            } else{
+                val bitmap = profileService.getProfilePicture(profil.id);
+                if (bitmap != null){
+                    binding.imageProfilEdition.setImageBitmap(bitmap);
+                } else {
+                    binding.imageProfilEdition.setImageResource(R.drawable.ic_profil);
+                }
+            }
         }
 
         binding.nomEdition.doOnTextChanged { text, _, _, _ ->
@@ -122,9 +116,15 @@ class ProfilDialog(private val context: DrawerEnabledActivity, profils: ArrayLis
 
             context.lifecycle.coroutineScope.launch {
                 val name = binding.nomEdition.text.toString();
-                val picture = binding.imageProfilEdition.drawable;
-                val newProfil = Profil(0L, name, null);
-                profileService.createProfile(newProfil);
+                val newProfil = if (profil == null) {
+                    profileService.createProfile(Profil(0L, name), nouvelleImage);
+                } else{
+                    profileService.updateProfile(Profil(profil.id, name), nouvelleImage);
+                }
+//                profileService.createProfile(newProfil, nouvelleImage);
+                profilAdapter.notifierChangement(newProfil);
+                binding.recycler.visibility = View.VISIBLE;
+                binding.editionProfil.visibility = View.GONE;
             }
         }
     }
@@ -133,7 +133,7 @@ class ProfilDialog(private val context: DrawerEnabledActivity, profils: ArrayLis
         val inputStream = context.contentResolver.openInputStream(uri);
         val bitmap = BitmapFactory.decodeStream(inputStream);
         inputStream?.close();
-        
+
         val streamExif = context.contentResolver.openInputStream(uri);
         val exifInterface = ExifInterface(streamExif!!);
         val orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
@@ -146,14 +146,13 @@ class ProfilDialog(private val context: DrawerEnabledActivity, profils: ArrayLis
             ExifInterface.ORIENTATION_ROTATE_270 -> matrix.preRotate(270F);
         }
 
-        if (bitmap.height > bitmap.width){
-            nouvelleImage = Bitmap.createScaledBitmap(bitmap, binding.imageProfilEdition.width, bitmap.height * 100 / bitmap.width, true);
+        nouvelleImage = if (bitmap.height > bitmap.width){
+            Bitmap.createScaledBitmap(bitmap, binding.imageProfilEdition.width, bitmap.height * 100 / bitmap.width, true);
         } else{
-            nouvelleImage = Bitmap.createScaledBitmap(bitmap, bitmap.width * 100 / bitmap.height, binding.imageProfilEdition.height, true);
+            Bitmap.createScaledBitmap(bitmap, bitmap.width * 100 / bitmap.height, binding.imageProfilEdition.height, true);
         }
 
         nouvelleImage = Bitmap.createBitmap(nouvelleImage!!, 0, 0, nouvelleImage!!.width, nouvelleImage!!.height, matrix, true);
-//        nouvelleImage = Bitmap.createScaledBitmap(bitmap, binding.imageProfilEdition.width, binding.imageProfilEdition.height, true);
         binding.imageProfilEdition.setImageBitmap(nouvelleImage);
     }
 }
