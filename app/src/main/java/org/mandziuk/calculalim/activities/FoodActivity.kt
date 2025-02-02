@@ -1,11 +1,16 @@
 package org.mandziuk.calculalim.activities
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.StyleSpan
+import android.text.style.UnderlineSpan
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
@@ -138,8 +143,30 @@ class FoodActivity : DrawerEnabledActivity() {
     private fun updateData(){
         binding.foodName.text = foodDetailDTO.food.foodName;
         binding.weight.text = getString(R.string.nutriments, foodDetailDTO.weight);
-        binding.foodPortion.text = foodDetailDTO.portionName;
+        SpannableString(foodDetailDTO.portionName).let {
+            it.setSpan(UnderlineSpan(), 0, it.length, 0);
+            binding.foodPortion.text = it;
+        };
         binding.nutrients.adapter = nutrientAdapter;
+        if (foodDetailDTO.portionName.matches(Regex("\\d+\\s?[\\p{L}|\\p{Zs}]+"))){
+            val symbolePortion = foodDetailDTO.portionName.replace(Regex("\\d+\\s?"), "");
+            if (symbolePortion == "g"){
+                binding.symboleGramme.visibility = View.VISIBLE;
+                binding.typePortion.visibility = View.GONE;
+            } else{
+                binding.symboleGramme.visibility = View.GONE;
+                val unites = this.resources.getStringArray(R.array.unitesDeMesure);
+                unites[1] = foodDetailDTO.portionName.replace(Regex("\\d+\\s?"), "");
+                ArrayAdapter(this, android.R.layout.simple_spinner_item, unites).let {
+                    it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    binding.typePortion.adapter = it;
+                };
+                binding.typePortion.visibility = View.VISIBLE;
+            }
+        } else{
+            binding.symboleGramme.visibility = View.VISIBLE;
+            binding.typePortion.visibility = View.GONE;
+        }
         nutrientAdapter.setList(foodDetailDTO.nutrients);
     }
 

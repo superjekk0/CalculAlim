@@ -29,17 +29,18 @@
                 android:paddingVertical="10dp"
                 android:id="@+id/portionLayout">
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="@string/portion"
-                    android:layout_weight="1"
-                    android:textSize="24sp"/>
+                    android:textSize="24sp"
+                    android:paddingEnd="5dp"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:id="@+id/food_portion"
                     android:layout_weight="1"
-                    android:textSize="22sp"/>
+                    android:textSize="22sp"
+                    android:gravity="bottom"/>
             </LinearLayout>
             <TextView
                 android:id="@+id/weight"
@@ -84,7 +85,17 @@
                     android:text="@string/symboleGramme"
                     android:textSize="24sp"
                     android:paddingHorizontal="10dp"
-                    android:gravity="center_vertical"/>
+                    android:gravity="center_vertical"
+                    android:id="@+id/symboleGramme"/>
+
+                <Spinner
+                    android:id="@+id/typePortion"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:spinnerMode="dropdown"
+                    android:visibility="gone"
+                    android:entries="@array/unitesDeMesure"
+                    android:foreground="@drawable/border"/>
             </LinearLayout>
 
             <Button
